@@ -13,6 +13,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLElement> {
     children: React.ReactNode;
     as?: 'div' | 'article' | 'li';
     backgroundColor?: surfaceKeys;
+    backgroundHover?: 'light' | 'dark';
     border?: boolean;
     borderColor?: surfaceKeys;
     borderRadius?: borderRadiusKeys;
@@ -24,6 +25,7 @@ export const Card = ({
     children,
     as = 'div',
     backgroundColor = 'light',
+    backgroundHover,
     border = true,
     borderColor = 'light',
     borderRadius = 'none',
@@ -37,6 +39,7 @@ export const Card = ({
     const rootClasses = [
         'parlour-card',
         `parlour-card--bg-${backgroundColorClasses[backgroundColor]}`,
+        backgroundHover && `parlour-card--bg-hover-${backgroundHover}`,
         border && 'parlour-card--border',
         border && `parlour-card--border-${backgroundColorClasses[borderColor]}`,
         `parlour-card--radius-${borderRadiusClasses[borderRadius]}`,

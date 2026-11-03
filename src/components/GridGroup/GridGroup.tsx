@@ -21,7 +21,7 @@ export const GridGroup = ({
     children,
     as = 'div',
     columns = 3,
-    gap = 'medium',
+    gap,
     rowGap,
     align,
     maxWidth,
@@ -35,7 +35,7 @@ export const GridGroup = ({
     const rootClasses = [
         'parlour-layout parlour-grid-group',
         `parlour-grid-group--columns-${columns}`,
-        `parlour-grid-group--gap-${spacingClasses[gap]}`,
+        gap && `parlour-grid-group--gap-${spacingClasses[gap]}`,
         rowGap && `parlour-grid-group--row-gap-${spacingClasses[rowGap]}`,
         align && `parlour-grid-group--align-${flexAlignClasses[align]}`,
         maxWidth && maxWidthClasses[maxWidth],

@@ -43,6 +43,8 @@
             "neutral-800": { "value": "#51413a" },
             "neutral-900": { "value": "#473a35" },
             "neutral-950": { "value": "#271f1c" },
+            "overlay-light": { "value": "rgba(255, 255, 255, 0.3)", "cssOnly": true },
+            "overlay-dark": { "value": "rgba(25, 25, 25, 0.35)", "cssOnly": true },
             "info": { "value": "#2571eb", "cssOnly": true },
             "success": { "value": "#16a34a", "cssOnly": true },
             "warning": { "value": "#fff154", "cssOnly": true },

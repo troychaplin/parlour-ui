@@ -20,12 +20,12 @@ const cards = (count: number, as?: 'li') =>
         </Card>
     ));
 
-const cells = (count: number) =>
+const dividedCards = (count: number, backgroundColor?: 'light' | 'dark') =>
     Array.from({ length: count }, (_, i) => (
-        <div key={i}>
+        <Card key={i} border={false} backgroundColor={backgroundColor}>
             <h3>Item {i + 1}</h3>
             <SingleParagraph index={i} />
-        </div>
+        </Card>
     ));
 
 const Label = ({ children }: { children: React.ReactNode }) => (
@@ -98,6 +98,7 @@ type Story = StoryObj<typeof GridGroup>;
 
 export const Default: Story = {
     args: {
+        gap: 'medium',
         maxWidth: 'alignwide',
         children: cards(3),
     },
@@ -109,7 +110,7 @@ export const ColumnCounts: Story = {
             {([2, 3] as const).map((columns) => (
                 <Fragment key={columns}>
                     <Label>columns={columns}</Label>
-                    <GridGroup columns={columns} maxWidth="alignwide">
+                    <GridGroup columns={columns} gap="medium" maxWidth="alignwide">
                         {cards(columns)}
                     </GridGroup>
                 </Fragment>
@@ -121,6 +122,7 @@ export const ColumnCounts: Story = {
 export const AsList: Story = {
     args: {
         as: 'ul',
+        gap: 'medium',
         maxWidth: 'alignwide',
         children: cards(3, 'li'),
     },
@@ -129,18 +131,16 @@ export const AsList: Story = {
 export const DividersBetweenColumns: Story = {
     args: {
         dividers: 'columns',
-        gap: '4-x-large',
         maxWidth: 'alignwide',
-        children: cells(3),
+        children: dividedCards(3),
     },
 };
 
 export const DividersAll: Story = {
     args: {
         dividers: 'all',
-        gap: '3-x-large',
         maxWidth: 'alignwide',
-        children: cells(6),
+        children: dividedCards(6),
     },
 };
 
@@ -148,8 +148,7 @@ export const DividersOnDark: Story = {
     args: {
         dividers: 'columns',
         dividerColor: 'medium',
-        gap: '4-x-large',
-        children: cells(3),
+        children: dividedCards(3, 'dark'),
     },
     render: (args) => (
         <Container color="dark" maxWidth="alignfull" contentWidth="alignwide">

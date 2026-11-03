@@ -17,7 +17,13 @@ Prefix the change with one of these keywords:
 
 ## [Unreleased]
 
-_Added_ `GridGroup` `dividers` (`none`, `columns`, `all`) and `dividerColor` props for grids ruled between columns or framed like a table.
+_Breaking_ `GridGroup`'s `gap` no longer defaults to `medium`. A grid has no gap until you set one, matching `FlexGroup`; add `gap="medium"` to keep the old spacing.
+
+_Added_ `Card` `backgroundHover` prop (`light`, `dark`) that tints a linked card's background with a translucent overlay on hover.
+
+_Added_ `overlay-light` (white at 5%) and `overlay-dark` (black at 7%) colour tokens, CSS only.
+
+_Added_ `GridGroup` `dividers` (`none`, `columns`, `all`) and `dividerColor` props for grids ruled between columns or framed like a table. Leave `gap` unset and items such as `Card` sit flush against the rules.
 
 _Changed_ `Article` and `Aside` move from Template Parts to Layout in Storybook. The package exports don't change.
 

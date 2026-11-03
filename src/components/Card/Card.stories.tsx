@@ -8,6 +8,7 @@ import { SingleParagraph } from '../../data/SampleContent';
 import { borderRadiusClasses, spacingClasses } from '../../utils/propClasses';
 
 const surfaceOptions = ['white', 'light', 'medium', 'dark'] as const;
+const hoverOptions = ['light', 'dark'] as const;
 const radiusOptions = Object.keys(borderRadiusClasses);
 const spacingOptions = Object.keys(spacingClasses);
 
@@ -34,6 +35,10 @@ const meta: Meta<typeof Card> = {
         backgroundColor: {
             control: 'select',
             options: surfaceOptions,
+        },
+        backgroundHover: {
+            control: 'inline-radio',
+            options: hoverOptions,
         },
         borderColor: {
             control: 'select',
@@ -93,7 +98,7 @@ export const Rounded: Story = {
 
 export const Colors: Story = {
     render: () => (
-        <GridGroup columns={2} maxWidth="alignwide">
+        <GridGroup columns={2} gap="medium" maxWidth="alignwide">
             {surfaceOptions.map((surface) => (
                 <Card key={surface} backgroundColor={surface}>
                     <p>backgroundColor=&quot;{surface}&quot;</p>
@@ -131,8 +136,32 @@ export const WithLink: Story = {
         ),
     },
     render: (args) => (
-        <GridGroup columns={2} maxWidth="alignwide">
+        <GridGroup columns={2} gap="medium" maxWidth="alignwide">
             <Card {...args} />
+        </GridGroup>
+    ),
+};
+
+export const BackgroundHover: Story = {
+    render: () => (
+        <GridGroup dividers="all" columns={2} maxWidth="alignwide">
+            {surfaceOptions.map((surface) => (
+                <Card
+                    key={surface}
+                    border={false}
+                    backgroundColor={surface}
+                    backgroundHover={surface === 'medium' || surface === 'dark' ? 'light' : 'dark'}
+                >
+                    <h3>
+                        <CardLink href="/work">
+                            {surface === 'medium' || surface === 'dark'
+                                ? 'Hover: light'
+                                : 'Hover: dark'}
+                        </CardLink>
+                    </h3>
+                    <p>backgroundColor=&quot;{surface}&quot;</p>
+                </Card>
+            ))}
         </GridGroup>
     ),
 };

@@ -33,7 +33,7 @@ import { Card, CardLink } from '@troychaplin/parlour-ui';
 <Card backgroundColor="dark" borderColor="dark">…</Card>
 
 // Cards in a list
-<GridGroup as="ul">
+<GridGroup as="ul" gap="medium">
     <Card as="li">…</Card>
     <Card as="li">…</Card>
 </GridGroup>
@@ -92,18 +92,25 @@ Put a `CardLink` inside the card — usually around the text of its heading — 
 
 <Canvas of={CardStories.WithLink} />
 
+### Background on hover
+
+`backgroundHover` lays a translucent overlay over a linked card's background while the pointer is over it: `light` is white at 5% opacity, for `medium` and `dark` cards, and `dark` is black at 7%, for `white` and `light` cards. The overlay tints whatever surface sits under it, so the text colour stays the same. It only applies to a card holding a `CardLink`: hover feedback on a card that does nothing when clicked would suggest that it does. Here the cards sit flush in a [`GridGroup`](?path=/docs/components-layout-grid-group--docs) with `dividers="all"`.
+
+<Canvas of={CardStories.BackgroundHover} />
+
 ## CSS classes
 
-| Class                                 | When applied                                                                                             |
-| ------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `parlour-card`                        | Always — base class                                                                                      |
-| `parlour-card--bg-{name}`             | Always — the `backgroundColor` value, e.g. `parlour-card--bg-light` (default); also sets the text colour |
-| `parlour-card--border`                | `border` is true (default) — a 1px solid border                                                          |
-| `parlour-card--border-{name}`         | `border` is true — the `borderColor` value, e.g. `parlour-card--border-light` (default)                  |
-| `parlour-card--radius-{size}`         | Always — the `borderRadius` value, e.g. `parlour-card--radius-none` (default)                            |
-| `parlour-card--padding-inline-{step}` | Always — the `paddingInline` value, e.g. `parlour-card--padding-inline-large` (default)                  |
-| `parlour-card--padding-block-{step}`  | Always — the `paddingBlock` value, e.g. `parlour-card--padding-block-large` (default)                    |
-| `parlour-card__link`                  | On `CardLink` — its `::after` covers the card; the card's border darkens on hover while it holds one     |
+| Class                                 | When applied                                                                                                            |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `parlour-card`                        | Always — base class                                                                                                     |
+| `parlour-card--bg-{name}`             | Always — the `backgroundColor` value, e.g. `parlour-card--bg-light` (default); also sets the text colour                |
+| `parlour-card--bg-hover-{name}`       | `backgroundHover` is set — `light` or `dark`; the overlay applies only while the card holds a `CardLink` and is hovered |
+| `parlour-card--border`                | `border` is true (default) — a 1px solid border                                                                         |
+| `parlour-card--border-{name}`         | `border` is true — the `borderColor` value, e.g. `parlour-card--border-light` (default)                                 |
+| `parlour-card--radius-{size}`         | Always — the `borderRadius` value, e.g. `parlour-card--radius-none` (default)                                           |
+| `parlour-card--padding-inline-{step}` | Always — the `paddingInline` value, e.g. `parlour-card--padding-inline-large` (default)                                 |
+| `parlour-card--padding-block-{step}`  | Always — the `paddingBlock` value, e.g. `parlour-card--padding-block-large` (default)                                   |
+| `parlour-card__link`                  | On `CardLink` — its `::after` covers the card; the card's border darkens on hover while it holds one                    |
 
 The padding modifiers set `--parlour-card-padding-inline` and `--parlour-card-padding-block`, which the card uses for its padding. The card is `position: relative`, so a `CardLink` overlay stays inside it.
 
@@ -122,6 +129,8 @@ The first child's top margin and the last child's bottom margin are removed, so 
 | `--parlour--color-neutral-500`          | `medium` border; border of a card holding a `CardLink` while hovered          |
 | `--parlour--spacing-*`                  | `paddingInline` and `paddingBlock` — any step of the spacing scale, or `none` |
 | `--parlour--radius-*`                   | `borderRadius` — `sm`, `md`, `lg`, `xl` or `full`                             |
+| `--parlour--color-overlay-light`        | `backgroundHover="light"` — white at 5%, layered over the card's background   |
+| `--parlour--color-overlay-dark`         | `backgroundHover="dark"` — black at 7%, layered over the card's background    |
 | `--parlour--color-accent-primary`       | Focus outline around a card whose `CardLink` has focus                        |
 | `--parlour--color-accent-primary-light` | The same outline on a `medium` or `dark` card                                 |
 | `--parlour--transition-fast`            | Border colour change on a card holding a `CardLink`                           |
@@ -137,4 +146,5 @@ A `light` card (`neutral-50`) is a step lighter than a `light` [`Container`](?pa
 - Use one `CardLink` per card. The overlay sits above the card's other content, so another link or button inside the card needs `position: relative` and a `z-index` to stay clickable. Selecting text in a linked card is harder, as the overlay catches the pointer.
 - `CardLink` is a client component (`'use client'`) because it reads `LinkProvider`; `Card` itself is not. Server components can render both.
 - The link resets Main's bold, underlined link style so the card's text looks the same linked or not. While it has focus, the outline is drawn around the whole card.
+- The hover overlay is a slight tint, so text keeps about the same contrast as on the card's own background. It's drawn as a `background-image`, so it adds to `backgroundColor` instead of replacing it.
 - The border is decorative — it isn't needed to understand the content — so it isn't held to a contrast ratio.

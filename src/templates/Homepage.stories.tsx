@@ -74,7 +74,7 @@ export const Homepage: Story = {
 
                 <Container color="light" maxWidth="alignfull" contentWidth="alignwide">
                     <SectionHeader prefix="Releases · Open source" title="Things I ship." />
-                    <GridGroup>
+                    <GridGroup gap="medium">
                         {ProjectData.map(({ id, ...project }) => (
                             <ProjectCard key={id} {...project} />
                         ))}
@@ -86,7 +86,7 @@ export const Homepage: Story = {
                         prefix="Experiments · Open source"
                         title="Things I experiment with."
                     />
-                    <GridGroup dividerColor="dark" dividers="columns" gap="2-x-large">
+                    <GridGroup dividerColor="dark" dividers="columns">
                         {ExperimentsData.map(({ id, ...experiment }) => (
                             <ProjectCard
                                 key={id}

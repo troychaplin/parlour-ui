@@ -122,6 +122,23 @@ li.parlour-card {
     }
 }
 
+// `backgroundHover` only applies to a linked card: a hover change on a card that does nothing
+// when clicked would suggest it does. The overlay is a translucent layer painted over the card's
+// own background, so it tints any surface and the text colour never has to change.
+.parlour-card--bg-hover-light:has(.parlour-card__link):hover {
+    background-image: linear-gradient(
+        var(--parlour--color-overlay-light),
+        var(--parlour--color-overlay-light)
+    );
+}
+
+.parlour-card--bg-hover-dark:has(.parlour-card__link):hover {
+    background-image: linear-gradient(
+        var(--parlour--color-overlay-dark),
+        var(--parlour--color-overlay-dark)
+    );
+}
+
 .parlour-card__link::after {
     content: '';
     position: absolute;

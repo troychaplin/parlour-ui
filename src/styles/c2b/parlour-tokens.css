@@ -19,6 +19,8 @@
   --parlour--color-neutral-800: #51413a;
   --parlour--color-neutral-900: #473a35;
   --parlour--color-neutral-950: #271f1c;
+  --parlour--color-overlay-light: rgba(255, 255, 255, 0.3);
+  --parlour--color-overlay-dark: rgba(25, 25, 25, 0.35);
   --parlour--color-info: #2571eb;
   --parlour--color-success: #16a34a;
   --parlour--color-warning: #fff154;

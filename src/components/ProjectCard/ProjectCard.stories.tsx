@@ -64,7 +64,7 @@ export const Default: Story = {
 export const Grid: Story = {
     render: () => (
         <Container color="light" maxWidth="alignfull" contentWidth="alignwide">
-            <GridGroup>
+            <GridGroup gap="medium">
                 {ProjectData.map(({ id, ...project }) => (
                     <ProjectCard key={id} {...project} />
                 ))}
@@ -76,7 +76,7 @@ export const Grid: Story = {
 export const Colors: Story = {
     render: () => (
         <Container color="light" maxWidth="alignfull" contentWidth="alignwide">
-            <GridGroup columns={2}>
+            <GridGroup columns={2} gap="medium">
                 {colorCards.map(({ surface, project: { id, ...project } }) => (
                     <ProjectCard
                         key={`${surface}-${id}`}

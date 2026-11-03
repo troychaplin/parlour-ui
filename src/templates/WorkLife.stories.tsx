@@ -69,9 +69,15 @@ export const WorkLife: Story = {
 
                 <Container color="light" maxWidth="alignfull" contentWidth="alignwide">
                     <SectionHeader prefix="Releases · Open source" title="Things I ship." />
-                    <GridGroup>
+                    <GridGroup dividerColor="light" dividers="all">
                         {ProjectData.map(({ id, ...project }) => (
-                            <ProjectCard key={id} {...project} />
+                            <ProjectCard
+                                key={id}
+                                backgroundColor="pale"
+                                backgroundHover="light"
+                                border={false}
+                                {...project}
+                            />
                         ))}
                     </GridGroup>
                 </Container>
@@ -81,11 +87,12 @@ export const WorkLife: Story = {
                         prefix="Experiments · Open source"
                         title="Things I experiment with."
                     />
-                    <GridGroup dividerColor="dark" dividers="columns" gap="2-x-large">
+                    <GridGroup dividerColor="dark" dividers="columns">
                         {ExperimentsData.map(({ id, ...experiment }) => (
                             <ProjectCard
                                 key={id}
                                 backgroundColor="dark"
+                                backgroundHover="dark"
                                 border={false}
                                 {...experiment}
                             />

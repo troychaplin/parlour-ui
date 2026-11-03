@@ -36,10 +36,9 @@ ol.parlour-grid-group {
 }
 
 // Spacing modifiers are generated from the scale, so a change to c2b.config.json propagates
-// here with no edit. `none` keeps its unit because the divider lines do arithmetic on the gap
-// in calc(), where a bare 0 is a number and can't be mixed with lengths.
+// here with no edit.
 $steps: (
-    none: 0px,
+    none: 0,
 );
 
 @each $name in map.keys(vars.$parlour-spacing) {
@@ -48,9 +47,6 @@ $steps: (
 
 @each $key, $value in $steps {
     .parlour-grid-group--gap-#{$key} {
-        --parlour-grid-group-gap: #{$value};
-        --parlour-grid-group-row-gap: #{$value};
-
         gap: $value;
     }
 }
@@ -59,32 +55,30 @@ $steps: (
 // the `gap` shorthand whichever steps are combined.
 @each $key, $value in $steps {
     .parlour-grid-group--row-gap-#{$key} {
-        --parlour-grid-group-row-gap: #{$value};
-
         row-gap: $value;
     }
 }
 
-// Dividers are 1px lines drawn in the middle of the gaps, so `gap` keeps its meaning and a Card's
-// own padding still insets its content. A cell's ::before is the line on its inline-start side and
-// its ::after the line above it; each breakpoint turns them on for every cell except the first in
-// its row or column. The lines follow each cell's height, so leave `align` at stretch.
+// A divided grid has no gap, so its cells touch and a Card sits flush against the lines. Each
+// line is drawn inside a cell's start edge: ::before on its inline-start side and ::after along
+// its top. Each breakpoint turns them on for every cell except the first in its row or column.
+// The lines follow each cell's height, so leave `align` at stretch.
 $divider-width: 1px;
 
-@mixin column-line($overhang: 0) {
+@mixin column-line {
     content: '';
     position: absolute;
-    inset-block: calc(var(--parlour-grid-group-row-gap) / -2 * #{$overhang});
-    inset-inline-start: calc(var(--parlour-grid-group-gap) / -2 - #{$divider-width} / 2);
+    inset-block: 0;
+    inset-inline-start: 0;
     inline-size: $divider-width;
     background-color: var(--parlour-grid-group-divider);
 }
 
-@mixin row-line($overhang: 0) {
+@mixin row-line {
     content: '';
     position: absolute;
-    inset-inline: calc(var(--parlour-grid-group-gap) / -2 * #{$overhang});
-    inset-block-start: calc(var(--parlour-grid-group-row-gap) / -2 - #{$divider-width} / 2);
+    inset-inline: 0;
+    inset-block-start: 0;
     block-size: $divider-width;
     background-color: var(--parlour-grid-group-divider);
 }
@@ -143,16 +137,13 @@ $divider-width: 1px;
     }
 }
 
-// `all` frames the grid and rules every row and column. Half a gap of padding inside the frame
-// matches the half gap either side of an inner line, and the lines overhang into the gaps so
-// they meet at the crossings and reach the frame.
+// `all` frames the grid and rules every row and column.
 .parlour-grid-group--dividers-all {
     box-sizing: border-box;
-    padding: calc(var(--parlour-grid-group-row-gap) / 2) calc(var(--parlour-grid-group-gap) / 2);
     border: $divider-width solid var(--parlour-grid-group-divider);
 
     > * + *::after {
-        @include row-line(1);
+        @include row-line;
     }
 
     &.parlour-grid-group--columns-2 {
@@ -162,11 +153,11 @@ $divider-width: 1px;
             }
 
             > :nth-child(n + 3)::after {
-                @include row-line(1);
+                @include row-line;
             }
 
             > :not(:nth-child(2n + 1))::before {
-                @include column-line(1);
+                @include column-line;
             }
         }
     }
@@ -178,11 +169,11 @@ $divider-width: 1px;
             }
 
             > :nth-child(n + 4)::after {
-                @include row-line(1);
+                @include row-line;
             }
 
             > :not(:nth-child(3n + 1))::before {
-                @include column-line(1);
+                @include column-line;
             }
         }
     }
