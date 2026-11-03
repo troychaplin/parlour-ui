@@ -83,7 +83,7 @@ export const WithCaption: Story = {
 
 export const FloatLeft: Story = {
     args: {
-        size: 'md',
+        size: 'xs',
         align: 'left',
         caption: 'A scenic landscape with a caption.',
     },
@@ -111,7 +111,7 @@ export const FloatRight: Story = {
         caption: 'A scenic landscape with a caption.',
     },
     render: (args) => (
-        <Container>
+        <Container maxWidth="alignwide">
             <Figure {...args}>
                 <img
                     src="https://picsum.photos/id/15/400/300"
