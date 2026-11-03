@@ -9,7 +9,6 @@ import { ButtonGroup } from '../components/ButtonGroup/ButtonGroup';
 import { SiteFooter } from '../components/SiteFooter/SiteFooter';
 import { SiteHeader } from '../components/SiteHeader/SiteHeader';
 import { InfoBar } from '../components/InfoBar/InfoBar';
-import { Hero } from '../components/Hero/Hero';
 import { HeroHeader } from '../components/HeroHeader/HeroHeader';
 import { SectionHeader } from '../components/SectionHeader/SectionHeader';
 import { GridGroup } from '../components/GridGroup/GridGroup';
@@ -55,21 +54,17 @@ export const WorkLife: Story = {
 
             <Main hasPadding={false}>
                 <Container color="pale" maxWidth="alignfull" contentWidth="alignwide">
-                    <Hero>
-                        <div className="parlour-hero__content">
-                            <HeroHeader
-                                prefix="Skills and experience."
-                                title="Nineteen years of"
-                                titleAccent="building for the web"
-                            >
-                                <ul className="parlour-hero-header__stats">
-                                    <li>7 released plugins</li>
-                                    <li>5 experimental projects</li>
-                                    <li>3 active contributions</li>
-                                </ul>
-                            </HeroHeader>
-                        </div>
-                    </Hero>
+                    <HeroHeader
+                        prefix="Skills and experience."
+                        title="Nineteen years of"
+                        titleAccent="building for the web"
+                    >
+                        <ul className="parlour-hero-header__stats">
+                            <li>7 released plugins</li>
+                            <li>5 experimental projects</li>
+                            <li>3 active contributions</li>
+                        </ul>
+                    </HeroHeader>
                 </Container>
 
                 <Container color="light" maxWidth="alignfull" contentWidth="alignwide">

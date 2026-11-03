@@ -12,6 +12,10 @@ const meta: Meta<typeof Column> = {
             control: 'inline-radio',
             options: ['1', '2', '3', '4', '1/3', '2/3'],
         },
+        maxWidth: {
+            control: 'inline-radio',
+            options: ['aligncontent', 'alignwide', 'alignfull'],
+        },
     },
     parameters: {
         layout: 'fullscreen',
@@ -23,6 +27,25 @@ const meta: Meta<typeof Column> = {
 
 export default meta;
 type Story = StoryObj<typeof Column>;
+
+export const Default: Story = {
+    args: {
+        cols: '2',
+        maxWidth: 'aligncontent',
+    },
+    render: (args) => (
+        <Main>
+            <Column {...args}>
+                <Column.Content>
+                    <MultiParagraph count={2} />
+                </Column.Content>
+                <Column.Content>
+                    <MultiParagraph count={2} />
+                </Column.Content>
+            </Column>
+        </Main>
+    ),
+};
 
 export const TwoColumns: Story = {
     render: () => (

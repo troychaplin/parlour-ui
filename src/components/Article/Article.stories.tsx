@@ -6,7 +6,7 @@ import { ArticleData as data } from '../../data/ArticleData';
 import { MultiParagraph } from '../../data/SampleContent';
 
 const meta: Meta<typeof Article> = {
-    title: 'Components/Template Parts/Article',
+    title: 'Components/Layout/Article',
     component: Article,
     tags: ['!autodocs'],
     parameters: {
@@ -25,7 +25,7 @@ export const Default: Story = {
     },
 };
 
-export const WithMainAndSection: Story = {
+export const WithMainAndContainer: Story = {
     render: () => (
         <Main>
             <Container>

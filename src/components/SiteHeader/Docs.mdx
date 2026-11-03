@@ -51,16 +51,7 @@ import { Button, ButtonGroup, SiteHeader, type SiteHeaderNavItem } from '@troych
 </SiteHeader>
 ```
 
-## Props
-
-| Prop              | Type                  | Notes                                                                                  |
-| ----------------- | --------------------- | -------------------------------------------------------------------------------------- |
-| `siteTitle`       | `string`              | The title, linked home. Defaults to `Parlour`                                          |
-| `siteTitleAccent` | `string`              | Part of `siteTitle` to set in italics, in the accent colour                            |
-| `navItems`        | `SiteHeaderNavItem[]` | `{ href, label }` for each link, in order. The `<nav>` renders only when there are any |
-| `children`        | `ReactNode`           | The actions at the end of the row, usually a `ButtonGroup` of one or more buttons      |
-
-The title and navigation links render through [`LinkProvider`](?path=/docs/components-utilities-linkprovider--docs), so a provider higher in the tree swaps in your router's `Link`.
+Each `navItems` entry is `{ href, label }`, rendered in order; the `<nav>` renders only when there are any. `children` fills the end of the row — usually a `ButtonGroup`. The title and navigation links render through [`LinkProvider`](?path=/docs/components-utilities-linkprovider--docs), so a provider higher in the tree swaps in your router's `Link`.
 
 ## Examples
 

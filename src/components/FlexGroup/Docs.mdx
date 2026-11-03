@@ -48,6 +48,12 @@ import { FlexGroup } from '@troychaplin/parlour-ui';
 </FlexGroup>
 ```
 
+Every spacing, alignment and width prop is unset by default, so a bare `FlexGroup` adds no gap, padding, margin or width cap of its own. `padding` applies to all four sides; `margin` to the block axis only.
+
+All other props are spread onto the rendered element, so `id`, `aria-*`, `style` and DOM event handlers pass through. A `className` you pass is appended to the generated classes rather than replacing them.
+
+The spacing steps are `none`, `3-x-small`, `2-x-small`, `x-small`, `small`, `normal`, `medium`, `large`, `x-large`, `2-x-large`, `3-x-large`, `4-x-large`, `5-x-large`.
+
 ## Examples
 
 ### Default
@@ -107,33 +113,15 @@ The same prop in a column distributes children **vertically**, because the main 
 
 ### Max width
 
-`maxWidth` applies the shared WordPress alignment classes, the same vocabulary `Section` and `Column` use.
+`maxWidth` applies the shared WordPress alignment classes, the same vocabulary `Container` and `Column` use.
 
 <Canvas of={FlexGroupStories.MaxWidth} />
 
 ### The `as` prop
 
-`as` swaps the rendered element. Prefer Parlour's dedicated `Main`, `Article`, `Aside` and `Section` components when one of them fits — reach for `as` only when you need a sectioning element that also happens to be a flex container.
+`as` swaps the rendered element. Prefer Parlour's dedicated `Main`, `Article`, `Aside` and `Container` components when one of them fits — reach for `as` only when you need a sectioning element that also happens to be a flex container.
 
 <Canvas of={FlexGroupStories.AsElement} />
-
-## Props
-
-| Prop        | Type                                                       | Default | Notes                                         |
-| ----------- | ---------------------------------------------------------- | ------- | --------------------------------------------- |
-| `as`        | `div` `header` `main` `section` `article` `aside` `footer` | `div`   | Matches the block's `tagName` options         |
-| `direction` | `row` \| `column`                                          | `row`   | The block calls this `orientation`            |
-| `wrap`      | `wrap` \| `nowrap`                                         | `wrap`  |                                               |
-| `justify`   | `start` `center` `end` `space-between`                     | unset   | Main axis — `justify-content`                 |
-| `align`     | `start` `center` `end` `stretch`                           | unset   | Cross axis — `align-items`                    |
-| `gap`       | `none` plus the 12 spacing steps                           | unset   |                                               |
-| `padding`   | `none` plus the 12 spacing steps                           | unset   | All four sides                                |
-| `margin`    | `none` plus the 12 spacing steps                           | unset   | Block axis only                               |
-| `maxWidth`  | `alignsmall` `aligncontent` `alignwide` `alignfull`        | unset   | Unset means the container does not cap itself |
-
-All other props are spread onto the rendered element, so `id`, `aria-*`, `style` and DOM event handlers pass through. A `className` you pass is appended to the generated classes rather than replacing them.
-
-The spacing steps are `none`, `3-x-small`, `2-x-small`, `x-small`, `small`, `normal`, `medium`, `large`, `x-large`, `2-x-large`, `3-x-large`, `4-x-large`, `5-x-large`.
 
 ## Differences from the Group block
 

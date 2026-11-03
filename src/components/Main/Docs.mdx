@@ -5,7 +5,7 @@ import * as MainStories from './Main.stories';
 
 # Main
 
-The primary page content wrapper. Renders a `<main>` landmark containing an inner layout div wired up for the WordPress block editor's alignment and spacing system. All layout components — `Section`, `Column`, `Article`, `Aside` — nest inside `Main`.
+The primary page content wrapper. Renders a `<main>` landmark containing an inner layout div wired up for the WordPress block editor's alignment and spacing system. All layout components — `Container`, `Column`, `Article`, `Aside` — nest inside `Main`.
 
 ## When to use
 
@@ -22,12 +22,12 @@ import { Main } from '@troychaplin/parlour-ui';
 ```tsx
 // Default — with vertical padding
 <Main>
-  <Section>...</Section>
+    <Container>...</Container>
 </Main>
 
 // No padding — when the first section is full-bleed
 <Main hasPadding={false}>
-  <Section>...</Section>
+    <Container>...</Container>
 </Main>
 ```
 

@@ -55,14 +55,14 @@ import { Container } from '@troychaplin/parlour-ui';
   </Container>
 </Main>
 
-// Full-bleed grey band with content constrained to 1024px
+// Full-bleed grey band with content constrained to 768px
 <Main>
   <Container maxWidth="alignfull" bgType="grey" contentWidth="aligncontent">
     <Column cols="2">...</Column>
   </Container>
 </Main>
 
-// Full-bleed grey band with content constrained to 1280px
+// Full-bleed grey band with content constrained to 1152px
 <Main>
   <Container maxWidth="alignfull" bgType="grey" contentWidth="alignwide">
     <Column cols="2">...</Column>
@@ -116,15 +116,15 @@ Content width (`aligncontent`), white background. Use the controls to explore `a
 
 <Canvas of={ContainerStories.FullWidth} />
 
-### Full width with constrained content (1024px)
+### Full width with constrained content (768px)
 
-`contentWidth="aligncontent"` wraps children in an inner div constrained to 1024px — useful when you want a full-bleed background but a readable column of content.
+`contentWidth="aligncontent"` wraps children in an inner div constrained to 768px — useful when you want a full-bleed background but a readable column of content.
 
 <Canvas of={ContainerStories.FullWidthConstrained} />
 
-### Full width with constrained content (1280px)
+### Full width with constrained content (1152px)
 
-`contentWidth="alignwide"` uses the wider 1280px column.
+`contentWidth="alignwide"` uses the wider 1152px column.
 
 <Canvas of={ContainerStories.FullWidthConstrainedWide} />
 
@@ -160,8 +160,8 @@ When set, `contentWidth` wraps all children in a `parlour-section__content` div 
 
 | Value            | Inner content width                                   |
 | ---------------- | ----------------------------------------------------- |
-| `"aligncontent"` | 1024px — standard readable content width              |
-| `"alignwide"`    | 1280px — wider, for card grids and media-rich layouts |
+| `"aligncontent"` | 768px — standard readable content width               |
+| `"alignwide"`    | 1152px — wider, for card grids and media-rich layouts |
 | `"alignfull"`    | Full viewport width                                   |
 
 Omitting `contentWidth` keeps the existing behaviour: children are direct children of the root and the root's `is-layout-constrained` applies.

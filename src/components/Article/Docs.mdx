@@ -9,7 +9,7 @@ A semantic `<article>` wrapper for self-contained page content. Accepts either J
 
 ## When to use
 
-Use `Article` as the primary content region inside a page layout — typically nested inside `Main` and `Section`. It wraps body copy, blog posts, news stories, or any block of content that would make sense on its own if lifted out of the page.
+Use `Article` as the primary content region inside a page layout — typically nested inside `Main` and a `Container`. It wraps body copy, blog posts, news stories, or any block of content that would make sense on its own if lifted out of the page.
 
 ## Import
 
@@ -22,12 +22,12 @@ import { Article } from '@troychaplin/parlour-ui';
 ```tsx
 // JSX children
 <Main>
-  <Section>
-    <Article>
-      <h2>Heading</h2>
-      <p>Body copy...</p>
-    </Article>
-  </Section>
+    <Container>
+        <Article>
+            <h2>Heading</h2>
+            <p>Body copy...</p>
+        </Article>
+    </Container>
 </Main>
 
 // CMS / server-rendered HTML string
@@ -41,11 +41,11 @@ import { Article } from '@troychaplin/parlour-ui';
 <Canvas of={ArticleStories.Default} />
 <Controls of={ArticleStories.Default} />
 
-### With Main and Section
+### With Main and Container
 
-The typical page layout context — `Article` sits inside `Section` inside `Main`.
+The typical page layout context — `Article` sits inside a `Container` inside `Main`.
 
-<Canvas of={ArticleStories.WithMainAndSection} />
+<Canvas of={ArticleStories.WithMainAndContainer} />
 
 ### Content as a prop
 
@@ -65,6 +65,10 @@ If both `children` and `content` are passed, `content` wins — the component ch
 ## CSS classes
 
 `Article` applies no classes of its own — it renders a plain `<article>` element. Prose styling (headings, links, lists, spacing) comes from the global base styles applied to the layout context.
+
+## Design tokens
+
+None. `Article` has no stylesheet of its own.
 
 ## Accessibility
 

@@ -54,9 +54,10 @@ const preview: Preview = {
                     'Components',
                     [
                         'Elements',
+                        'Headers',
+                        'Navigation',
                         'Content',
                         'Cards',
-                        'Navigation',
                         'Layout',
                         'Template Parts',
                         'Utilities',

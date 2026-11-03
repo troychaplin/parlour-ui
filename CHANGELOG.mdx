@@ -17,6 +17,11 @@ Prefix the change with one of these keywords:
 
 ## [Unreleased]
 
+_Changed_ `Article` and `Aside` move from Template Parts to Layout in Storybook. The package exports don't change.
+
+_Breaking_ `Hero` is removed. Compose a page's opening band from `Container` and `GridGroup` (or
+`FlexGroup`) instead — see the `HeroHeader` docs for the heading-and-code layout.
+
 _Breaking_ `Card` no longer takes `href` or `linkProps`. Put a `CardLink` inside the card instead, usually around its heading text — it stretches over the whole card.
 
 _Added_ `CardLink`, a link that makes its whole `Card` clickable while its accessible name stays its own text.

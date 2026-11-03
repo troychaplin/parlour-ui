@@ -42,6 +42,8 @@ import { SiteFooter } from '@troychaplin/parlour-ui';
 <SiteFooter name="Troy Chaplin" />
 ```
 
+`name` is the only required prop. `year` defaults to the current year, and `nameHref` links the name through [`LinkProvider`](?path=/docs/components-utilities-linkprovider--docs). `text` takes any `ReactNode`, so it can hold links.
+
 ## Examples
 
 ### Default
@@ -62,16 +64,6 @@ Each network has its own prop, which takes the profile URL. A link renders only 
 With no `text` and no social props, only the copyright line renders. Without `nameHref`, the name is plain text.
 
 <Canvas of={SiteFooterStories.NameOnly} />
-
-## Props
-
-| Prop                                     | Type        | Notes                                                                        |
-| ---------------------------------------- | ----------- | ---------------------------------------------------------------------------- |
-| `name`                                   | `string`    | Required. Shown after the copyright symbol and year                          |
-| `nameHref`                               | `string`    | Makes the name a link, through `LinkProvider`                                |
-| `year`                                   | `number`    | Defaults to the current year                                                 |
-| `text`                                   | `ReactNode` | The middle line. Can hold links                                              |
-| `github`, `wordpress`, `x`, `bluesky`, … | `string`    | One per network: the profile URL. The link and its icon render only when set |
 
 ## CSS classes
 

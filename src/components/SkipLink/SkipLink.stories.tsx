@@ -5,7 +5,7 @@ import { Main } from '../Main/Main';
 import { MultiParagraph } from '../../data/SampleContent';
 
 const meta: Meta<typeof SkipLink> = {
-    title: 'Components/Template Parts/Skip Link',
+    title: 'Components/Utilities/Skip Link',
     component: SkipLink,
     tags: ['!autodocs'],
     decorators: [

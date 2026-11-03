@@ -5,13 +5,13 @@ import * as FigureStories from './Figure.stories';
 
 # Figure
 
-An image or media wrapper with optional caption, float alignment, and border radius. Renders a semantic `<figure>` element around any image or media content.
+An image or media wrapper with an optional caption, a size and a float alignment. Renders a `<figure>` around your image or media, with the caption in a `<figcaption>`.
 
 ## When to use
 
-- Inline images within article or body copy that need float-left or float-right layout
-- Full-width images that benefit from a shadow and rounded corners
-- Any image that carries a descriptive caption
+- Place an image in article or body copy, floated left or right so the text wraps around it.
+- Give an image a caption that's tied to it for assistive technology.
+- Don't use it for decorative background images, or for images inside cards — those belong in the card's own markup.
 
 ## Import
 
@@ -21,35 +21,87 @@ import { Figure } from '@troychaplin/parlour-ui';
 
 ## Basic usage
 
+```tsx
+// Full width, no caption
+<Figure>
+    <img src="/photo.jpg" alt="A description of the photo" />
+</Figure>
+
+// With a caption
+<Figure caption="The workshop in spring.">
+    <img src="/workshop.jpg" alt="A wood workshop with tools on the walls" />
+</Figure>
+
+// Medium width, floated left with text wrapping around it
+<Figure size="md" align="left">
+    <img src="/detail.jpg" alt="A close-up of a dovetail joint" />
+</Figure>
+```
+
+## Examples
+
+### Default
+
+A full-width figure. Use the controls to try each `size` and `align`.
+
 <Canvas of={FigureStories.Default} />
 <Controls of={FigureStories.Default} />
 
-## With caption
+### With caption
 
-Use `caption` to add a descriptive line beneath the image inside the figure wrapper.
+`caption` adds a line beneath the image inside the figure's rounded frame.
 
 <Canvas of={FigureStories.WithCaption} />
 
-## Float left
+### Float left
 
-Float the figure left with surrounding text wrapping around it. Float activates at the `lg` breakpoint (1024px+); on smaller screens the figure stacks full-width.
+The figure floats left and the surrounding text wraps around it above 768px. At 768px and below it stacks full width.
 
 <Canvas of={FigureStories.FloatLeft} />
 
-## Float right
+### Float right
+
+The same, floated right.
 
 <Canvas of={FigureStories.FloatRight} />
 
-## Centered
+### Centered
+
+`align="center"` adds vertical margin around the figure without floating it.
 
 <Canvas of={FigureStories.Centered} />
 
-## Props
+## CSS classes
 
-| Prop       | Type                                   | Default | Description                                       |
-| ---------- | -------------------------------------- | ------- | ------------------------------------------------- |
-| `children` | `ReactNode`                            | —       | Image or media content                            |
-| `caption`  | `string`                               | —       | Optional caption rendered in a `<figcaption>`     |
-| `size`     | `xs \| sm \| md \| lg \| full`         | `full`  | Max-width constraint (activates at lg+ for xs–lg) |
-| `align`    | `none \| left \| right \| center`      | `none`  | Float alignment; floats activate at lg+           |
-| `rounded`  | `none \| sm \| md \| lg \| xl \| full` | `none`  | Border radius on the inner wrapper                |
+| Class                      | When applied                                                                    |
+| -------------------------- | ------------------------------------------------------------------------------- |
+| `parlour-figure`           | Always — base class on the `<figure>`                                           |
+| `parlour-figure--{size}`   | Always — the `size` value: `xs`, `sm`, `md`, `lg` or `full` (default)           |
+| `parlour-figure--{align}`  | `align` is `left`, `right` or `center`                                          |
+| `alignleft` / `alignright` | `align` is `left` / `right` — opts out of the constrained layout's auto margins |
+| `parlour-figure__inner`    | Always — the frame around the media and caption; rounds the corners             |
+| `parlour-figure__caption`  | `caption` is set — on the `<figcaption>`                                        |
+
+The sizes set a fixed width — `xs` 320px, `sm` 440px, `md` 512px, `lg` 48rem — capped at 100% of the container. At 768px and below every size goes full width. An `<img>` inside the figure is made a full-width block.
+
+## Design tokens
+
+| Token                          | Used for                                         |
+| ------------------------------ | ------------------------------------------------ |
+| `--parlour--spacing-small`     | Caption padding, top and bottom                  |
+| `--parlour--spacing-medium`    | Caption padding, sides; vertical figure margin   |
+| `--parlour--spacing-large`     | Gap between a floated figure and the text beside |
+| `--parlour--radius-md`         | Corner radius of the frame                       |
+| `--parlour--color-neutral-100` | Caption background                               |
+| `--parlour--color-neutral-800` | Caption text                                     |
+| `--parlour--font-size-small`   | Caption text                                     |
+
+The four size widths (`320px`, `440px`, `512px`, `48rem`) are raw values rather than design tokens.
+
+## Accessibility
+
+- `<figure>` with a `<figcaption>` ties the caption to the media, so screen readers can announce them together.
+- The caption doesn't replace alt text. Give every `<img>` its own `alt` describing the image, and `alt=""` only if it's purely decorative.
+- Floating changes only the visual position. The figure keeps its place in the reading order, so put it in the DOM next to the text it belongs with.
+- The caption's `neutral-800` text on `neutral-100` passes WCAG AA.
+- `Figure` doesn't spread extra props, so it can't take `aria-*` attributes or a `className`.

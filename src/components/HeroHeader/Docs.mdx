@@ -5,11 +5,11 @@ import * as HeroHeaderStories from './HeroHeader.stories';
 
 # Hero Header
 
-The heading block for a page's [`Hero`](?path=/docs/components-content-hero--docs): an optional prefix line, a large title with an optional italic accent, and whatever you pass as children. Renders a `<header>` containing an `<h1>`, or the heading level set by `level`.
+The heading block that opens a page: an optional prefix line, a large title with an optional italic accent, and whatever you pass as children. Renders a `<header>` containing an `<h1>`, or the heading level set by `level`.
 
 ## When to use
 
-- Lead the page from inside a `Hero`, in its `parlour-hero__content` column next to the hero's media.
+- Lead the page, usually as the first thing in its opening [`Container`](?path=/docs/components-layout-container--docs) — on its own, or in a two-column [`GridGroup`](?path=/docs/components-layout-grid-group--docs) next to a code sample or image.
 - Add a stats row, an intro paragraph or actions below the title by passing them as children.
 - Don't use it for the sections further down the page — [`SectionHeader`](?path=/docs/components-content-section-header--docs) is the smaller heading for those — or for the site-wide header, which is `SiteHeader`.
 
@@ -40,15 +40,13 @@ import { HeroHeader } from '@troychaplin/parlour-ui';
     </ul>
 </HeroHeader>
 
-// Inside a Hero, next to a code sample
-<Hero>
-    <div className="parlour-hero__content">
+// Next to a code sample: side by side above 600px, stacked below
+<Container color="pale" maxWidth="alignfull" contentWidth="alignwide">
+    <GridGroup columns={2} gap="3-x-large" align="center">
         <HeroHeader title="Plugins, projects" titleAccent="& open source contributions" />
-    </div>
-    <div className="parlour-hero__code">
         <CodeBlock code={code} />
-    </div>
-</Hero>
+    </GridGroup>
+</Container>
 ```
 
 ## Examples

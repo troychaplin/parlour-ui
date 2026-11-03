@@ -5,7 +5,7 @@ import { Aside } from './Aside';
 import { MultiParagraph, SingleParagraph } from '../../data/SampleContent';
 
 const meta: Meta<typeof Aside> = {
-    title: 'Components/Template Parts/Aside',
+    title: 'Components/Layout/Aside',
     component: Aside,
     tags: ['!autodocs'],
     argTypes: {

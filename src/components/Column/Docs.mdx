@@ -9,7 +9,9 @@ A responsive CSS grid container that arranges its children into equal or fractio
 
 ## When to use
 
-Use `Column` inside a `Section` whenever you need a multi-column layout — a card grid, a two-thirds/one-third article-plus-sidebar split, or a four-up icon row. For a single full-width column, the `cols="1"` default is rarely needed; just place content directly in `Section`.
+- Lay out page content in columns inside a [`Container`](?path=/docs/components-layout-container--docs) — a two-thirds/one-third article-plus-sidebar split, or equal columns of prose.
+- Use `Column.Content` with `isFirst` when a sidebar should come first visually on wide screens but after the main content in the DOM.
+- Don't use it for a grid of cards or other repeated items — that's [`GridGroup`](?path=/docs/components-layout-grid-group--docs). For a single full-width column, skip `Column` and place content directly in the `Container`.
 
 ## Import
 
@@ -21,52 +23,59 @@ import { Column } from '@troychaplin/parlour-ui';
 
 ```tsx
 // Equal columns
-<Section>
-  <Column cols="3">
-    <Column.Content>...</Column.Content>
-    <Column.Content>...</Column.Content>
-    <Column.Content>...</Column.Content>
-  </Column>
-</Section>
+<Container>
+    <Column cols="3">
+        <Column.Content>...</Column.Content>
+        <Column.Content>...</Column.Content>
+        <Column.Content>...</Column.Content>
+    </Column>
+</Container>
 
 // Two-thirds / one-third split
-<Section>
-  <Column cols="2/3">
-    <Column.Content>Main content</Column.Content>
-    <Column.Content>Sidebar</Column.Content>
-  </Column>
-</Section>
+<Container>
+    <Column cols="2/3">
+        <Column.Content>Main content</Column.Content>
+        <Column.Content>Sidebar</Column.Content>
+    </Column>
+</Container>
 ```
 
 ## Examples
 
+### Default
+
+Two equal columns at the content width. Use the controls to try each `cols` split and `maxWidth`.
+
+<Canvas of={ColumnStories.Default} />
+<Controls of={ColumnStories.Default} />
+
 ### Two columns
 
-Stacks to a single column below the `sm` breakpoint.
+Stacks to a single column at 600px and below.
 
 <Canvas of={ColumnStories.TwoColumns} />
 
 ### Three columns
 
-Stacks to a single column below the `md` breakpoint.
+Stacks to a single column at 768px and below.
 
 <Canvas of={ColumnStories.ThreeColumns} />
 
 ### Four columns
 
-Renders 2×2 at `sm`, full four columns at `lg`.
+Stacks to a single column at 600px and below, and renders as a 2×2 grid above it.
 
 <Canvas of={ColumnStories.FourColumns} />
 
 ### Two thirds / One third
 
-A 66% / auto split — the typical article-plus-sidebar layout. Stacks below `md`.
+A 66% / auto split — the typical article-plus-sidebar layout. Stacks at 768px and below.
 
 <Canvas of={ColumnStories.TwoThirds} />
 
 ### One third / Two thirds
 
-A 33% / auto split — sidebar on the left. Stacks below `md`.
+A 33% / auto split — sidebar on the left. Stacks at 768px and below.
 
 <Canvas of={ColumnStories.OneThird} />
 
@@ -92,14 +101,14 @@ The `isFirst` prop on `Column.Content` controls visual order independently of DO
 
 ## Column configurations
 
-| `cols`  | Mobile   | Tablet (`sm`) | Desktop (`md`+)   |
-| ------- | -------- | ------------- | ----------------- |
-| `"1"`   | 1 column | 1 column      | 1 column          |
-| `"2"`   | 1 column | 2 columns     | 2 columns         |
-| `"3"`   | 1 column | 1 column      | 3 columns         |
-| `"4"`   | 1 column | 2 columns     | 4 columns (`lg`+) |
-| `"1/3"` | 1 column | 1 column      | 33% / auto        |
-| `"2/3"` | 1 column | 1 column      | 66% / auto        |
+| `cols`  | Up to 600px | 601px–768px | Above 768px |
+| ------- | ----------- | ----------- | ----------- |
+| `"1"`   | 1 column    | 1 column    | 1 column    |
+| `"2"`   | 1 column    | 2 columns   | 2 columns   |
+| `"3"`   | 1 column    | 1 column    | 3 columns   |
+| `"4"`   | 1 column    | 2 columns   | 2 columns   |
+| `"1/3"` | 1 column    | 1 column    | 33% / auto  |
+| `"2/3"` | 1 column    | 1 column    | 66% / auto  |
 
 ## Sub-component — Column.Content
 
@@ -109,7 +118,7 @@ The `isFirst` prop on `Column.Content` controls visual order independently of DO
 | --------- | ------- | --------------------------------------------------------------- |
 | `isFirst` | `false` | Moves this child to the front once the columns sit side by side |
 
-Every other child keeps its DOM order, whether it's a `Column.Content` or another element such as an [`Aside`](?path=/docs/components-template-parts-aside--docs). `isFirst` only takes effect at the widths where the columns sit side by side — above 600px for `cols="2"` and `"4"`, above 768px for `"3"`, `"1/3"` and `"2/3"`, and never for `"1"` — so stacked columns on small screens always follow the DOM.
+Every other child keeps its DOM order, whether it's a `Column.Content` or another element such as an [`Aside`](?path=/docs/components-layout-aside--docs). `isFirst` only takes effect at the widths where the columns sit side by side — above 600px for `cols="2"` and `"4"`, above 768px for `"3"`, `"1/3"` and `"2/3"`, and never for `"1"` — so stacked columns on small screens always follow the DOM.
 
 ## CSS classes
 
@@ -122,13 +131,18 @@ Every other child keeps its DOM order, whether it's a `Column.Content` or anothe
 | `parlour-column--four`       | `cols="4"`                                |
 | `parlour-column--one-third`  | `cols="1/3"`                              |
 | `parlour-column--two-thirds` | `cols="2/3"`                              |
+| `parlour-column__content`    | Always — on `Column.Content`              |
 | `is-first`                   | On `Column.Content` when `isFirst={true}` |
+
+The root also gets `parlour-layout` and the `maxWidth` value (`aligncontent` by default, `alignwide` or `alignfull`), the shared alignment classes that set its width. Inside each `parlour-column__content`, the first child's top margin and the last child's bottom margin are removed.
 
 ## Design tokens
 
 | Token                      | Used for            |
 | -------------------------- | ------------------- |
 | `--parlour--spacing-large` | Gap between columns |
+
+The split widths (`33%`, `66%`) are raw values rather than design tokens.
 
 ## Accessibility
 
