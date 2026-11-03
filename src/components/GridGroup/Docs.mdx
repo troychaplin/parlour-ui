@@ -32,6 +32,10 @@ import { GridGroup } from '@troychaplin/parlour-ui';
 // Two columns above 600px, one below
 <GridGroup columns={2}>…</GridGroup>
 
+// Rules between the columns, or a framed table of rows and columns
+<GridGroup dividers="columns" gap="4-x-large">…</GridGroup>
+<GridGroup dividers="all" dividerColor="medium">…</GridGroup>
+
 // A list of cards
 <GridGroup as="ul">
     <Card as="li">…</Card>
@@ -60,6 +64,24 @@ Three cards in the wide width. On screens 768px wide and narrower they stack int
 
 <Canvas of={GridGroupStories.AsList} />
 
+### Dividers between columns
+
+`dividers="columns"` draws a 1px rule in the middle of the gap between side-by-side items. When the grid stacks to one column, the rules turn horizontal and sit between the items. `gap` still sets the space, so each item sits half a gap from the rule on either side.
+
+<Canvas of={GridGroupStories.DividersBetweenColumns} />
+
+### Dividers on every row and column
+
+`dividers="all"` frames the grid and rules every row and column, like a table. Half a gap of padding inside the frame matches the half gap either side of an inner rule. An incomplete last row leaves its empty slots unruled. Use `gap="none"` when the items, such as `Card`s, carry their own padding.
+
+<Canvas of={GridGroupStories.DividersAll} />
+
+### Dividers on a dark section
+
+`dividerColor` sets the rule colour: `light` (default), `medium` or `dark`. Choose one with enough contrast against the section behind the grid.
+
+<Canvas of={GridGroupStories.DividersOnDark} />
+
 ## CSS classes
 
 | Class                                                     | When applied                                                                                                                                                  |
@@ -70,15 +92,18 @@ Three cards in the wide width. On screens 768px wide and narrower they stack int
 | `parlour-grid-group--gap-{step}`                          | Always — the `gap` value, e.g. `parlour-grid-group--gap-medium` (default)                                                                                     |
 | `parlour-grid-group--row-gap-{step}`                      | `rowGap` is set                                                                                                                                               |
 | `parlour-grid-group--align-{value}`                       | `align` is set — `start`, `center`, `end` or `stretch`                                                                                                        |
+| `parlour-grid-group--dividers-{value}`                    | `dividers` is `columns` or `all`. `none` (default) adds no class                                                                                              |
+| `parlour-grid-group--divider-{color}`                     | `dividers` is `columns` or `all`. The `dividerColor` value, e.g. `parlour-grid-group--divider-light` (default). Never applied with `dividers="none"`          |
 | `aligncontent` / `alignwide` / `alignfull` / `alignsmall` | The `maxWidth` value, as a bare shared class                                                                                                                  |
 
-The row-gap modifiers come after the gap modifiers in the stylesheet, so `rowGap` overrides the row half of `gap`. A `className` you pass is appended after these classes.
+The row-gap modifiers come after the gap modifiers in the stylesheet, so `rowGap` overrides the row half of `gap`. The gap modifiers also set `--parlour-grid-group-gap` and `--parlour-grid-group-row-gap`, and the divider colour modifiers set `--parlour-grid-group-divider`. The rules are each item's `::before` (column) and `::after` (row), so items in a divided grid are `position: relative`. The rules follow each item's height, so leave `align` at its default of `stretch`. A `className` you pass is appended after these classes.
 
 ## Design tokens
 
 | Token                                                   | Used for                                                                                               |
 | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | `--parlour--spacing-*`                                  | `gap` and `rowGap` — any step of the spacing scale, or `none`                                          |
+| `--parlour--color-neutral-300` / `-500` / `-900`        | The `light`, `medium` and `dark` divider colours, the same as `Card`'s border colours                  |
 | `--parlour--layout-*-size`                              | `maxWidth`, through the shared `align*` classes                                                        |
 | `$parlour-viewport-mobile` / `$parlour-viewport-tablet` | The 600px and 768px column breakpoints, through the generated `above-mobile` and `above-tablet` mixins |
 
