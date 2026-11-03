@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { HeroHeader } from './HeroHeader';
 import { Main } from '../Main/Main';
 import { Container } from '../Container/Container';
+import { GridGroup } from '../GridGroup/GridGroup';
 import { SingleParagraph } from '../../data/SampleContent';
 
 const stats = (
@@ -11,6 +12,9 @@ const stats = (
         <li>3 active contributions</li>
     </ul>
 );
+
+const sizeOptions = ['small', 'medium', 'large'] as const;
+const prefixStyleOptions = ['italic', 'mono'] as const;
 
 const meta: Meta<typeof HeroHeader> = {
     title: 'Components/Headers/Hero Header',
@@ -31,6 +35,14 @@ const meta: Meta<typeof HeroHeader> = {
         level: {
             control: 'inline-radio',
             options: [1, 2, 3],
+        },
+        size: {
+            control: 'inline-radio',
+            options: sizeOptions,
+        },
+        prefixStyle: {
+            control: 'inline-radio',
+            options: prefixStyleOptions,
         },
     },
     parameters: {
@@ -65,6 +77,59 @@ export const WithParagraph: Story = {
         title: 'Section Title',
         children: <SingleParagraph />,
     },
+};
+
+export const PrefixStyles: Story = {
+    render: () => (
+        <>
+            {prefixStyleOptions.map((prefixStyle) => (
+                <HeroHeader
+                    key={prefixStyle}
+                    prefixStyle={prefixStyle}
+                    size="medium"
+                    level={2}
+                    prefix={`prefixStyle="${prefixStyle}"`}
+                    title="Section Title"
+                    titleAccent="Highlight"
+                />
+            ))}
+        </>
+    ),
+};
+
+export const Sizes: Story = {
+    render: () => (
+        <>
+            {sizeOptions.map((size) => (
+                <HeroHeader
+                    key={size}
+                    size={size}
+                    level={2}
+                    prefix={`size="${size}"`}
+                    title="Section Title"
+                    titleAccent="Highlight"
+                />
+            ))}
+        </>
+    ),
+};
+
+export const SmallInColumn: Story = {
+    render: () => (
+        <GridGroup columns={2} gap="4-x-large" maxWidth="alignwide">
+            <HeroHeader
+                size="small"
+                level={2}
+                prefix="// Latest writing"
+                prefixStyle="mono"
+                title="From the"
+                titleAccent="front of the editor."
+            >
+                <SingleParagraph />
+            </HeroHeader>
+            <SingleParagraph index={1} />
+        </GridGroup>
+    ),
 };
 
 export const InLightContainer: Story = {

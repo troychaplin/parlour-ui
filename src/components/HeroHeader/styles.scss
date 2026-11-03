@@ -1,9 +1,29 @@
+// Each size sets the title scale and the space below the prefix as custom properties, so the
+// element rules below read one value whichever size applies.
+.parlour-hero-header--large {
+    --parlour-hero-header-title-size: var(--parlour--font-size-4-x-large);
+    --parlour-hero-header-tracking: -2px;
+    --parlour-hero-header-prefix-gap: var(--parlour--spacing-3-x-large);
+}
+
+.parlour-hero-header--medium {
+    --parlour-hero-header-title-size: var(--parlour--font-size-3-x-large);
+    --parlour-hero-header-tracking: -1.5px;
+    --parlour-hero-header-prefix-gap: var(--parlour--spacing-2-x-large);
+}
+
+.parlour-hero-header--small {
+    --parlour-hero-header-title-size: var(--parlour--font-size-2-x-large);
+    --parlour-hero-header-tracking: -1px;
+    --parlour-hero-header-prefix-gap: var(--parlour--spacing-x-large);
+}
+
 .parlour-hero-header__title {
-    font-size: var(--parlour--font-size-4-x-large);
+    font-size: var(--parlour-hero-header-title-size);
     font-weight: var(--parlour--font-weight-normal);
     color: var(--parlour--color-neutral-900);
     line-height: 1.1;
-    letter-spacing: -2px;
+    letter-spacing: var(--parlour-hero-header-tracking);
     margin-top: 0;
 }
 
@@ -15,11 +35,24 @@
 }
 
 .parlour-hero-header__prefix {
+    padding-bottom: var(--parlour-hero-header-prefix-gap);
+    margin: 0;
+}
+
+.parlour-hero-header__prefix--italic {
     font-size: var(--parlour--font-size-medium);
     font-weight: var(--parlour--font-weight-light);
     font-style: italic;
-    padding-bottom: var(--parlour--spacing-3-x-large);
-    margin: 0;
+}
+
+// The same label style as SectionHeader's prefix, so the two read as one system on a page.
+.parlour-hero-header__prefix--mono {
+    font-family: var(--parlour--font-family-jetbrains-mono);
+    font-size: var(--parlour--font-size-2-x-small);
+    font-weight: var(--parlour--font-weight-normal);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--parlour--color-neutral-600);
 }
 
 .parlour-hero-header ul.parlour-hero-header__stats {
@@ -38,5 +71,9 @@
 .parlour-container--medium {
     .parlour-hero-header__title {
         color: var(--parlour--color-white);
+    }
+
+    .parlour-hero-header__prefix--mono {
+        color: var(--parlour--color-neutral-300);
     }
 }
