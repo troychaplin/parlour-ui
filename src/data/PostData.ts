@@ -1,0 +1,48 @@
+export const PostData = [
+    {
+        id: 184,
+        href: '#',
+        date: '21 Apr 2026',
+        readTime: '11 min',
+        category: 'WordPress',
+        type: 'Essay',
+        title: 'Block-based theme.json: a sane way to organize tokens at scale.',
+        excerpt:
+            'After three years of rewriting theme.json from scratch I finally settled on a folder structure that survives core updates.',
+        image: 'https://picsum.photos/seed/post184/200/200',
+    },
+    {
+        id: 183,
+        href: '#',
+        date: '14 Apr 2026',
+        readTime: '7 min',
+        category: 'AI',
+        type: 'Essay',
+        title: 'Letting Claude pair on a release-notes generator (that I actually trust).',
+        excerpt:
+            'Notes on a small CLI that turns a week of commits into something a human will read on a Tuesday.',
+        image: 'https://picsum.photos/seed/post183/200/200',
+    },
+    {
+        id: 182,
+        href: '#',
+        date: '02 Apr 2026',
+        readTime: '6 min',
+        category: 'Frontend',
+        type: 'Essay',
+        title: "Container queries are the answer to most of the layout questions you didn't ask.",
+        excerpt: "Where they've replaced media queries in my CSS, and where they really shouldn't.",
+        image: 'https://picsum.photos/seed/post182/200/200',
+    },
+    {
+        id: 181,
+        href: '#',
+        date: '24 Mar 2026',
+        readTime: '9 min',
+        category: 'DX',
+        type: 'Essay',
+        title: 'A small theory of build tools: do less, but earlier.',
+        excerpt: 'On why my fastest builds are the ones that run before I hit save.',
+        image: 'https://picsum.photos/seed/post181/200/200',
+    },
+];

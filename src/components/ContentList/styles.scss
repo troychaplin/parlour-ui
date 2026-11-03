@@ -1,0 +1,222 @@
+@use '../../styles/c2b/parlour-variables' as vars;
+
+// Each fixed part reads its width from a custom property, so every row's parts line up in
+// columns whatever parts a layout uses and in whatever order. Override one on the list to resize
+// that column for every row. The colours are custom properties too, so dark and medium
+// Containers can swap the whole set at once.
+.parlour-content-list {
+    --parlour-content-list-index-width: 5rem;
+    --parlour-content-list-meta-width: 8rem;
+    --parlour-content-list-label-width: 9rem;
+    --parlour-content-list-image-size: 5rem;
+    --parlour-content-list-gap: var(--parlour--spacing-x-large);
+    --parlour-content-list-padding: var(--parlour--spacing-2-x-large);
+    --parlour-content-list-title-size: var(--parlour--font-size-x-large);
+
+    --parlour-content-list-rule-strong: var(--parlour--color-neutral-950);
+    --parlour-content-list-rule: var(--parlour--color-neutral-300);
+    --parlour-content-list-muted: var(--parlour--color-neutral-600);
+    --parlour-content-list-strong: var(--parlour--color-neutral-900);
+    --parlour-content-list-accent: var(--parlour--color-accent-primary);
+    --parlour-content-list-title: var(--parlour--color-neutral-950);
+    --parlour-content-list-excerpt: var(--parlour--color-neutral-800);
+    --parlour-content-list-focus: var(--parlour--color-accent-primary);
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--parlour-content-list-rule-strong);
+}
+
+.parlour-content-list--small {
+    --parlour-content-list-index-width: 3.5rem;
+    --parlour-content-list-meta-width: 6rem;
+    --parlour-content-list-label-width: 6rem;
+    --parlour-content-list-image-size: 3.5rem;
+    --parlour-content-list-gap: var(--parlour--spacing-large);
+    --parlour-content-list-padding: var(--parlour--spacing-large);
+    --parlour-content-list-title-size: var(--parlour--font-size-large);
+}
+
+.parlour-container--dark,
+.parlour-container--medium {
+    .parlour-content-list {
+        --parlour-content-list-rule-strong: var(--parlour--color-neutral-300);
+        --parlour-content-list-rule: var(--parlour--color-neutral-700);
+        --parlour-content-list-muted: var(--parlour--color-neutral-300);
+        --parlour-content-list-strong: var(--parlour--color-neutral-100);
+        --parlour-content-list-accent: var(--parlour--color-accent-primary-light);
+        --parlour-content-list-title: var(--parlour--color-white);
+        --parlour-content-list-excerpt: var(--parlour--color-neutral-200);
+        --parlour-content-list-focus: var(--parlour--color-accent-primary-light);
+    }
+}
+
+// Mono parts sit on the title's first line. A row with an image centres instead, since an
+// image has no text baseline to share.
+.parlour-content-list__item {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--parlour-content-list-gap);
+    margin: 0;
+    padding-block: var(--parlour-content-list-padding);
+    border-bottom: 1px solid var(--parlour-content-list-rule);
+
+    &:has(.parlour-content-list__image) {
+        align-items: center;
+    }
+
+    @include vars.above-tablet {
+        flex-wrap: nowrap;
+    }
+}
+
+%parlour-content-list-mono {
+    font-family: var(--parlour--font-family-jetbrains-mono);
+    font-size: var(--parlour--font-size-2-x-small);
+    font-weight: var(--parlour--font-weight-normal);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.parlour-content-list__index {
+    @extend %parlour-content-list-mono;
+
+    flex: 0 0 var(--parlour-content-list-index-width);
+}
+
+.parlour-content-list__index--muted {
+    color: var(--parlour-content-list-muted);
+}
+
+.parlour-content-list__index--accent {
+    font-size: var(--parlour--font-size-large);
+    letter-spacing: 0;
+    color: var(--parlour-content-list-accent);
+}
+
+.parlour-content-list__meta {
+    @extend %parlour-content-list-mono;
+
+    display: flex;
+    flex: 0 0 var(--parlour-content-list-meta-width);
+    flex-direction: column;
+    color: var(--parlour-content-list-muted);
+
+    > * + * {
+        color: var(--parlour-content-list-strong);
+    }
+}
+
+// End-aligned meta usually closes the row, so once the row wraps below the tablet breakpoint it
+// drops under the body; there it lines up with the body's start edge instead.
+.parlour-content-list__meta--end {
+    @include vars.below-tablet {
+        flex-basis: 100%;
+    }
+
+    @include vars.above-tablet {
+        text-align: end;
+    }
+}
+
+.parlour-content-list__label {
+    @extend %parlour-content-list-mono;
+
+    flex: 0 0 var(--parlour-content-list-label-width);
+}
+
+.parlour-content-list__label--accent {
+    color: var(--parlour-content-list-accent);
+}
+
+.parlour-content-list__label--muted {
+    color: var(--parlour-content-list-muted);
+}
+
+.parlour-content-list__image {
+    flex: 0 0 var(--parlour-content-list-image-size);
+    inline-size: var(--parlour-content-list-image-size);
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+// Below the tablet breakpoint the body takes a line of its own under the other parts.
+.parlour-content-list__body {
+    flex: 1 1 100%;
+    min-width: 0;
+
+    > * {
+        margin-block: 0;
+    }
+
+    > * + * {
+        margin-block-start: var(--parlour--spacing-small);
+    }
+
+    @include vars.above-tablet {
+        flex-basis: 0;
+    }
+}
+
+// Doubled class beats Main's and Container's heading rules, as Card does.
+.parlour-content-list .parlour-content-list__title {
+    font-family: var(--parlour--font-family-inter-tight);
+    font-size: var(--parlour-content-list-title-size);
+    font-weight: var(--parlour--font-weight-medium);
+    line-height: var(--parlour--line-height-tight);
+    letter-spacing: -0.5px;
+    color: var(--parlour-content-list-title);
+}
+
+.parlour-content-list__excerpt {
+    color: var(--parlour-content-list-excerpt);
+}
+
+// Stretched link: the title's link covers the whole row with its ::after, so a click anywhere on
+// the row follows it while the link's accessible name stays the title text. Scoped to the list so
+// it outranks Main's `.parlour-main a` bold and hover underline whatever order the stylesheets load.
+.parlour-content-list .parlour-content-list__link {
+    font-weight: inherit;
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    &:focus-visible {
+        outline: none;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+    }
+}
+
+.parlour-content-list__item:has(.parlour-content-list__link:focus-visible) {
+    outline: 2px solid var(--parlour-content-list-focus);
+    outline-offset: var(--parlour--spacing-2-x-small);
+}
+
+// The hover overlay is a translucent layer over whatever sits behind the row, as Card's
+// backgroundHover is, and only a linked row gets it.
+.parlour-content-list--bg-hover-light
+    > .parlour-content-list__item:has(.parlour-content-list__link):hover {
+    background-image: linear-gradient(
+        var(--parlour--color-overlay-light),
+        var(--parlour--color-overlay-light)
+    );
+}
+
+.parlour-content-list--bg-hover-dark
+    > .parlour-content-list__item:has(.parlour-content-list__link):hover {
+    background-image: linear-gradient(
+        var(--parlour--color-overlay-dark),
+        var(--parlour--color-overlay-dark)
+    );
+}

@@ -32,6 +32,26 @@ export { CardLink, type CardLinkProps } from './components/Card/CardLink';
 export { ProjectCard, type ProjectCardProps } from './components/ProjectCard/ProjectCard';
 
 // Content
+export {
+    ContentList,
+    ContentListItem,
+    ContentListIndex,
+    ContentListMeta,
+    ContentListLabel,
+    ContentListImage,
+    ContentListBody,
+    ContentListTitle,
+    ContentListExcerpt,
+    type ContentListProps,
+    type ContentListItemProps,
+    type ContentListIndexProps,
+    type ContentListMetaProps,
+    type ContentListLabelProps,
+    type ContentListImageProps,
+    type ContentListBodyProps,
+    type ContentListTitleProps,
+    type ContentListExcerptProps,
+} from './components/ContentList';
 export { CodeBlock, type CodeBlockProps } from './components/CodeBlock/CodeBlock';
 export { Figure, type FigureProps } from './components/Figure/Figure';
 export { HeroHeader, type HeroHeaderProps } from './components/HeroHeader/HeroHeader';

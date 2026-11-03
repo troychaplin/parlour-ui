@@ -1,0 +1,173 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ContentListStories from './ContentList.stories';
+
+<Meta of={ContentListStories} />
+
+# ContentList
+
+A ruled list of posts or other entries, where each row is built from part components you choose and order. Renders a `<ul>` by default, or the element set by `as`, with a strong rule above the first row and a light rule under each one.
+
+## When to use
+
+- List essays, releases or other entries in an index: a number, a date, a category, a thumbnail and a title, in whichever combination and order the layout needs.
+- Put the same parts in the same order in every row, and the columns line up from row to row.
+- Use a [`GridGroup`](?path=/docs/components-layout-grid-group--docs) of [`Card`](?path=/docs/components-cards-card--docs)s or [`ProjectCard`](?path=/docs/components-cards-project-card--docs)s for tiles, not rows.
+
+## Import
+
+```tsx
+import {
+    ContentList,
+    ContentListItem,
+    ContentListIndex,
+    ContentListMeta,
+    ContentListLabel,
+    ContentListImage,
+    ContentListBody,
+    ContentListTitle,
+    ContentListExcerpt,
+} from '@troychaplin/parlour-ui';
+```
+
+## Basic usage
+
+```tsx
+// Index, label, title and excerpt, with the date at the end
+<ContentList maxWidth="alignwide">
+    <ContentListItem>
+        <ContentListIndex>No. 184</ContentListIndex>
+        <ContentListLabel>WordPress</ContentListLabel>
+        <ContentListBody>
+            <ContentListTitle href="/writing/184">Block-based theme.json…</ContentListTitle>
+            <ContentListExcerpt>After three years…</ContentListExcerpt>
+        </ContentListBody>
+        <ContentListMeta align="end">
+            <span>21 Apr 2026</span>
+            <span>11 min</span>
+        </ContentListMeta>
+    </ContentListItem>
+</ContentList>
+
+// A numbered contents list with thumbnails
+<ContentList as="ol">
+    <ContentListItem>
+        <ContentListIndex variant="accent">01</ContentListIndex>
+        <ContentListImage src="/thumb.jpg" alt="" />
+        <ContentListLabel color="muted">Essay · WordPress</ContentListLabel>
+        <ContentListBody>…</ContentListBody>
+    </ContentListItem>
+</ContentList>
+
+// Smaller, for a half-width column
+<ContentList size="small">…</ContentList>
+```
+
+### Parts
+
+| Part                 | Renders                                                                                                      |
+| -------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `ContentListItem`    | One row, an `<li>` (or `<div>` with `as="div"` when the list is a `<div>`)                                   |
+| `ContentListIndex`   | A number. `variant="muted"` (default) is small mono text; `variant="accent"` is larger, in the accent colour |
+| `ContentListMeta`    | Stacked lines, one per child — a date over a read time. `align="end"` right-aligns them for the end of a row |
+| `ContentListLabel`   | A category. `color="accent"` (default) or `color="muted"`                                                    |
+| `ContentListImage`   | A square thumbnail `<img>`. `alt` is required; pass `alt=""` when the title already says what it shows       |
+| `ContentListBody`    | Takes the width the other parts leave; holds the title and excerpt                                           |
+| `ContentListTitle`   | An `<h3>` (or `level` 2–4). With `href`, its text is a link that makes the whole row clickable               |
+| `ContentListExcerpt` | A paragraph under the title                                                                                  |
+
+## Examples
+
+### Default
+
+Index, label and body, with the date and read time at the end of the row. Below 768px the row wraps: the small parts sit above the body, and the end meta drops under it.
+
+<Canvas of={ContentListStories.Default} />
+<Controls of={ContentListStories.Default} />
+
+### Meta before the label
+
+The same parts in a different order: the date and read time come second, before the label.
+
+<Canvas of={ContentListStories.WithMeta} />
+
+### With images
+
+An `ol` with an accent index, a thumbnail and a muted label. A row with an image centres its parts vertically; other rows line them up with the title's first line.
+
+<Canvas of={ContentListStories.WithImage} />
+
+### Small, in a column
+
+`size="small"` scales down the title, the spacing and the column widths so the list fits half the page, here beside a small [`HeroHeader`](?path=/docs/components-headers-hero-header--docs).
+
+<Canvas of={ContentListStories.SmallInColumn} />
+
+### Background on hover
+
+`backgroundHover` lays a translucent overlay over a linked row while the pointer is over it: `light` for dark sections and `dark` for light ones, the same overlay tokens as `Card`'s `backgroundHover`. Only rows whose title has an `href` get it.
+
+<Canvas of={ContentListStories.BackgroundHover} />
+
+### In a dark Container
+
+Inside a dark or medium [`Container`](?path=/docs/components-layout-container--docs), the rules, muted text, title, excerpt and accent all switch to their light variants.
+
+<Canvas of={ContentListStories.InDarkContainer} />
+
+## CSS classes
+
+| Class                                                     | When applied                                                            |
+| --------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `parlour-content-list`                                    | Always — base class on the list                                         |
+| `parlour-content-list--{size}`                            | Always — the `size` value, e.g. `parlour-content-list--large` (default) |
+| `parlour-content-list--bg-hover-{name}`                   | `backgroundHover` is set — `light` or `dark`                            |
+| `aligncontent` / `alignwide` / `alignfull` / `alignsmall` | The `maxWidth` value, as a bare shared class                            |
+| `parlour-content-list__item`                              | On `ContentListItem`                                                    |
+| `parlour-content-list__index` + `--{variant}`             | On `ContentListIndex` — `--muted` (default) or `--accent`               |
+| `parlour-content-list__meta` + `--{align}`                | On `ContentListMeta` — `--start` (default) or `--end`                   |
+| `parlour-content-list__label` + `--{color}`               | On `ContentListLabel` — `--accent` (default) or `--muted`               |
+| `parlour-content-list__image`                             | On `ContentListImage`                                                   |
+| `parlour-content-list__body`                              | On `ContentListBody`                                                    |
+| `parlour-content-list__title`                             | On `ContentListTitle`                                                   |
+| `parlour-content-list__link`                              | On the title's link when `href` is set — its `::after` covers the row   |
+| `parlour-content-list__excerpt`                           | On `ContentListExcerpt`                                                 |
+
+Each part's `className` is appended after its own classes.
+
+Each fixed part takes its width from a custom property set on the list: `--parlour-content-list-index-width` (`5rem`), `--parlour-content-list-meta-width` (`8rem`), `--parlour-content-list-label-width` (`9rem`) and `--parlour-content-list-image-size` (`5rem`); `size="small"` narrows them to `3.5rem`, `6rem`, `6rem` and `3.5rem`. Set one on the list, through `style` or your own class, to resize that column in every row. The list's colours are custom properties as well (`--parlour-content-list-muted`, `-accent`, `-title`, `-rule` and so on), which the dark and medium Container rules swap.
+
+## Design tokens
+
+| Token                                                      | Used for                                                                     |
+| ---------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `--parlour--font-family-jetbrains-mono`                    | Index, meta and label                                                        |
+| `--parlour--font-size-2-x-small`                           | Index, meta and label size                                                   |
+| `--parlour--font-size-large`                               | `accent` index; title at `size="small"`                                      |
+| `--parlour--font-family-inter-tight`                       | Title font family                                                            |
+| `--parlour--font-size-x-large`                             | Title size, `large` (default)                                                |
+| `--parlour--font-weight-medium`                            | Title weight                                                                 |
+| `--parlour--line-height-tight`                             | Title line height                                                            |
+| `--parlour--spacing-x-large` / `-large`                    | Gap between parts, `large` / `small`                                         |
+| `--parlour--spacing-2-x-large` / `-large`                  | Row padding, `large` / `small`                                               |
+| `--parlour--spacing-small`                                 | Space between the title and excerpt                                          |
+| `--parlour--color-neutral-950`                             | Top rule and title                                                           |
+| `--parlour--color-neutral-300`                             | Row rules; muted text and top rule in dark and medium Containers             |
+| `--parlour--color-neutral-600`                             | Muted index, meta and label                                                  |
+| `--parlour--color-neutral-900`                             | Meta lines after the first                                                   |
+| `--parlour--color-neutral-800`                             | Excerpt                                                                      |
+| `--parlour--color-accent-primary`                          | Accent index and label; focus outline                                        |
+| `--parlour--color-accent-primary-light`                    | The same in dark and medium Containers                                       |
+| `--parlour--color-neutral-700` / `-100` / `-200` / `white` | Row rules, later meta lines, excerpt and title in dark and medium Containers |
+| `--parlour--color-overlay-light` / `-dark`                 | `backgroundHover` overlays                                                   |
+
+The column widths, the `1px` rules, the `2px` focus outline, the mono parts' `0.1em` letter spacing and the title's `-0.5px` letter spacing are raw values rather than design tokens.
+
+## Accessibility
+
+- The default `<ul>` (or `as="ol"` for a numbered list) is announced as a list with its item count. The list gets `role="list"`, because removing the bullets otherwise makes Safari and VoiceOver stop announcing it as one.
+- The row's link is the title text, so screen readers announce a short link and voice-control users can say what they see (WCAG 2.5.3 Label in Name). An `::after` overlay stretches it over the row, so a click anywhere on the row follows it. While it has focus, the outline is drawn around the whole row.
+- Use one linked title per row. The overlay sits above the row's other content, so another link inside the row needs `position: relative` and a `z-index` to stay clickable.
+- `ContentListImage` requires `alt`. Thumbnails usually repeat what the title says, so pass `alt=""` to have screen readers skip them.
+- The index, meta and label come before the title in reading order. Write them so they make sense read aloud, e.g. "No. 184" rather than a bare number.
+- `ContentListTitle` is a client component (`'use client'`) because it reads [`LinkProvider`](?path=/docs/components-utilities-linkprovider--docs); the other parts are not. Server components can render all of them.
+- Muted text, accent text and titles pass WCAG AA on light sections and in dark and medium Containers.

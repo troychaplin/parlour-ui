@@ -91,6 +91,7 @@ export const Homepage: Story = {
                             <ProjectCard
                                 key={id}
                                 backgroundColor="dark"
+                                backgroundHover="dark"
                                 border={false}
                                 {...experiment}
                             />
