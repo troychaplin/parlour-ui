@@ -1,0 +1,47 @@
+/* Docs-only styles for ControlTabs, echoing the tab strip Storybook draws above its own tables. */
+.control-tabs__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin: 24px 0 0;
+    border-bottom: 1px solid rgba(38, 85, 115, 0.15);
+}
+
+.control-tabs__tab {
+    margin-bottom: -1px;
+    padding: 10px 14px;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    background: none;
+    color: #5c6870;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.control-tabs__tab:hover {
+    color: #029cfd;
+}
+
+.control-tabs__tab[aria-selected='true'] {
+    border-bottom-color: #029cfd;
+    color: #0071d4;
+}
+
+.control-tabs__tab:focus-visible {
+    outline: 2px solid #029cfd;
+    outline-offset: -2px;
+}
+
+/* Storybook's table already has its own top margin */
+.control-tabs__panel > * {
+    margin-top: 0;
+}
+
+/* Each tab already names its part, so drop the matching category header row Storybook draws
+   above the rows. The row is only identifiable by its collapse title. */
+.control-tabs__panel tr[title^='Hide '],
+.control-tabs__panel tr[title^='Show '] {
+    display: none;
+}

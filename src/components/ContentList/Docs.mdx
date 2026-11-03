@@ -1,5 +1,6 @@
-import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 import * as ContentListStories from './ContentList.stories';
+import { ControlTabs } from '../../../.storybook/blocks/ControlTabs';
 
 <Meta of={ContentListStories} />
 
@@ -77,12 +78,29 @@ import {
 
 ## Examples
 
+### Playground
+
+Every part's props in one story. Each tab holds the controls for one part, and they all change the same list. The toggles on the ContentListMeta, ContentListImage and ContentListExcerpt tabs add or remove that part from every row. ContentListItem and ContentListBody have no tab, as there's nothing on them to change here.
+
+<Canvas of={ContentListStories.Playground} />
+<ControlTabs
+    of={ContentListStories.Playground}
+    tabs={[
+        { label: 'ContentList', include: ['as', 'size', 'backgroundHover', 'maxWidth'] },
+        { label: 'ContentListIndex', include: ['variant'] },
+        { label: 'ContentListMeta', include: ['align', 'showMeta'] },
+        { label: 'ContentListLabel', include: ['color'] },
+        { label: 'ContentListImage', include: ['showImage'] },
+        { label: 'ContentListTitle', include: ['level'] },
+        { label: 'ContentListExcerpt', include: ['showExcerpt'] },
+    ]}
+/>
+
 ### Default
 
 Index, label and body, with the date and read time at the end of the row. Below 768px the row wraps: the small parts sit above the body, and the end meta drops under it.
 
 <Canvas of={ContentListStories.Default} />
-<Controls of={ContentListStories.Default} />
 
 ### Meta before the label
 

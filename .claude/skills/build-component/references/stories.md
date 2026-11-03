@@ -107,6 +107,47 @@ argTypes: {
 When a story maps over the same option set, hoist it to a `const ... as const` above `meta` and
 use it for both the `argTypes` options and the map — one source of truth.
 
+## Compound components
+
+When a component is built from separately exported parts (`ContentList` and `ContentListItem`,
+`ContentListTitle`…), a story's args only reach the one `component` in `meta`. Give the parts
+editable controls in a `Playground` story, and split them into a tab per part in the docs:
+
+- **Don't use `meta.subcomponents`.** Storybook renders its tabs read-only by design, so they sit
+  empty or uneditable next to the real controls.
+- **Part args on the Playground story.** Key each part prop by part (`indexVariant`, `labelColor`)
+  so the keys stay unique. Give each one `name` (the part's prop name, e.g. `'variant'`), a
+  `description` and `table: { category: 'PartName' }`, so the canvas Controls panel groups them by
+  part. Type them by widening the meta args, `Meta<ComponentProps & PlaygroundArgs>`, using the
+  parts' prop types (`ContentListIndexProps['variant']`). Declare the part `argTypes` on the
+  Playground story only. A part with only children can still get a `show…` boolean that adds or
+  removes it.
+- **Tabs in `Docs.mdx`.** Render `ControlTabs` from `.storybook/blocks/ControlTabs` in place of
+  `<Controls>`, one tab per component that has a Playground control. Each tab's `include` lists arg
+  display names. Storybook's `include` matches the `name` (or the key when there's no `name`), so
+  every name in the story must be unique: two parts can't both use `name: 'variant'`.
+
+```mdx
+import { ControlTabs } from '../../../.storybook/blocks/ControlTabs';
+
+<ControlTabs
+    of={ContentListStories.Playground}
+    tabs={[
+        { label: 'ContentList', include: ['as', 'size'] },
+        { label: 'ContentListIndex', include: ['variant'] },
+    ]}
+/>
+```
+
+In the Playground render, pass the main component's props explicitly (`size={args.size}`) rather
+than `{...args}`. Spreading would put the part args on the DOM as unknown attributes. Keep the
+parameter a plain `(args)`: the `unwrapRender` regex doesn't match a destructured parameter.
+
+`src/components/ContentList/` is the worked example.
+
+The docgen plugin builds its TypeScript program when Storybook starts, so files created while it's
+running get no props tables. Restart Storybook after adding a component.
+
 ## Layout
 
 `.storybook/preview.ts` sets `layout: 'padded'` globally: the story fills the canvas width inside

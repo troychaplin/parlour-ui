@@ -1,5 +1,6 @@
-import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 import * as ButtonGroupStories from './ButtonGroup.stories';
+import { ControlTabs } from '../../../.storybook/blocks/ControlTabs';
 
 <Meta of={ButtonGroupStories} />
 
@@ -41,12 +42,24 @@ import { ButtonGroup } from '@troychaplin/parlour-ui';
 
 ## Examples
 
+### Playground
+
+The ButtonGroup tab switches alignment, and the Button tab changes every Button in the group at once. Leave `color` unset to keep each Button its own colour.
+
+<Canvas of={ButtonGroupStories.Playground} />
+<ControlTabs
+    of={ButtonGroupStories.Playground}
+    tabs={[
+        { label: 'ButtonGroup', include: ['align'] },
+        { label: 'Button', include: ['color', 'rounded', 'isSmall', 'isOutline', 'disabled'] },
+    ]}
+/>
+
 ### Default
 
-Left-aligned group using the `start` default. Use the controls to switch alignment and observe how the group reflows.
+Left-aligned group using the `start` default.
 
 <Canvas of={ButtonGroupStories.Default} />
-<Controls of={ButtonGroupStories.Default} />
 
 ### Centered
 

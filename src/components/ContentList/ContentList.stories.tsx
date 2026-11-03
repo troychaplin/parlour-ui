@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ContentList } from './ContentList';
+import { ContentList, type ContentListProps } from './ContentList';
 import { ContentListItem } from './ContentListItem';
-import { ContentListIndex } from './ContentListIndex';
-import { ContentListMeta } from './ContentListMeta';
-import { ContentListLabel } from './ContentListLabel';
+import { ContentListIndex, type ContentListIndexProps } from './ContentListIndex';
+import { ContentListMeta, type ContentListMetaProps } from './ContentListMeta';
+import { ContentListLabel, type ContentListLabelProps } from './ContentListLabel';
 import { ContentListImage } from './ContentListImage';
 import { ContentListBody } from './ContentListBody';
-import { ContentListTitle } from './ContentListTitle';
+import { ContentListTitle, type ContentListTitleProps } from './ContentListTitle';
 import { ContentListExcerpt } from './ContentListExcerpt';
 import { Main } from '../Main/Main';
 import { Container } from '../Container/Container';
@@ -15,7 +15,21 @@ import { HeroHeader } from '../HeroHeader/HeroHeader';
 import { PostData } from '../../data/PostData';
 import { maxWidthClasses } from '../../utils/propClasses';
 
-const meta: Meta<typeof ContentList> = {
+// The Playground story's part args. Storybook passes a story's args to its one `component`, so
+// each part's props are story-level args here and the Playground render hands them to the parts.
+// Each has the part's prop name as its display `name`, which Docs.mdx's ControlTabs filters on, so
+// those names must stay unique; `category` groups them by part in the canvas Controls panel.
+type PlaygroundArgs = ContentListProps & {
+    indexVariant?: ContentListIndexProps['variant'];
+    metaAlign?: ContentListMetaProps['align'];
+    showMeta?: boolean;
+    labelColor?: ContentListLabelProps['color'];
+    showImage?: boolean;
+    titleLevel?: ContentListTitleProps['level'];
+    showExcerpt?: boolean;
+};
+
+const meta: Meta<PlaygroundArgs> = {
     title: 'Components/Content/Content List',
     component: ContentList,
     tags: ['!autodocs'],
@@ -57,7 +71,7 @@ const meta: Meta<typeof ContentList> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof ContentList>;
+type Story = StoryObj<PlaygroundArgs>;
 
 const defaultRows = PostData.map((post) => (
     <ContentListItem key={post.id}>
@@ -73,6 +87,94 @@ const defaultRows = PostData.map((post) => (
         </ContentListMeta>
     </ContentListItem>
 ));
+
+export const Playground: Story = {
+    args: {
+        maxWidth: 'alignwide',
+        indexVariant: 'muted',
+        metaAlign: 'end',
+        showMeta: true,
+        labelColor: 'accent',
+        showImage: false,
+        titleLevel: 3,
+        showExcerpt: true,
+    },
+    argTypes: {
+        indexVariant: {
+            name: 'variant',
+            description: '`variant` on each ContentListIndex',
+            control: 'inline-radio',
+            options: ['muted', 'accent'],
+            table: { category: 'ContentListIndex' },
+        },
+        metaAlign: {
+            name: 'align',
+            description: '`align` on each ContentListMeta',
+            control: 'inline-radio',
+            options: ['start', 'end'],
+            table: { category: 'ContentListMeta' },
+        },
+        showMeta: {
+            description: 'Adds or removes ContentListMeta in each row',
+            control: 'boolean',
+            table: { category: 'ContentListMeta' },
+        },
+        labelColor: {
+            name: 'color',
+            description: '`color` on each ContentListLabel',
+            control: 'inline-radio',
+            options: ['accent', 'muted'],
+            table: { category: 'ContentListLabel' },
+        },
+        showImage: {
+            description: 'Adds or removes ContentListImage in each row',
+            control: 'boolean',
+            table: { category: 'ContentListImage' },
+        },
+        titleLevel: {
+            name: 'level',
+            description: '`level` on each ContentListTitle',
+            control: 'inline-radio',
+            options: [2, 3, 4],
+            table: { category: 'ContentListTitle' },
+        },
+        showExcerpt: {
+            description: 'Adds or removes ContentListExcerpt in each row',
+            control: 'boolean',
+            table: { category: 'ContentListExcerpt' },
+        },
+    },
+    render: (args) => (
+        <ContentList
+            as={args.as}
+            size={args.size}
+            backgroundHover={args.backgroundHover}
+            maxWidth={args.maxWidth}
+        >
+            {PostData.map((post) => (
+                <ContentListItem key={post.id}>
+                    <ContentListIndex variant={args.indexVariant}>No. {post.id}</ContentListIndex>
+                    {args.showImage && <ContentListImage src={post.image} alt="" />}
+                    <ContentListLabel color={args.labelColor}>{post.category}</ContentListLabel>
+                    <ContentListBody>
+                        <ContentListTitle level={args.titleLevel} href={post.href}>
+                            {post.title}
+                        </ContentListTitle>
+                        {args.showExcerpt && (
+                            <ContentListExcerpt>{post.excerpt}</ContentListExcerpt>
+                        )}
+                    </ContentListBody>
+                    {args.showMeta && (
+                        <ContentListMeta align={args.metaAlign}>
+                            <span>{post.date}</span>
+                            <span>{post.readTime}</span>
+                        </ContentListMeta>
+                    )}
+                </ContentListItem>
+            ))}
+        </ContentList>
+    ),
+};
 
 export const Default: Story = {
     args: {
