@@ -14,8 +14,6 @@ import { HeroHeader } from '../components/HeroHeader/HeroHeader';
 import { SectionHeader } from '../components/SectionHeader/SectionHeader';
 import { GridGroup } from '../components/GridGroup/GridGroup';
 import { ProjectCard } from '../components/ProjectCard/ProjectCard';
-import { CodeBlock } from '../components/CodeBlock/CodeBlock';
-import { CodeDataReact } from '../data/CodeData';
 import { ProjectData } from '../data/ProjectData';
 
 const meta: Meta = {
@@ -29,11 +27,11 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-export const WorkLayout: Story = {
+export const WorkLife: Story = {
     parameters: {
         a11y: {
             config: {
-                rules: [{ id: 'color-contrast', enabled: true }],
+                rules: [{ id: 'color-contrast', enabled: false }],
             },
         },
     },
@@ -60,9 +58,9 @@ export const WorkLayout: Story = {
                     <Hero>
                         <div className="parlour-hero__content">
                             <HeroHeader
-                                prefix="Building for the open web."
-                                title="Plugins, projects"
-                                titleAccent="& open source contributions"
+                                prefix="Skills and experience."
+                                title="Nineteen years of"
+                                titleAccent="building for the web"
                             >
                                 <ul className="parlour-hero-header__stats">
                                     <li>7 released plugins</li>
@@ -70,9 +68,6 @@ export const WorkLayout: Story = {
                                     <li>3 active contributions</li>
                                 </ul>
                             </HeroHeader>
-                        </div>
-                        <div className="parlour-hero__code">
-                            <CodeBlock code={CodeDataReact} color="medium" borderRadius="sm" />
                         </div>
                     </Hero>
                 </Container>

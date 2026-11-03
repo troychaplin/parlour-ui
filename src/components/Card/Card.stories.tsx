@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Card } from './Card';
+import { CardLink } from './CardLink';
 import { Main } from '../Main/Main';
 import { Container } from '../Container/Container';
 import { GridGroup } from '../GridGroup/GridGroup';
@@ -120,11 +121,11 @@ export const InDarkContainer: Story = {
 
 export const WithLink: Story = {
     args: {
-        href: '/work',
-        linkProps: { 'aria-labelledby': 'card-with-link-title' },
         children: (
             <>
-                <h3 id="card-with-link-title">Card title</h3>
+                <h3>
+                    <CardLink href="/work">Card title</CardLink>
+                </h3>
                 <SingleParagraph />
             </>
         ),

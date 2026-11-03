@@ -5,7 +5,7 @@ import * as ProjectCardStories from './ProjectCard.stories';
 
 # Project Card
 
-A card for a software project: a type eyebrow and a brand icon, a title, a version, a description and a footer line. Renders a [`Card`](?path=/docs/components-cards-card--docs) with a heading inside; when `href` is set, the whole card links to it.
+A card for a software project: a type eyebrow and a brand icon, a title, a version, a description and a footer line. Renders a [`Card`](?path=/docs/components-cards-card--docs) with a heading inside; when `href` is set, the title becomes a link that covers the whole card.
 
 ## When to use
 
@@ -89,7 +89,7 @@ These are added alongside `Card`'s own classes, such as `parlour-card--bg-light`
 | `parlour-project-card__footer`      | `footer` or `href` is set                                                   |
 | `parlour-project-card__arrow`       | `href` is set — nudges right while the link is hovered                      |
 
-Padding comes from `Card`'s `paddingInline` and `paddingBlock` props, which `ProjectCard` passes through unchanged. With `href`, `ProjectCard` passes it to `Card`, which wraps the content in a [full-card link](?path=/docs/components-cards-card--docs) that takes over the padding, so the whole card is clickable. `ProjectCard` points the link's `aria-labelledby` at the title.
+Padding comes from `Card`'s `paddingInline` and `paddingBlock` props, which `ProjectCard` passes through unchanged. With `href`, the title's text is wrapped in a [`CardLink`](?path=/docs/components-cards-card--docs) whose overlay covers the card, so the whole card is clickable.
 
 ## Design tokens
 
@@ -128,11 +128,11 @@ The title's `letter-spacing` (`-0.5px`) and the footer divider's `1px` width are
 
 ## Accessibility
 
-- With `href`, the link wraps everything inside the card, so the whole card is clickable. A link that wraps a whole card would normally be announced with all of its text, so `aria-labelledby` points it at the title: screen readers announce a single link named after the project, such as "Glyph Blocks". Don't put other links or buttons inside — interactive elements can't be nested in a link.
+- With `href`, the link wraps only the title, and its overlay makes the whole card clickable. Its name is the visible title, such as "Glyph Blocks", so screen readers announce a short link and voice-control users can activate it by saying the title.
 - The link goes through [`LinkProvider`](?path=/docs/components-utilities-linkprovider--docs), so it uses your router's link component.
-- The link comes from `Card` and fills it, so its focus outline is drawn around the whole card.
+- While the link has focus, the outline is drawn around the whole card.
 - The arrow is decorative and hidden from screen readers.
-- The icon is announced by its brand name, such as "WordPress", when screen reader users read through the card. It sits inside the link but doesn't change the link's name, which comes from the title alone.
+- The icon is announced by its brand name, such as "WordPress", when screen reader users read through the card. It sits outside the link, so the link's name is the title alone.
 - The type eyebrow is a paragraph before the heading, so screen reader users jumping between headings skip it — the same as `SectionHeader`'s eyebrow.
 - Set `headingLevel` to fit the page outline: `h3` suits cards under a section's `h2`.
 - Every part passes WCAG AA on all four backgrounds. The lowest are the eyebrow and version: 5.5:1 on `light`, 5.9:1 on `white`, 7.5:1 on `medium` and 11:1 on `dark`.

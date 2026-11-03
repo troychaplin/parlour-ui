@@ -28,6 +28,7 @@ export { ButtonGroup } from './components/ButtonGroup/ButtonGroup';
 
 // Cards
 export { Card, type CardProps } from './components/Card/Card';
+export { CardLink, type CardLinkProps } from './components/Card/CardLink';
 export { ProjectCard, type ProjectCardProps } from './components/ProjectCard/ProjectCard';
 
 // Content

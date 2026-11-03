@@ -17,6 +17,12 @@ Prefix the change with one of these keywords:
 
 ## [Unreleased]
 
+_Breaking_ `Card` no longer takes `href` or `linkProps`. Put a `CardLink` inside the card instead, usually around its heading text — it stretches over the whole card.
+
+_Added_ `CardLink`, a link that makes its whole `Card` clickable while its accessible name stays its own text.
+
+_Fixed_ Linked `Card` and `ProjectCard` failing axe 4.14's `label-content-name-mismatch` rule (WCAG 2.5.3 Label in Name).
+
 ## [0.3.0] - 2026-10-07
 
 _Added_ `--parlour--color-accent-primary-light` and `--parlour--color-accent-secondary-light`, light

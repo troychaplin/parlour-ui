@@ -2,6 +2,7 @@
 @use '../../styles/c2b/parlour-variables' as vars;
 
 .parlour-card {
+    position: relative;
     min-width: 0;
 
     > :first-child {
@@ -90,8 +91,7 @@ li.parlour-card {
     --parlour-card-padding-block: 0;
 }
 
-// The padding modifiers set custom properties rather than padding, so a full-card link can take
-// the padding over from the card.
+// The padding modifiers set custom properties, applied in one place below.
 @each $name in map.keys(vars.$parlour-spacing) {
     .parlour-card--padding-inline-#{$name} {
         --parlour-card-padding-inline: var(--parlour--spacing-#{$name});
@@ -107,12 +107,10 @@ li.parlour-card {
     padding-block: var(--parlour-card-padding-block, 0);
 }
 
-// Full-card link, rendered by Card when `href` is set. The card hands its padding to the link and
-// stretches the link to fill it, so a click anywhere on the card follows the link.
-.parlour-card--linked {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
+// Stretched link: a CardLink inside the card (usually in its heading) covers the whole card with
+// its ::after, so a click anywhere on the card follows the link while the link's accessible name
+// stays its own visible text.
+.parlour-card:has(.parlour-card__link) {
     transition: border-color var(--parlour--transition-fast);
 
     &:hover {
@@ -124,24 +122,14 @@ li.parlour-card {
     }
 }
 
-.parlour-card__link {
-    flex: 1;
-    padding-inline: var(--parlour-card-padding-inline, 0);
-    padding-block: var(--parlour-card-padding-block, 0);
-
-    // The same even padding the card gives its own children
-    > :first-child {
-        margin-top: 0;
-    }
-
-    > :last-child {
-        margin-bottom: 0;
-    }
+.parlour-card__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
 }
 
 // Scoped to the card so it outranks Main's `.parlour-main a` and `a:hover` rules whatever order
-// the stylesheets load in. They would otherwise make every line of the card bold and underline it
-// on hover.
+// the stylesheets load in. They would otherwise make the link text bold and underline it on hover.
 .parlour-card .parlour-card__link {
     font-weight: inherit;
     color: inherit;
@@ -151,16 +139,21 @@ li.parlour-card {
         text-decoration: none;
     }
 
+    // The outline goes around the whole card instead, below
     &:focus-visible {
-        outline: 2px solid var(--parlour--color-accent-primary);
-        outline-offset: var(--parlour--spacing-2-x-small);
+        outline: none;
     }
+}
+
+.parlour-card:has(.parlour-card__link:focus-visible) {
+    outline: 2px solid var(--parlour--color-accent-primary);
+    outline-offset: var(--parlour--spacing-2-x-small);
 }
 
 // accent-primary falls below the 3:1 a focus outline needs on these backgrounds
 .parlour-card--bg-medium,
 .parlour-card--bg-dark {
-    .parlour-card__link:focus-visible {
+    &:has(.parlour-card__link:focus-visible) {
         outline-color: var(--parlour--color-accent-primary-light);
     }
 }

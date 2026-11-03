@@ -1,11 +1,10 @@
-import { useId } from 'react';
-
 import { Card, type CardProps } from '../Card/Card';
+import { CardLink } from '../Card/CardLink';
 import { BrandIcon } from '../BrandIcon/BrandIcon';
 import { brandIcons, type BrandIconName } from '../BrandIcon/brandIcons';
 import './styles.scss';
 
-export interface ProjectCardProps extends Omit<CardProps, 'children' | 'title' | 'linkProps'> {
+export interface ProjectCardProps extends Omit<CardProps, 'children' | 'title'> {
     title: string;
     href?: string;
     type?: string;
@@ -29,17 +28,10 @@ export const ProjectCard = ({
     ...rest
 }: ProjectCardProps) => {
     const Heading = headingLevel;
-    const titleId = useId();
     const rootClasses = ['parlour-project-card', className].filter(Boolean).join(' ');
 
     return (
-        <Card
-            className={rootClasses}
-            borderRadius="sm"
-            href={href}
-            linkProps={{ 'aria-labelledby': titleId }}
-            {...rest}
-        >
+        <Card className={rootClasses} borderRadius="sm" {...rest}>
             {(type || icon) && (
                 <div className="parlour-project-card__meta">
                     {type && <p className="parlour-project-card__type">{type}</p>}
@@ -53,8 +45,8 @@ export const ProjectCard = ({
                 </div>
             )}
 
-            <Heading className="parlour-project-card__title" id={titleId}>
-                {title}
+            <Heading className="parlour-project-card__title">
+                {href ? <CardLink href={href}>{title}</CardLink> : title}
             </Heading>
 
             {version && <p className="parlour-project-card__version">{version}</p>}

@@ -81,3 +81,10 @@ $parlour-viewport: (
     @content;
   }
 }
+
+// Same query as WordPress's @tablet: the band between the two breakpoints.
+@mixin only-tablet {
+  @media (#{$parlour-viewport-mobile} < width <= #{$parlour-viewport-tablet}) {
+    @content;
+  }
+}

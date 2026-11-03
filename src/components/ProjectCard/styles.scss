@@ -1,9 +1,5 @@
-// The content sits in the card, or in Card's link when there's an href. Whichever holds it is a
-// column flex box with the footer at the bottom, so footers line up across a grid row.
-// `:where()` keeps the link selector at one class, so the margin reset stays below the margins the
-// parts below set for themselves.
-.parlour-project-card,
-:where(.parlour-project-card) .parlour-card__link {
+// A column flex box with the footer at the bottom, so footers line up across a grid row.
+.parlour-project-card {
     display: flex;
     flex-direction: column;
 
@@ -103,9 +99,9 @@
     padding-block-start: var(--parlour--spacing-medium);
 }
 
-// Hover state for the project card link
-// Handles hover for the title, version, footer, type, and icon within the project card
-.parlour-project-card .parlour-card__link:hover {
+// Hover state for a linked project card: the link's overlay covers the card, so hovering anywhere
+// on it colours the title, version, footer and icon
+.parlour-project-card:has(.parlour-card__link):hover {
     .parlour-project-card__title,
     .parlour-project-card__footer {
         color: var(--parlour-project-card-hover);
@@ -119,15 +115,14 @@
 
 // The footer's auto margin takes any free space, so the gap above it comes from whatever
 // precedes it. Flex margins don't collapse, so the two add up.
-.parlour-project-card > :has(+ .parlour-project-card__footer),
-.parlour-project-card .parlour-card__link > :has(+ .parlour-project-card__footer) {
+.parlour-project-card > :has(+ .parlour-project-card__footer) {
     margin-block-end: var(--parlour--spacing-x-large);
 }
 
 .parlour-project-card__arrow {
     transition: transform var(--parlour--transition-fast);
 
-    .parlour-card__link:hover & {
+    .parlour-project-card:has(.parlour-card__link):hover & {
         transform: translateX(var(--parlour--spacing-2-x-small));
     }
 
