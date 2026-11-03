@@ -14,7 +14,7 @@ export interface GridGroupProps extends React.HTMLAttributes<HTMLElement> {
     align?: alignKeys;
     maxWidth?: maxWidthKeys;
     dividers?: 'none' | 'columns' | 'all';
-    dividerColor?: 'light' | 'medium' | 'dark';
+    dividerColor?: 'white' | 'light' | 'medium' | 'dark';
 }
 
 export const GridGroup = ({

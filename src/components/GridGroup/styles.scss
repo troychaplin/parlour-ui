@@ -89,6 +89,10 @@ $divider-width: 1px;
     background-color: var(--parlour-grid-group-divider);
 }
 
+.parlour-grid-group--divider-white {
+    --parlour-grid-group-divider: var(--parlour--color-white);
+}
+
 .parlour-grid-group--divider-light {
     --parlour-grid-group-divider: var(--parlour--color-neutral-300);
 }

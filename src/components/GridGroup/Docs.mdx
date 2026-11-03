@@ -78,7 +78,7 @@ Three cards in the wide width. On screens 768px wide and narrower they stack int
 
 ### Dividers on a dark section
 
-`dividerColor` sets the rule colour: `light` (default), `medium` or `dark`. Choose one with enough contrast against the section behind the grid.
+`dividerColor` sets the rule colour: `white`, `light` (default), `medium` or `dark`, the same set as `Card`'s and `ProjectCard`'s `borderColor`. Choose one with enough contrast against the section behind the grid.
 
 <Canvas of={GridGroupStories.DividersOnDark} />
 
@@ -100,12 +100,12 @@ The row-gap modifiers come after the gap modifiers in the stylesheet, so `rowGap
 
 ## Design tokens
 
-| Token                                                   | Used for                                                                                               |
-| ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `--parlour--spacing-*`                                  | `gap` and `rowGap` — any step of the spacing scale, or `none`                                          |
-| `--parlour--color-neutral-300` / `-500` / `-900`        | The `light`, `medium` and `dark` divider colours, the same as `Card`'s border colours                  |
-| `--parlour--layout-*-size`                              | `maxWidth`, through the shared `align*` classes                                                        |
-| `$parlour-viewport-mobile` / `$parlour-viewport-tablet` | The 600px and 768px column breakpoints, through the generated `above-mobile` and `above-tablet` mixins |
+| Token                                                       | Used for                                                                                               |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `--parlour--spacing-*`                                      | `gap` and `rowGap` — any step of the spacing scale, or `none`                                          |
+| `--parlour--color-white` / `-neutral-300` / `-500` / `-900` | The `white`, `light`, `medium` and `dark` divider colours, the same as `Card`'s border colours         |
+| `--parlour--layout-*-size`                                  | `maxWidth`, through the shared `align*` classes                                                        |
+| `$parlour-viewport-mobile` / `$parlour-viewport-tablet`     | The 600px and 768px column breakpoints, through the generated `above-mobile` and `above-tablet` mixins |
 
 Media queries can't read CSS custom properties, so the breakpoints use the SCSS variables generated from the `viewport` tokens rather than `--parlour--*` properties.
 

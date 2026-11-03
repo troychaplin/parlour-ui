@@ -81,12 +81,12 @@ export const WorkLife: Story = {
                         prefix="Experiments · Open source"
                         title="Things I experiment with."
                     />
-                    <GridGroup>
+                    <GridGroup dividerColor="dark" dividers="columns" gap="2-x-large">
                         {ExperimentsData.map(({ id, ...experiment }) => (
                             <ProjectCard
                                 key={id}
                                 backgroundColor="dark"
-                                borderColor="dark"
+                                border={false}
                                 {...experiment}
                             />
                         ))}

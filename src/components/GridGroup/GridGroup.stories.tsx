@@ -10,7 +10,7 @@ import { elementClasses, maxWidthClasses, spacingClasses } from '../../utils/pro
 const columnOptions = [1, 2, 3] as const;
 const alignOptions = ['start', 'center', 'end', 'stretch'] as const;
 const dividerOptions = ['none', 'columns', 'all'] as const;
-const dividerColorOptions = ['light', 'medium', 'dark'] as const;
+const dividerColorOptions = ['white', 'light', 'medium', 'dark'] as const;
 const spacingOptions = Object.keys(spacingClasses);
 
 const cards = (count: number, as?: 'li') =>
