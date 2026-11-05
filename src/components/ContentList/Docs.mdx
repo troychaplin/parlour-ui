@@ -116,7 +116,7 @@ An `ol` with an accent index, a thumbnail and a muted label. A row with an image
 
 ### Small, in a column
 
-`size="small"` scales down the title, the spacing and the column widths so the list fits half the page, here beside a small [`HeroHeader`](?path=/docs/components-headers-hero-header--docs).
+`size="small"` scales down the title, the excerpt, the spacing and the column widths so the list fits half the page, here beside a small [`HeroHeader`](?path=/docs/components-headers-hero-header--docs).
 
 <Canvas of={ContentListStories.SmallInColumn} />
 
@@ -160,9 +160,10 @@ Each fixed part takes its width from a custom property set on the list: `--parlo
 | ---------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | `--parlour--font-family-jetbrains-mono`                    | Index, meta and label                                                        |
 | `--parlour--font-size-2-x-small`                           | Index, meta and label size                                                   |
-| `--parlour--font-size-large`                               | `accent` index; title at `size="small"`                                      |
+| `--parlour--font-size-large`                               | `accent` index; title size, `large` (default)                                |
 | `--parlour--font-family-inter-tight`                       | Title font family                                                            |
-| `--parlour--font-size-x-large`                             | Title size, `large` (default)                                                |
+| `--parlour--font-size-medium`                              | Title size, `small`                                                          |
+| `--parlour--font-size-small` / `-x-small`                  | Excerpt size, `large` / `small`                                              |
 | `--parlour--font-weight-medium`                            | Title weight                                                                 |
 | `--parlour--line-height-tight`                             | Title line height                                                            |
 | `--parlour--spacing-x-large` / `-large`                    | Gap between parts, `large` / `small`                                         |
