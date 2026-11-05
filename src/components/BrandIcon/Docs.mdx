@@ -5,12 +5,12 @@ import * as BrandIconStories from './BrandIcon.stories';
 
 # Brand Icon
 
-A single-colour logo for a technology or service — React, WordPress, Next.js, npm and others. Renders an inline `<svg>` that takes the size and colour of the text around it.
+A single-colour logo for a technology or service — React, WordPress, Next.js, npm and others. Renders an inline `<svg>` that takes the size and colour of the text around it, or of the `size` and `color` tokens you pass.
 
 ## When to use
 
 - Show what a project is built with or where it's published, as in [`ProjectCard`](?path=/docs/components-cards-project-card--docs).
-- Pair it with a visible name, or give it a `label`, when the logo alone carries meaning.
+- Pair it with a visible name — pass `text` to set one beside the icon — or give it a `label`, when the logo alone carries meaning.
 - It isn't a general icon set: there are no interface icons such as arrows, menus or close buttons.
 
 ## Import
@@ -25,11 +25,17 @@ import { BrandIcon, type BrandIconName } from '@troychaplin/parlour-ui';
 // Decorative — hidden from screen readers, next to visible text
 <BrandIcon name="wordpress" /> WordPress
 
+// With text — the icon and text sit in a row, centred vertically
+<BrandIcon name="wordpress" text="WordPress" />
+
 // Standalone — announced as an image named "React"
 <BrandIcon name="react" label="React" />
 
-// Larger: the icon is 1em square, so set the font size
-<BrandIcon name="npm" style={{ fontSize: '2rem' }} />
+// Coloured with a token — no styles needed on the parent
+<BrandIcon name="github" text="GitHub" color="neutral-700" />
+
+// Larger: size takes any font-size token
+<BrandIcon name="npm" size="2-x-large" />
 ```
 
 ## Examples
@@ -39,17 +45,27 @@ import { BrandIcon, type BrandIconName } from '@troychaplin/parlour-ui';
 <Canvas of={BrandIconStories.Default} />
 <Controls of={BrandIconStories.Default} />
 
+### With text
+
+`text` renders a short label after the icon. The two are wrapped in an inline-flex `<span>` with `--parlour--spacing-x-small` between them. The text box is trimmed to its cap height (`text-box: trim-both cap alphabetic`), so the icon centres on the letters rather than on the line box with its leading and descenders. Browsers without `text-box` support centre on the line box instead, which sits the icon slightly lower. The text is set at `0.8em`, 80% of the icon's size, so a short label doesn't compete with the logo. When `size` is `2-x-large` or larger — up to `5-x-large` — it steps down to `0.6em`. A size inherited from the parent rather than set with `size` keeps `0.8em`. Use `size` to scale both together; `style` and `className` go on the `<svg>`, so a font size there resizes only the icon.
+
+<Canvas of={BrandIconStories.WithText} />
+
+### Size
+
+`size` takes a font-size token from `2-x-small` to `5-x-large`. The `hero` and `heading-*` sizes are left out, since they are meant for headings. It sets `var(--parlour--font-size-{size})`. With `text`, it goes on the wrapping `<span>`, so the icon and the text scale together. Try it with the `size` control on the Default story.
+
 ### All icons
 
 Every `name` the set includes. Each brand's display name is available as `brandIcons[name].title`.
 
 <Canvas of={BrandIconStories.AllIcons} />
 
-### Inherits colour
+### Colour
 
-The icon fills with `currentColor`, so it takes the colour of its text.
+`color` takes any colour token name — `accent-primary`, `neutral-700`, `github` and so on — and sets `var(--parlour--color-{color})`. With `text`, it goes on the wrapping `<span>`, so the icon and the text share it. Without `color`, the icon fills with `currentColor` and takes the colour of the text around it.
 
-<Canvas of={BrandIconStories.InheritsColor} />
+<Canvas of={BrandIconStories.Color} />
 
 ## Adding an icon
 
@@ -57,20 +73,28 @@ The paths in `src/components/BrandIcon/brandIcons.ts` come from [Simple Icons](h
 
 ## CSS classes
 
-| Class                        | When applied                                            |
-| ---------------------------- | ------------------------------------------------------- |
-| `parlour-brand-icon`         | Always — base class                                     |
-| `parlour-brand-icon--{name}` | The active `name`, e.g. `parlour-brand-icon--wordpress` |
+| Class                                   | When applied                                                                |
+| --------------------------------------- | --------------------------------------------------------------------------- |
+| `parlour-brand-icon`                    | Always — base class                                                         |
+| `parlour-brand-icon--{name}`            | The active `name`, e.g. `parlour-brand-icon--wordpress`                     |
+| `parlour-brand-icon-group`              | `text` is set — the `<span>` wrapping the icon and text                     |
+| `parlour-brand-icon-group__text`        | `text` is set — the `<span>` holding the text                               |
+| `parlour-brand-icon-group--size-{size}` | `text` and `size` are set — e.g. `parlour-brand-icon-group--size-2-x-large` |
 
-The component has no stylesheet. Its size comes from `width` and `height` of `1em`, and its colour from `fill="currentColor"`.
+The icon's size comes from `width` and `height` of `1em` — set by `size`, or by the surrounding text — and its colour from `fill="currentColor"`. `className`, `style` and the other props always go on the `<svg>`, with or without `text`.
 
 ## Design tokens
 
-None. The icon's colour and size come from the surrounding text, so set them with tokens on the parent.
+| Token                        | Used for                        |
+| ---------------------------- | ------------------------------- |
+| `--parlour--spacing-x-small` | Gap between the icon and `text` |
+
+`color` takes any `--parlour--color-*` token and `size` a `--parlour--font-size-*` token from `2-x-small` to `5-x-large`. Without them, the icon's colour and size come from the surrounding text.
 
 ## Accessibility
 
 - Without `label`, the `<svg>` gets `aria-hidden="true"`, so screen readers skip it. Use this when visible text already names the brand.
+- With `text`, the text is read as normal content and the icon stays hidden, so there's no need for a `label` as well.
 - With `label`, it gets `role="img"` and `aria-label`, so screen readers announce the name.
 - `focusable="false"` keeps older browsers from putting the SVG in the tab order.
-- The colour comes from the surrounding text, so it has the same contrast as that text.
+- Without `color`, the colour comes from the surrounding text, so it has the same contrast as that text. With `color`, check the token's contrast against the background, especially for `text`.

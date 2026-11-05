@@ -1,0 +1,23 @@
+.parlour-brand-icon-group {
+    display: inline-flex;
+    gap: var(--parlour--spacing-x-small);
+    align-items: center;
+
+    .parlour-brand-icon {
+        flex-shrink: 0;
+    }
+}
+
+.parlour-brand-icon-group__text {
+    font-size: 0.8em;
+    text-box: trim-both cap alphabetic;
+}
+
+// At 2-x-large and up the text steps down to 60%, so the label doesn't grow as fast as the logo.
+$large-sizes: '2-x-large', '3-x-large', '4-x-large', '5-x-large';
+
+@each $size in $large-sizes {
+    .parlour-brand-icon-group--size-#{$size} .parlour-brand-icon-group__text {
+        font-size: 0.6em;
+    }
+}

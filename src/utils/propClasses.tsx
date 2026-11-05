@@ -33,6 +33,10 @@ export const colorClasses = {
     ...parlourTokenKeys.color,
 };
 
+export const fontSizeClasses = {
+    ...parlourTokenKeys.fontSize,
+};
+
 export const spacingClasses = {
     none: 'none',
     ...parlourTokenKeys.spacing,
