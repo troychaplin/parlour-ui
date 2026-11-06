@@ -1,0 +1,64 @@
+// The colours are custom properties, so dark and medium Containers can swap the set at once.
+.parlour-quote {
+    --parlour-quote-text: var(--parlour--color-neutral-950);
+    --parlour-quote-muted: var(--parlour--color-neutral-600);
+
+    margin: 0;
+}
+
+.parlour-container--dark,
+.parlour-container--medium {
+    .parlour-quote {
+        --parlour-quote-text: var(--parlour--color-white);
+        --parlour-quote-muted: var(--parlour--color-neutral-300);
+    }
+}
+
+// The prefix and attribution share SectionHeader's mono label style, so they read as one system.
+.parlour-quote__prefix,
+.parlour-quote__cite {
+    font-family: var(--parlour--font-family-jetbrains-mono);
+    font-size: var(--parlour--font-size-x-small);
+    font-weight: var(--parlour--font-weight-normal);
+    font-style: normal;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--parlour-quote-muted);
+}
+
+.parlour-quote__prefix {
+    margin: 0 0 var(--parlour--spacing-2-x-large);
+}
+
+.parlour-quote__blockquote {
+    margin: 0;
+}
+
+.parlour-quote__text {
+    margin: 0;
+    font-family: var(--parlour--font-family-source-serif-4);
+    font-size: var(--parlour--font-size-x-large);
+    font-weight: var(--parlour--font-weight-light);
+    font-style: italic;
+    line-height: var(--parlour--line-height-tight);
+    letter-spacing: -0.5px;
+    color: var(--parlour-quote-text);
+    quotes: '\201C' '\201D';
+
+    &::before {
+        content: open-quote;
+    }
+
+    &::after {
+        content: close-quote;
+    }
+}
+
+.parlour-quote__cite {
+    margin-block-start: var(--parlour--spacing-2-x-large);
+
+    // The dash is decoration: the empty alt text after the slash keeps screen readers from reading it.
+    &::before {
+        content: '\2014\00a0' / '';
+    }
+}

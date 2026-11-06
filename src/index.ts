@@ -55,6 +55,7 @@ export {
 export { CodeBlock, type CodeBlockProps } from './components/CodeBlock/CodeBlock';
 export { Figure, type FigureProps } from './components/Figure/Figure';
 export { HeroHeader, type HeroHeaderProps } from './components/HeroHeader/HeroHeader';
+export { Quote, type QuoteProps } from './components/Quote/Quote';
 export { SectionHeader, type SectionHeaderProps } from './components/SectionHeader/SectionHeader';
 
 // Utilities

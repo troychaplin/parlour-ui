@@ -1,0 +1,95 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as QuoteStories from './Quote.stories';
+
+<Meta of={QuoteStories} />
+
+# Quote
+
+A pull quote set large in italic serif, with an optional mono label above it and an attribution below. Renders a `<figure>` holding a `<blockquote>`, with the attribution in a `<figcaption>`.
+
+## When to use
+
+- Lift a single line out of a page or another source — a readme, a talk, a testimonial — and give it room.
+- Add a `prefix` to say where the quote comes from at a glance, and a `cite` to credit it.
+- It isn't for long quoted passages inside body copy: a plain `<blockquote>` in the prose suits those better than a display-size quote.
+
+## Import
+
+```tsx
+import { Quote } from '@troychaplin/parlour-ui';
+```
+
+## Basic usage
+
+```tsx
+// Quote alone
+<Quote>Short sentences, few adjectives.</Quote>
+
+// With a label above and an attribution below
+<Quote prefix="From the readme" cite="From /readme">
+    Short sentences, few adjectives.
+</Quote>
+
+// Point the blockquote at its source
+<Quote cite="Troy Chaplin" citeUrl="https://example.com/readme">
+    Short sentences, few adjectives.
+</Quote>
+```
+
+The component adds the curly quotation marks and the dash before `cite`, so leave them out of the text.
+
+## Examples
+
+### Default
+
+<Canvas of={QuoteStories.Default} />
+<Controls of={QuoteStories.Default} />
+
+### Quote only
+
+`prefix` and `cite` are optional; without them only the quote renders.
+
+<Canvas of={QuoteStories.QuoteOnly} />
+
+### In a dark container
+
+In dark and medium [`Container`](?path=/docs/components-layout-container--docs)s the quote turns white and the labels lighten.
+
+<Canvas of={QuoteStories.InDarkContainer} />
+
+## CSS classes
+
+| Class                       | When applied                                |
+| --------------------------- | ------------------------------------------- |
+| `parlour-quote`             | Always — base class, on the `<figure>`      |
+| `parlour-quote__prefix`     | `prefix` is set — the `<p>` above the quote |
+| `parlour-quote__blockquote` | Always — the `<blockquote>`                 |
+| `parlour-quote__text`       | Always — the `<p>` holding `children`       |
+| `parlour-quote__cite`       | `cite` is set — the `<figcaption>`          |
+
+The quotation marks come from `::before` and `::after` on `parlour-quote__text`, and the dash from `::before` on `parlour-quote__cite`. The colours are the custom properties `--parlour-quote-text` and `--parlour-quote-muted`, set on `parlour-quote`; override them there to recolour a quote.
+
+## Design tokens
+
+| Token                                     | Used for                                         |
+| ----------------------------------------- | ------------------------------------------------ |
+| `--parlour--font-family-source-serif-4`   | Quote                                            |
+| `--parlour--font-size-x-large`            | Quote                                            |
+| `--parlour--line-height-tight`            | Quote                                            |
+| `--parlour--font-weight-light`            | Quote                                            |
+| `--parlour--font-weight-normal`           | Prefix and attribution                           |
+| `--parlour--font-family-jetbrains-mono`   | Prefix and attribution                           |
+| `--parlour--font-size-x-small`            | Prefix and attribution                           |
+| `--parlour--spacing-2-x-large`            | Space below the prefix and above the attribution |
+| `--parlour--color-neutral-950`            | Quote                                            |
+| `--parlour--color-neutral-600`            | Prefix and attribution                           |
+| `--parlour--color-white` / `-neutral-300` | The same in dark and medium Containers           |
+
+The quote's `-0.5px` letter spacing and the labels' `0.1em` letter spacing are raw values rather than design tokens. The attribution sets `font-style: normal` to override the base `figcaption` italic.
+
+## Accessibility
+
+- `<figure>` and `<figcaption>` tie the attribution to the quote, and `<blockquote>` marks the text as quoted. `citeUrl` sets the blockquote's `cite` attribute, which browsers don't show but which records the source.
+- `prefix` is a plain `<p>`, not a heading, so it doesn't add to the page outline. Put a heading before the quote if the section needs one.
+- The quotation marks are CSS generated content, which screen readers may or may not announce. The dash before `cite` has empty alt text (`content: '—' / ''`), so supporting screen readers skip it.
+- The muted labels use `neutral-600` on light backgrounds and `neutral-300` in dark and medium Containers, the same pairing as `SectionHeader`'s prefix.
