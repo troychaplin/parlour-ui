@@ -5,13 +5,13 @@ import * as SectionHeaderStories from './SectionHeader.stories';
 
 # Section Header
 
-The heading for a section of a page: a small uppercase eyebrow, a title, and a divider rule beneath them. Renders a `<header>` containing an `<h2>`, or the heading level set by `level`.
+The heading for a section of a page: a small uppercase eyebrow, a title, and a divider rule beneath them. Renders a `<header>` containing an `<h2>`, or the heading level set by `level`, at one of four title sizes.
 
 ## When to use
 
 - Open a section further down the page, at the top of a [`Container`](?path=/docs/components-layout-container--docs).
 - Label the section with a short eyebrow — a category or two, such as "Releases · Open source" — above the title.
-- Don't use it for the page's main heading in the hero — that's [`HeroHeader`](?path=/docs/components-content-hero-header--docs), which is larger and renders the `<h1>`.
+- For a page's main heading, use [`HeroHeader`](?path=/docs/components-content-hero-header--docs) when the page opens with a hero, or `SectionHeader` with `level={1}` for a plainer page such as an archive or listing.
 
 ## Import
 
@@ -28,15 +28,18 @@ import { SectionHeader } from '@troychaplin/parlour-ui';
 // Eyebrow and title
 <SectionHeader prefix="Releases · Open source" title="Things I ship." />
 
-// A subsection
-<SectionHeader title="Plugins" level={3} />
+// A subsection, smaller
+<SectionHeader title="Plugins" level={3} size="small" />
+
+// The page's main heading, larger
+<SectionHeader title="Writing" level={1} size="large" />
 ```
 
 ## Examples
 
 ### Default
 
-An eyebrow and a title on the page background. Use the `level` control to switch between `<h2>`, `<h3>` and `<h4>` — the title looks the same at every level.
+An eyebrow and a title on the page background. Use the `level` control to switch between `<h1>`, `<h2>`, `<h3>` and `<h4>` — the title looks the same at every level, and `size` sets how large it is.
 
 <Canvas of={SectionHeaderStories.Default} />
 <Controls of={SectionHeaderStories.Default} />
@@ -46,6 +49,12 @@ An eyebrow and a title on the page background. Use the `level` control to switch
 Without `prefix`, the header renders just the title and the divider.
 
 <Canvas of={SectionHeaderStories.TitleOnly} />
+
+### Sizes
+
+`size` scales the title: `x-large` or `large` for a page's main heading or a major section, `medium` (default) for most sections, `small` for subsections and columns. Each is a step below `HeroHeader`'s matching size. The eyebrow, spacing and divider are the same at every size.
+
+<Canvas of={SectionHeaderStories.Sizes} />
 
 ### In a light Container
 
@@ -67,13 +76,14 @@ Inside a `Container` with `color="medium"`, the title turns white, the eyebrow l
 
 ## CSS classes
 
-| Class                            | When applied                                                |
-| -------------------------------- | ----------------------------------------------------------- |
-| `parlour-section-header`         | Always — base class; draws the divider as its bottom border |
-| `parlour-section-header__prefix` | `prefix` is set — on the `<p>` above the title              |
-| `parlour-section-header__title`  | `title` is set — on the heading                             |
+| Class                            | When applied                                                               |
+| -------------------------------- | -------------------------------------------------------------------------- |
+| `parlour-section-header`         | Always — base class; draws the divider as its bottom border                |
+| `parlour-section-header--{size}` | Always — the `size` value, e.g. `parlour-section-header--medium` (default) |
+| `parlour-section-header__prefix` | `prefix` is set — on the `<p>` above the title                             |
+| `parlour-section-header__title`  | `title` is set — on the heading                                            |
 
-The header also leaves space below its divider, so whatever follows it — a grid of cards, a paragraph — starts the same distance down. Inside a `Container`, that space is removed when the header is the section's last child. A `className` you pass is appended after `parlour-section-header`.
+The header also leaves space below its divider, so whatever follows it — a grid of cards, a paragraph — starts the same distance down. Inside a `Container`, that space is removed when the header is the section's last child. The size modifiers set `--parlour-section-header-title-size` and `--parlour-section-header-tracking`, which the title reads. A `className` you pass is appended after these classes.
 
 ## Design tokens
 
@@ -85,17 +95,20 @@ The header also leaves space below its divider, so whatever follows it — a gri
 | `--parlour--color-neutral-600`          | Eyebrow color                                         |
 | `--parlour--color-neutral-300`          | Eyebrow color inside dark and medium Containers       |
 | `--parlour--spacing-medium`             | Space between the eyebrow and the title               |
-| `--parlour--font-size-2-x-large`        | Title font size                                       |
+| `--parlour--font-size-4-x-large`        | Title font size, `x-large`                            |
+| `--parlour--font-size-3-x-large`        | Title font size, `large`                              |
+| `--parlour--font-size-2-x-large`        | Title font size, `medium` (default)                   |
+| `--parlour--font-size-x-large`          | Title font size, `small`                              |
 | `--parlour--color-neutral-950`          | Title color, outside dark and medium Containers       |
 | `--parlour--spacing-large`              | Space between the title and the divider               |
 | `--parlour--spacing-2-x-large`          | Space below the divider, before the section's content |
 
-The eyebrow's `letter-spacing` (`0.1em`), the title's `letter-spacing` (`-1px`) and `line-height` (`1.1`), and the divider's `1px` width use raw values rather than design tokens. The divider has no color of its own: it uses `currentColor`, so it matches the surrounding text — near-black on light sections, white in dark ones.
+The eyebrow's `letter-spacing` (`0.1em`), the title's `letter-spacing` (`-2px`, `-1.5px`, `-1px` and `-0.5px` by size) and `line-height` (`1.1`), and the divider's `1px` width use raw values rather than design tokens. The divider has no color of its own: it uses `currentColor`, so it matches the surrounding text — near-black on light sections, white in dark ones.
 
 ## Accessibility
 
 - `SectionHeader` renders a `<header>`. Inside `<main>` or a sectioning element it's only a grouping element, but at the top level of a page it would become a second `banner` landmark next to the site header — keep it inside [`Main`](?path=/docs/components-template-parts-main--docs) or a `Container`.
-- The title is an `<h2>` by default; use `level={3}` or `level={4}` for subsections so heading levels stay in order. It can't be an `<h1>` — the page's main heading belongs to `HeroHeader`.
+- The title is an `<h2>` by default; use `level={3}` or `level={4}` for subsections so heading levels stay in order. Use `level={1}` only for the page's main heading, and only once per page — not alongside a `HeroHeader` that already renders the `<h1>`. `size` is separate from `level`, so pick the level for the outline and the size for the look.
 - The eyebrow is a paragraph before the heading, not part of it, so screen reader users who jump between headings skip it. Its capitals come from CSS, so write it in normal case ("Releases · Open source") — text typed in capitals can be spelled out letter by letter.
 - Some screen readers read the `·` separator aloud, as "dot" or "middle dot".
 - The divider is a border rather than an element, so it isn't announced.

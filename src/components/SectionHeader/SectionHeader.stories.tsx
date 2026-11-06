@@ -3,6 +3,8 @@ import { SectionHeader } from './SectionHeader';
 import { Main } from '../Main/Main';
 import { Container } from '../Container/Container';
 
+const sizeOptions = ['small', 'medium', 'large', 'x-large'] as const;
+
 const meta: Meta<typeof SectionHeader> = {
     title: 'Components/Headers/Section Header',
     component: SectionHeader,
@@ -17,7 +19,11 @@ const meta: Meta<typeof SectionHeader> = {
     argTypes: {
         level: {
             control: 'inline-radio',
-            options: [2, 3, 4],
+            options: [1, 2, 3, 4],
+        },
+        size: {
+            control: 'inline-radio',
+            options: sizeOptions,
         },
     },
     parameters: {
@@ -42,6 +48,21 @@ export const TitleOnly: Story = {
     args: {
         title: 'Things I ship.',
     },
+};
+
+export const Sizes: Story = {
+    render: () => (
+        <div>
+            {sizeOptions.map((size) => (
+                <SectionHeader
+                    key={size}
+                    size={size}
+                    prefix={`size="${size}"`}
+                    title="Things I ship."
+                />
+            ))}
+        </div>
+    ),
 };
 
 export const InLightContainer: Story = {

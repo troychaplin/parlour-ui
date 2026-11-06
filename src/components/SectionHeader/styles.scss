@@ -4,6 +4,28 @@
     margin-bottom: var(--parlour--spacing-2-x-large);
 }
 
+// Each size sets the title scale as custom properties, so the title rule reads one value whichever
+// size applies. Every size sits a step below HeroHeader's matching size.
+.parlour-section-header--x-large {
+    --parlour-section-header-title-size: var(--parlour--font-size-4-x-large);
+    --parlour-section-header-tracking: -2px;
+}
+
+.parlour-section-header--large {
+    --parlour-section-header-title-size: var(--parlour--font-size-3-x-large);
+    --parlour-section-header-tracking: -1.5px;
+}
+
+.parlour-section-header--medium {
+    --parlour-section-header-title-size: var(--parlour--font-size-2-x-large);
+    --parlour-section-header-tracking: -1px;
+}
+
+.parlour-section-header--small {
+    --parlour-section-header-title-size: var(--parlour--font-size-x-large);
+    --parlour-section-header-tracking: -0.5px;
+}
+
 .parlour-section-header__prefix {
     margin: 0 0 var(--parlour--spacing-medium);
     font-family: var(--parlour--font-family-jetbrains-mono);
@@ -16,10 +38,10 @@
 
 .parlour-section-header__title {
     margin: 0;
-    font-size: var(--parlour--font-size-2-x-large);
+    font-size: var(--parlour-section-header-title-size);
     font-weight: var(--parlour--font-weight-normal);
     line-height: 1.1;
-    letter-spacing: -1px;
+    letter-spacing: var(--parlour-section-header-tracking);
     color: var(--parlour--color-neutral-950);
 }
 

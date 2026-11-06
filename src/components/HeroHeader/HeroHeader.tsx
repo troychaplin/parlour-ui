@@ -12,7 +12,7 @@ export interface HeroHeaderProps extends Omit<
     title?: string;
     titleAccent?: string;
     level?: 1 | 2 | 3;
-    size?: 'small' | 'medium' | 'large';
+    size?: 'small' | 'medium' | 'large' | 'x-large';
     children?: React.ReactNode;
 }
 

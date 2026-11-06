@@ -43,7 +43,7 @@ import { HeroHeader } from '@troychaplin/parlour-ui';
 // Mono uppercase prefix, matching SectionHeader's — prefixStyle is italic (default) or mono
 <HeroHeader prefix="// Latest writing" prefixStyle="mono" title="From the" titleAccent="front of the editor." />
 
-// Smaller, for a header inside a column — size is small, medium or large (default)
+// Smaller, for a header inside a column — size is small, medium, large (default) or x-large
 <HeroHeader size="small" level={2} title="From the" titleAccent="front of the editor." />
 
 // Next to a code sample: side by side above 600px, stacked below
@@ -84,7 +84,7 @@ Children can be any content. Here an intro paragraph sits below the title instea
 
 ### Sizes
 
-`size` scales the title and the space below the prefix: `large` (default) opens a page, `medium` and `small` fit a section or a column. The accent, prefix text and colours are the same at every size.
+`size` scales the title and the space below the prefix: `large` (default) opens a page, `x-large` makes a bigger statement on a sparse landing page, `medium` and `small` fit a section or a column. The accent, prefix text and colours are the same at every size.
 
 <Canvas of={HeroHeaderStories.Sizes} />
 
@@ -130,6 +130,7 @@ The size modifiers set `--parlour-hero-header-title-size`, `--parlour-hero-heade
 
 | Token                                   | Used for                                                          |
 | --------------------------------------- | ----------------------------------------------------------------- |
+| `--parlour--font-size-5-x-large`        | Title font size, `x-large`                                        |
 | `--parlour--font-size-4-x-large`        | Title font size, `large` (default)                                |
 | `--parlour--font-size-3-x-large`        | Title font size, `medium`                                         |
 | `--parlour--font-size-2-x-large`        | Title font size, `small`                                          |
@@ -144,13 +145,14 @@ The size modifiers set `--parlour-hero-header-title-size`, `--parlour-hero-heade
 | `--parlour--color-neutral-600`          | `mono` prefix colour                                              |
 | `--parlour--color-neutral-300`          | `mono` prefix colour in dark and medium Containers; stats divider |
 | `--parlour--font-weight-light`          | `italic` prefix and stats font weight                             |
+| `--parlour--spacing-4-x-large`          | Space below the prefix, `x-large`                                 |
 | `--parlour--spacing-3-x-large`          | Space below the prefix, `large`                                   |
 | `--parlour--spacing-2-x-large`          | Space below the prefix, `medium`; stats gap                       |
 | `--parlour--font-size-small`            | Stats font size                                                   |
 | `--parlour--spacing-x-large`            | Space below the prefix, `small`; above stats                      |
 | `--parlour--spacing-medium`             | Space between the stats divider and the items                     |
 
-The title's `line-height` (`1.1`) and `letter-spacing` (`-2px`, `-1.5px` and `-1px` by size), the `mono` prefix's `letter-spacing` (`0.1em`), and the stats divider's `1px` width use raw values rather than design tokens.
+The title's `line-height` (`1.1`) and `letter-spacing` (`-2.5px`, `-2px`, `-1.5px` and `-1px` by size), the `mono` prefix's `letter-spacing` (`0.1em`), and the stats divider's `1px` width use raw values rather than design tokens.
 
 ## Accessibility
 

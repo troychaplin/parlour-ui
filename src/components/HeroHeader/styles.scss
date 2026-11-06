@@ -1,5 +1,11 @@
 // Each size sets the title scale and the space below the prefix as custom properties, so the
 // element rules below read one value whichever size applies.
+.parlour-hero-header--x-large {
+    --parlour-hero-header-title-size: var(--parlour--font-size-5-x-large);
+    --parlour-hero-header-tracking: -2.5px;
+    --parlour-hero-header-prefix-gap: var(--parlour--spacing-4-x-large);
+}
+
 .parlour-hero-header--large {
     --parlour-hero-header-title-size: var(--parlour--font-size-4-x-large);
     --parlour-hero-header-tracking: -2px;

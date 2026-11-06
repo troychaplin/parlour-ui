@@ -13,7 +13,7 @@ const stats = (
     </ul>
 );
 
-const sizeOptions = ['small', 'medium', 'large'] as const;
+const sizeOptions = ['small', 'medium', 'large', 'x-large'] as const;
 const prefixStyleOptions = ['italic', 'mono'] as const;
 
 const meta: Meta<typeof HeroHeader> = {
