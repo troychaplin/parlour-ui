@@ -58,5 +58,8 @@ export { HeroHeader, type HeroHeaderProps } from './components/HeroHeader/HeroHe
 export { Quote, type QuoteProps } from './components/Quote/Quote';
 export { SectionHeader, type SectionHeaderProps } from './components/SectionHeader/SectionHeader';
 
+// Navigation
+export { Pagination, type PaginationProps } from './components/Pagination/Pagination';
+
 // Utilities
 export { LinkProvider } from './components/LinkProvider/index';

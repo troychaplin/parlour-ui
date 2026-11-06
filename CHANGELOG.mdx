@@ -17,6 +17,10 @@ Prefix the change with one of these keywords:
 
 ## [Unreleased]
 
+_Fixed_ `FlexGroup`'s `gap`, `padding` and `margin` had no effect for any value but `none`: the generated classes had a doubled dash (`parlour-flex-group--gap--large`) since the rename to `parlour` in 0.3.0. `SiteHeader` and `InfoBar` now get their intended gap when their items wrap.
+
+_Added_ `Pagination`, links between the pages of a long list, with `color` fills matching `Container`'s backgrounds and `align` (`start`, `center`, `end`).
+
 _Added_ `SectionHeader` `level={1}` for a page's main heading, and a `size` prop (`small`, `medium`, `large`, `x-large`) for the title. `medium` is the default and matches the previous size.
 
 _Added_ `HeroHeader` `size="x-large"`, a step above `large`.

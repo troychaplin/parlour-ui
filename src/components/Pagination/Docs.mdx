@@ -1,0 +1,129 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as PaginationStories from './Pagination.stories';
+
+<Meta of={PaginationStories} />
+
+# Pagination
+
+Links between the pages of a long list: previous and next, the first and last pages, and the pages around the current one. Renders a `<nav>` holding a `<ul>`, with each page a link from [`LinkProvider`](?path=/docs/components-utilities-linkprovider--docs) and the current page a `<span>`.
+
+## When to use
+
+- Below a paged list of posts or projects, such as a blog archive built from [`ContentList`](?path=/docs/components-content-content-list--docs).
+- Use it when each page has its own URL. It builds every link from `href`, so the pages work without JavaScript and can be shared and bookmarked.
+- It isn't for "load more" buttons or infinite scroll, which add items to the current page instead of moving to another.
+
+## Import
+
+```tsx
+import { Pagination } from '@troychaplin/parlour-ui';
+```
+
+## Basic usage
+
+```tsx
+// {page} in href is replaced with each page number
+<Pagination currentPage={1} totalPages={21} href="/blog/page/{page}" />
+
+// Page 1 at its own URL, such as the blog's index
+<Pagination currentPage={3} totalPages={21} href="/blog/page/{page}" firstPageHref="/blog" />
+
+// Filled boxes, centred
+<Pagination currentPage={1} totalPages={21} href="?page={page}" color="white" align="center" />
+```
+
+## Examples
+
+### Default
+
+The first page of 21. Prev is muted and not a link, since there's no earlier page. The boxes have no fill, so they sit on whatever background is behind them.
+
+<Canvas of={PaginationStories.Default} />
+<Controls of={PaginationStories.Default} />
+
+### Middle page
+
+Away from either end, the first and last pages show with the current page and one either side between them.
+
+<Canvas of={PaginationStories.MiddlePage} />
+
+### Last page
+
+On the last page, Next is muted and not a link.
+
+<Canvas of={PaginationStories.LastPage} />
+
+### Few pages
+
+With seven pages or fewer, every page shows and there's no ellipsis.
+
+<Canvas of={PaginationStories.FewPages} />
+
+### Colours
+
+`color` fills the page boxes with one of the background colours `Container` uses — `white`, `pale`, `light`, `medium` or `dark`. On `medium` and `dark` the page numbers turn white and the current page inverts to white. The fill only colours the boxes: Prev, Next and the ellipsis follow the background behind the component, so a `dark` fill on a light page keeps dark Prev and Next.
+
+<Canvas of={PaginationStories.Colors} />
+
+### Alignment
+
+`align` places the links at the `start` (default), `center` or `end` of the row.
+
+<Canvas of={PaginationStories.Alignment} />
+
+### In a dark Container
+
+In dark and medium [`Container`](?path=/docs/components-layout-container--docs)s the text, borders and current page switch to their light versions. A `white`, `pale` or `light` fill keeps its dark text there.
+
+<Canvas of={PaginationStories.InDarkContainer} />
+
+## CSS classes
+
+| Class                               | When applied                                                                 |
+| ----------------------------------- | ---------------------------------------------------------------------------- |
+| `parlour-pagination`                | Always — base class, on the `<nav>`                                          |
+| `parlour-pagination--align-{align}` | Always — the `align` value, e.g. `parlour-pagination--align-start` (default) |
+| `parlour-pagination--{color}`       | `color` is set, e.g. `parlour-pagination--white`                             |
+| `parlour-pagination__list`          | Always — the `<ul>`                                                          |
+| `parlour-pagination__step`          | Prev and Next                                                                |
+| `parlour-pagination__step--prev`    | Prev                                                                         |
+| `parlour-pagination__step--next`    | Next                                                                         |
+| `parlour-pagination__page`          | Each page number                                                             |
+| `parlour-pagination__page--current` | The current page                                                             |
+| `parlour-pagination__ellipsis`      | Each `…` between the page numbers                                            |
+
+The colours are custom properties set on `parlour-pagination` — `--parlour-pagination-text` and `-muted` for Prev, Next and the ellipsis, and `-fill`, `-page-text`, `-border`, `-border-hover`, `-current-fill` and `-current-text` for the page boxes — so you can override any of them there. A disabled Prev or Next is a `<span>` with `aria-disabled="true"`, which the muted colour targets. The component renders nothing when `totalPages` is below 2.
+
+## Design tokens
+
+| Token                                           | Used for                                                            |
+| ----------------------------------------------- | ------------------------------------------------------------------- |
+| `--parlour--font-family-jetbrains-mono`         | All text                                                            |
+| `--parlour--font-size-x-small`                  | All text                                                            |
+| `--parlour--font-weight-normal`                 | All text                                                            |
+| `--parlour--spacing-x-small`                    | Gap between items; padding inside the page boxes                    |
+| `--parlour--spacing-small`                      | Padding beside Prev, Next and the ellipsis                          |
+| `--parlour--spacing-2-x-small`                  | Gap between Prev or Next and its arrow                              |
+| `--parlour--spacing-3-x-small`                  | Focus outline offset                                                |
+| `--parlour--transition-fast`                    | Border and colour change on hover                                   |
+| `--parlour--color-neutral-950`                  | Text and current page fill; `dark` fill                             |
+| `--parlour--color-neutral-600`                  | Muted Prev or Next, ellipsis, and step hover                        |
+| `--parlour--color-neutral-300`                  | Page borders; muted text on dark backgrounds                        |
+| `--parlour--color-neutral-500`                  | Page border on hover                                                |
+| `--parlour--color-white`                        | Current page text; text and current page fill on dark; `white` fill |
+| `--parlour--color-neutral-700`                  | Page borders on dark backgrounds                                    |
+| `--parlour--color-neutral-400`                  | Page border on hover, on dark backgrounds                           |
+| `--parlour--color-neutral-50` / `-200` / `-900` | `pale`, `light` and `medium` fills                                  |
+| `--parlour--color-accent-primary`               | Focus outline                                                       |
+
+The page boxes' `2.75em` minimum size, the `1px` borders, the `2px` focus outline and the steps' `0.1em` letter spacing are raw values rather than design tokens.
+
+## Accessibility
+
+- The `<nav>` is a navigation landmark named "Pagination". Set `label` to something more specific, such as "Blog pages", or when a page has more than one — each landmark needs a distinct name.
+- The current page has `aria-current="page"` and isn't a link, so it's announced as the current page and isn't in the tab order.
+- Each page number reads as "Page 2" and so on: the word "Page" is in the link but visually hidden, using the global `sr-only` class.
+- The arrows are hidden from screen readers, so Prev and Next are read as their words. The links have `rel="prev"` and `rel="next"`.
+- A disabled Prev or Next is a `<span>` with `aria-disabled="true"` rather than a link, so it can't be focused or followed.
+- The ellipsis is hidden from screen readers, since it carries no link.
+- The muted colours, `neutral-600` on light backgrounds and `neutral-300` on dark, meet WCAG AA for text. The page borders are decoration: each page's number identifies it.

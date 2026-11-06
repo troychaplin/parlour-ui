@@ -1,0 +1,164 @@
+// The colours are custom properties in two sets. The text set (Prev, Next, the ellipsis) follows
+// the background behind the component; the page set follows the boxes' own fill. With no `color`,
+// the boxes have no fill and the page set follows the background too.
+@mixin light-text {
+    --parlour-pagination-text: var(--parlour--color-neutral-950);
+    --parlour-pagination-muted: var(--parlour--color-neutral-600);
+}
+
+@mixin dark-text {
+    --parlour-pagination-text: var(--parlour--color-white);
+    --parlour-pagination-muted: var(--parlour--color-neutral-300);
+}
+
+@mixin light-pages {
+    --parlour-pagination-page-text: var(--parlour--color-neutral-950);
+    --parlour-pagination-border: var(--parlour--color-neutral-300);
+    --parlour-pagination-border-hover: var(--parlour--color-neutral-500);
+    --parlour-pagination-current-fill: var(--parlour--color-neutral-950);
+    --parlour-pagination-current-text: var(--parlour--color-white);
+}
+
+@mixin dark-pages {
+    --parlour-pagination-page-text: var(--parlour--color-white);
+    --parlour-pagination-border: var(--parlour--color-neutral-700);
+    --parlour-pagination-border-hover: var(--parlour--color-neutral-400);
+    --parlour-pagination-current-fill: var(--parlour--color-white);
+    --parlour-pagination-current-text: var(--parlour--color-neutral-950);
+}
+
+.parlour-pagination {
+    --parlour-pagination-fill: transparent;
+
+    @include light-text;
+    @include light-pages;
+}
+
+.parlour-container--dark .parlour-pagination,
+.parlour-container--medium .parlour-pagination {
+    @include dark-text;
+    @include dark-pages;
+}
+
+// The fills come after the Container rule at the same specificity, so a fill's page colours win
+// on any background. The fills match Container's backgrounds for the same names.
+.parlour-pagination.parlour-pagination--white {
+    --parlour-pagination-fill: var(--parlour--color-white);
+
+    @include light-pages;
+}
+
+.parlour-pagination.parlour-pagination--pale {
+    --parlour-pagination-fill: var(--parlour--color-neutral-50);
+
+    @include light-pages;
+}
+
+.parlour-pagination.parlour-pagination--light {
+    --parlour-pagination-fill: var(--parlour--color-neutral-200);
+
+    @include light-pages;
+}
+
+.parlour-pagination.parlour-pagination--medium {
+    --parlour-pagination-fill: var(--parlour--color-neutral-900);
+
+    @include dark-pages;
+}
+
+.parlour-pagination.parlour-pagination--dark {
+    --parlour-pagination-fill: var(--parlour--color-neutral-950);
+
+    @include dark-pages;
+}
+
+.parlour-pagination__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--parlour--spacing-x-small);
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--parlour--font-family-jetbrains-mono);
+    font-size: var(--parlour--font-size-x-small);
+    line-height: 1;
+}
+
+.parlour-pagination--align-start .parlour-pagination__list {
+    justify-content: flex-start;
+}
+
+.parlour-pagination--align-center .parlour-pagination__list {
+    justify-content: center;
+}
+
+.parlour-pagination--align-end .parlour-pagination__list {
+    justify-content: flex-end;
+}
+
+// Scoped to the component so it outranks Main's `.parlour-main a` bold and hover underline
+// whatever order the stylesheets load in.
+.parlour-pagination .parlour-pagination__page,
+.parlour-pagination .parlour-pagination__step {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--parlour--spacing-2-x-small);
+    font-weight: var(--parlour--font-weight-normal);
+    text-decoration: none;
+    transition:
+        border-color var(--parlour--transition-fast),
+        color var(--parlour--transition-fast);
+
+    &:focus-visible {
+        outline: 2px solid var(--parlour--color-accent-primary);
+        outline-offset: var(--parlour--spacing-3-x-small);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+}
+
+.parlour-pagination .parlour-pagination__page {
+    min-inline-size: 2.75em;
+    min-block-size: 2.75em;
+    padding-inline: var(--parlour--spacing-x-small);
+    color: var(--parlour-pagination-page-text);
+    background-color: var(--parlour-pagination-fill);
+    border: 1px solid var(--parlour-pagination-border);
+
+    &:hover {
+        text-decoration: none;
+        border-color: var(--parlour-pagination-border-hover);
+    }
+}
+
+.parlour-pagination .parlour-pagination__page--current {
+    color: var(--parlour-pagination-current-text);
+    background-color: var(--parlour-pagination-current-fill);
+    border-color: var(--parlour-pagination-current-fill);
+}
+
+.parlour-pagination .parlour-pagination__step {
+    min-block-size: 2.75em;
+    padding-inline: var(--parlour--spacing-small);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--parlour-pagination-text);
+
+    &:hover {
+        text-decoration: none;
+        color: var(--parlour-pagination-muted);
+    }
+
+    &[aria-disabled='true'] {
+        color: var(--parlour-pagination-muted);
+    }
+}
+
+.parlour-pagination__ellipsis {
+    padding-inline: var(--parlour--spacing-small);
+    color: var(--parlour-pagination-muted);
+}

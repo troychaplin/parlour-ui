@@ -1,6 +1,4 @@
 @use 'sass:map';
-@use 'sass:meta';
-@use 'sass:string';
 @use '../../styles/c2b/parlour-variables' as vars;
 
 .parlour-flex-group {
@@ -61,18 +59,14 @@
     }
 }
 
-// Spacing modifiers are generated from the scale rather than hand-listed, so a
-// change to c2b.config.json propagates here with no edit. The prefix filter
-// matters: the variables module also contains $parlour-viewport-*.
+// Spacing modifiers are generated from the token map, so a change to c2b.config.json propagates
+// here with no edit.
 $steps: (
     none: 0,
 );
 
-@each $name in map.keys(meta.module-variables(vars)) {
-    @if string.index($name, 'parlour-spacing-') == 1 {
-        $step: string.slice($name, 16);
-        $steps: map.set($steps, $step, var(--parlour--spacing-#{$step}));
-    }
+@each $step in map.keys(vars.$parlour-spacing) {
+    $steps: map.set($steps, $step, var(--parlour--spacing-#{$step}));
 }
 
 @each $key, $value in $steps {
