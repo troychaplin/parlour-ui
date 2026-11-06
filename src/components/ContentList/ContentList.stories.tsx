@@ -55,7 +55,7 @@ const meta: Meta<PlaygroundArgs> = {
         },
         backgroundHover: {
             control: 'inline-radio',
-            options: ['light', 'dark'],
+            options: ['light', 'light-subtle', 'dark', 'dark-subtle'],
         },
         maxWidth: {
             control: 'select',
@@ -264,14 +264,14 @@ export const SmallInColumn: Story = {
 export const BackgroundHover: Story = {
     args: {
         maxWidth: 'alignwide',
-        backgroundHover: 'dark',
+        backgroundHover: 'dark-subtle',
         children: defaultRows,
     },
 };
 
 export const InDarkContainer: Story = {
     args: {
-        backgroundHover: 'light',
+        backgroundHover: 'light-subtle',
         children: defaultRows,
     },
     render: (args) => (

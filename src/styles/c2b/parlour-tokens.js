@@ -19,8 +19,10 @@ export const parlourTokens = {
         neutral800: '#51413a',
         neutral900: '#473a35',
         neutral950: '#271f1c',
-        overlayLight: 'rgba(255, 255, 255, 0.3)',
-        overlayDark: 'rgba(25, 25, 25, 0.35)',
+        overlayLight: 'rgba(255, 255, 255, 0.2)',
+        overlayDark: 'rgba(25, 25, 25, 0.25)',
+        overlayLightSubtle: 'rgba(255, 255, 255, 0.025)',
+        overlayDarkSubtle: 'rgba(25, 25, 25, 0.025)',
         info: '#2571eb',
         success: '#16a34a',
         warning: '#fff154',
@@ -135,7 +137,7 @@ export const parlourTokens = {
 };
 
 export const parlourTokenKeys = {
-    color: { black: 'black', white: 'white', 'accent-primary': 'accent-primary', 'accent-secondary': 'accent-secondary', 'accent-primary-light': 'accent-primary-light', 'accent-secondary-light': 'accent-secondary-light', 'neutral-50': 'neutral-50', 'neutral-100': 'neutral-100', 'neutral-200': 'neutral-200', 'neutral-300': 'neutral-300', 'neutral-400': 'neutral-400', 'neutral-500': 'neutral-500', 'neutral-600': 'neutral-600', 'neutral-700': 'neutral-700', 'neutral-800': 'neutral-800', 'neutral-900': 'neutral-900', 'neutral-950': 'neutral-950', 'overlay-light': 'overlay-light', 'overlay-dark': 'overlay-dark', info: 'info', success: 'success', warning: 'warning', error: 'error', github: 'github', linkedin: 'linkedin', facebook: 'facebook', bluesky: 'bluesky', twitter: 'twitter', instagram: 'instagram', youtube: 'youtube', tiktok: 'tiktok' },
+    color: { black: 'black', white: 'white', 'accent-primary': 'accent-primary', 'accent-secondary': 'accent-secondary', 'accent-primary-light': 'accent-primary-light', 'accent-secondary-light': 'accent-secondary-light', 'neutral-50': 'neutral-50', 'neutral-100': 'neutral-100', 'neutral-200': 'neutral-200', 'neutral-300': 'neutral-300', 'neutral-400': 'neutral-400', 'neutral-500': 'neutral-500', 'neutral-600': 'neutral-600', 'neutral-700': 'neutral-700', 'neutral-800': 'neutral-800', 'neutral-900': 'neutral-900', 'neutral-950': 'neutral-950', 'overlay-light': 'overlay-light', 'overlay-dark': 'overlay-dark', 'overlay-light-subtle': 'overlay-light-subtle', 'overlay-dark-subtle': 'overlay-dark-subtle', info: 'info', success: 'success', warning: 'warning', error: 'error', github: 'github', linkedin: 'linkedin', facebook: 'facebook', bluesky: 'bluesky', twitter: 'twitter', instagram: 'instagram', youtube: 'youtube', tiktok: 'tiktok' },
     gradient: { 'white-to-neutral-50': 'white-to-neutral-50' },
     spacing: { '3-x-small': '3-x-small', '2-x-small': '2-x-small', 'x-small': 'x-small', small: 'small', normal: 'normal', medium: 'medium', large: 'large', 'x-large': 'x-large', '2-x-large': '2-x-large', '3-x-large': '3-x-large', '4-x-large': '4-x-large', '5-x-large': '5-x-large' },
     fontFamily: { 'inter-tight': 'inter-tight', 'source-serif-4': 'source-serif-4', 'jetbrains-mono': 'jetbrains-mono' },

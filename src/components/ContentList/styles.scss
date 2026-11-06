@@ -20,6 +20,7 @@
     --parlour-content-list-strong: var(--parlour--color-neutral-900);
     --parlour-content-list-accent: var(--parlour--color-accent-primary);
     --parlour-content-list-title: var(--parlour--color-neutral-950);
+    --parlour-content-list-title-hover: var(--parlour--color-accent-secondary);
     --parlour-content-list-excerpt: var(--parlour--color-neutral-800);
     --parlour-content-list-focus: var(--parlour--color-accent-primary);
 
@@ -49,6 +50,7 @@
         --parlour-content-list-strong: var(--parlour--color-neutral-100);
         --parlour-content-list-accent: var(--parlour--color-accent-primary-light);
         --parlour-content-list-title: var(--parlour--color-white);
+        --parlour-content-list-title-hover: var(--parlour--color-accent-secondary-light);
         --parlour-content-list-excerpt: var(--parlour--color-neutral-200);
         --parlour-content-list-focus: var(--parlour--color-accent-primary-light);
     }
@@ -206,20 +208,28 @@
     outline-offset: var(--parlour--spacing-2-x-small);
 }
 
-// The hover overlay is a translucent layer over whatever sits behind the row, as Card's
-// backgroundHover is, and only a linked row gets it.
-.parlour-content-list--bg-hover-light
-    > .parlour-content-list__item:has(.parlour-content-list__link):hover {
-    background-image: linear-gradient(
-        var(--parlour--color-overlay-light),
-        var(--parlour--color-overlay-light)
-    );
+// Hovering anywhere on a linked row colours its title, as a linked ProjectCard does.
+.parlour-content-list__title {
+    transition: color var(--parlour--transition-fast);
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+
+    .parlour-content-list__item:has(.parlour-content-list__link):hover & {
+        color: var(--parlour-content-list-title-hover);
+    }
 }
 
-.parlour-content-list--bg-hover-dark
-    > .parlour-content-list__item:has(.parlour-content-list__link):hover {
-    background-image: linear-gradient(
-        var(--parlour--color-overlay-dark),
-        var(--parlour--color-overlay-dark)
-    );
+// The hover overlay is a translucent layer over whatever sits behind the row, as Card's
+// backgroundHover is, and only a linked row gets it. The subtle shades suit rows on a light
+// background, where the full-strength dark overlay is too heavy.
+@each $shade in light, light-subtle, dark, dark-subtle {
+    .parlour-content-list--bg-hover-#{$shade}
+        > .parlour-content-list__item:has(.parlour-content-list__link):hover {
+        background-image: linear-gradient(
+            var(--parlour--color-overlay-#{$shade}),
+            var(--parlour--color-overlay-#{$shade})
+        );
+    }
 }

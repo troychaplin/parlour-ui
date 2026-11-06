@@ -122,7 +122,9 @@ An `ol` with an accent index, a thumbnail and a muted label. A row with an image
 
 ### Background on hover
 
-`backgroundHover` lays a translucent overlay over a linked row while the pointer is over it: `light` for dark sections and `dark` for light ones, the same overlay tokens as `Card`'s `backgroundHover`. Only rows whose title has an `href` get it.
+`backgroundHover` lays a translucent overlay over a linked row while the pointer is over it: `light` or `light-subtle` for dark sections, `dark` or `dark-subtle` for light ones. The subtle shades are lighter tints for when the full overlay is too heavy, which `dark` usually is on a light background. Only rows whose title has an `href` get it.
+
+A linked row's title also changes colour while the pointer is anywhere on the row, as a linked `ProjectCard`'s does: `accent-secondary`, or `accent-secondary-light` in dark and medium Containers. This happens with or without `backgroundHover`.
 
 <Canvas of={ContentListStories.BackgroundHover} />
 
@@ -134,21 +136,21 @@ Inside a dark or medium [`Container`](?path=/docs/components-layout-container--d
 
 ## CSS classes
 
-| Class                                                     | When applied                                                            |
-| --------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `parlour-content-list`                                    | Always — base class on the list                                         |
-| `parlour-content-list--{size}`                            | Always — the `size` value, e.g. `parlour-content-list--large` (default) |
-| `parlour-content-list--bg-hover-{name}`                   | `backgroundHover` is set — `light` or `dark`                            |
-| `aligncontent` / `alignwide` / `alignfull` / `alignsmall` | The `maxWidth` value, as a bare shared class                            |
-| `parlour-content-list__item`                              | On `ContentListItem`                                                    |
-| `parlour-content-list__index` + `--{variant}`             | On `ContentListIndex` — `--muted` (default) or `--accent`               |
-| `parlour-content-list__meta` + `--{align}`                | On `ContentListMeta` — `--start` (default) or `--end`                   |
-| `parlour-content-list__label` + `--{color}`               | On `ContentListLabel` — `--accent` (default) or `--muted`               |
-| `parlour-content-list__image`                             | On `ContentListImage`                                                   |
-| `parlour-content-list__body`                              | On `ContentListBody`                                                    |
-| `parlour-content-list__title`                             | On `ContentListTitle`                                                   |
-| `parlour-content-list__link`                              | On the title's link when `href` is set — its `::after` covers the row   |
-| `parlour-content-list__excerpt`                           | On `ContentListExcerpt`                                                 |
+| Class                                                     | When applied                                                                |
+| --------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `parlour-content-list`                                    | Always — base class on the list                                             |
+| `parlour-content-list--{size}`                            | Always — the `size` value, e.g. `parlour-content-list--large` (default)     |
+| `parlour-content-list--bg-hover-{name}`                   | `backgroundHover` is set — `light`, `light-subtle`, `dark` or `dark-subtle` |
+| `aligncontent` / `alignwide` / `alignfull` / `alignsmall` | The `maxWidth` value, as a bare shared class                                |
+| `parlour-content-list__item`                              | On `ContentListItem`                                                        |
+| `parlour-content-list__index` + `--{variant}`             | On `ContentListIndex` — `--muted` (default) or `--accent`                   |
+| `parlour-content-list__meta` + `--{align}`                | On `ContentListMeta` — `--start` (default) or `--end`                       |
+| `parlour-content-list__label` + `--{color}`               | On `ContentListLabel` — `--accent` (default) or `--muted`                   |
+| `parlour-content-list__image`                             | On `ContentListImage`                                                       |
+| `parlour-content-list__body`                              | On `ContentListBody`                                                        |
+| `parlour-content-list__title`                             | On `ContentListTitle`                                                       |
+| `parlour-content-list__link`                              | On the title's link when `href` is set — its `::after` covers the row       |
+| `parlour-content-list__excerpt`                           | On `ContentListExcerpt`                                                     |
 
 Each part's `className` is appended after its own classes.
 
@@ -177,7 +179,10 @@ Each fixed part takes its width from a custom property set on the list: `--parlo
 | `--parlour--color-accent-primary`                          | Accent index and label; focus outline                                        |
 | `--parlour--color-accent-primary-light`                    | The same in dark and medium Containers                                       |
 | `--parlour--color-neutral-700` / `-100` / `-200` / `white` | Row rules, later meta lines, excerpt and title in dark and medium Containers |
+| `--parlour--color-accent-secondary`                        | Linked title on hover                                                        |
+| `--parlour--color-accent-secondary-light`                  | The same in dark and medium Containers                                       |
 | `--parlour--color-overlay-light` / `-dark`                 | `backgroundHover` overlays                                                   |
+| `--parlour--color-overlay-light-subtle` / `-dark-subtle`   | `backgroundHover` subtle overlays                                            |
 
 The column widths, the `1px` rules, the `2px` focus outline, the mono parts' `0.1em` letter spacing and the title's `-0.5px` letter spacing are raw values rather than design tokens.
 

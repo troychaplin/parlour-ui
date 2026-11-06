@@ -83,15 +83,18 @@ export const PrefixStyles: Story = {
     render: () => (
         <>
             {prefixStyleOptions.map((prefixStyle) => (
-                <HeroHeader
-                    key={prefixStyle}
-                    prefixStyle={prefixStyle}
-                    size="medium"
-                    level={2}
-                    prefix={`prefixStyle="${prefixStyle}"`}
-                    title="Section Title"
-                    titleAccent="Highlight"
-                />
+                <>
+                    <HeroHeader
+                        key={prefixStyle}
+                        prefixStyle={prefixStyle}
+                        size="medium"
+                        level={2}
+                        prefix={`prefixStyle="${prefixStyle}"`}
+                        title="Section Title"
+                        titleAccent="Highlight"
+                    />
+                    <br />
+                </>
             ))}
         </>
     ),
@@ -101,14 +104,17 @@ export const Sizes: Story = {
     render: () => (
         <>
             {sizeOptions.map((size) => (
-                <HeroHeader
-                    key={size}
-                    size={size}
-                    level={2}
-                    prefix={`size="${size}"`}
-                    title="Section Title"
-                    titleAccent="Highlight"
-                />
+                <>
+                    <HeroHeader
+                        key={size}
+                        size={size}
+                        level={2}
+                        prefix={`size="${size}"`}
+                        title="Section Title"
+                        titleAccent="Highlight"
+                    />
+                    <br />
+                </>
             ))}
         </>
     ),

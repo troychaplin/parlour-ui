@@ -7,7 +7,7 @@ export interface ContentListProps extends React.HTMLAttributes<HTMLElement> {
     children: React.ReactNode;
     as?: 'ul' | 'ol' | 'div';
     size?: 'small' | 'large';
-    backgroundHover?: 'light' | 'dark';
+    backgroundHover?: 'light' | 'light-subtle' | 'dark' | 'dark-subtle';
     maxWidth?: maxWidthKeys;
 }
 
