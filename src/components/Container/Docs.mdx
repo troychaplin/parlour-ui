@@ -12,6 +12,7 @@ A band of the page that sets its width, background, padding and borders. Renders
 - Split a page into sections inside [`Main`](?path=/docs/components-template-parts-main--docs): a hero, a grid of cards, a list of posts. Stack full-width Containers with different `color`s to alternate bands down the page.
 - Use `maxWidth="alignfull"` with `contentWidth="alignwide"` for the common band whose background runs edge to edge while its content stays at the wide width.
 - Use `border` to rule a section off from its neighbours, such as a hairline between two bands of the same colour.
+- A Container can't widen its children past `contentWidth`. To break a block out of the text column — a pull quote, a wide image — make it a sibling of the text inside `Main` with `maxWidth="alignwide"` or `"alignfull"`, the same model as Gutenberg's constrained layout.
 - It isn't for small surfaces inside a section — use [`Card`](?path=/docs/components-cards-card--docs) for those.
 
 ## Import
@@ -50,7 +51,7 @@ A boxed `light` Container at the wide width. Use the controls to try each `color
 
 ### Colours
 
-`color` sets the background and adds block padding (`--parlour--spacing-5-x-large`). `medium` and `dark` turn the text and headings white. Without `color`, a Container has no background and no block padding.
+`color` sets the background and adds block padding (`--parlour--spacing-5-x-large`) and side padding. `medium` and `dark` turn the text and headings white. Without `color`, a Container has no background and no padding — it only sets the width, so its content lines up with other blocks at the same width.
 
 <Canvas of={ContainerStories.Colors} />
 
@@ -124,7 +125,7 @@ Two layout rules use `!important`, so inline styles can't override them: inside 
 | `--parlour--color-neutral-300`                                  | `white`, `pale` and `light` borders                            |
 | `--parlour--color-neutral-700`                                  | `medium` border                                                |
 | `--parlour--spacing-5-x-large`                                  | Block padding when `color` is set                              |
-| `--parlour--spacing-3-x-large` / `-4-x-large`                   | Side padding, below / above the tablet breakpoint              |
+| `--parlour--spacing-3-x-large` / `-4-x-large`                   | Side padding when `color` is set, below / above tablet         |
 | `--parlour--spacing-2-x-large`                                  | Gap between stacked coloured Containers that aren't full width |
 | `--parlour--radius-sm` / `-md` / `-lg` / `-xl` / `-full`        | `borderRadius`                                                 |
 | `--parlour--layout-small-size` / `-content-size` / `-wide-size` | `alignsmall`, `aligncontent` and `alignwide` widths            |

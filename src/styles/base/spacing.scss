@@ -24,6 +24,16 @@
     margin-top: var(--parlour--spacing-4-x-large);
 }
 
+// Block components stand apart from body copy, with a bigger gap above and below them than the
+// flow gap between paragraphs. Only in a flow (Main's content or a Container's), so a FlexGroup's
+// or GridGroup's own `gap` isn't doubled. Floated figures keep their own margins.
+$parlour-flow-blocks: '.parlour-figure:not(.parlour-figure--left, .parlour-figure--right), .parlour-code-block, .parlour-content-list, .parlour-quote';
+
+:where(.entry-content, .has-global-padding) > * + :is(#{$parlour-flow-blocks}),
+:where(.entry-content, .has-global-padding) > :is(#{$parlour-flow-blocks}) + * {
+    margin-block-start: var(--parlour--spacing-2-x-large);
+}
+
 // .parlour-main > * > .parlour-layout.alignfull + .parlour-layout.alignfull {
 //     margin-top: 0;
 // }

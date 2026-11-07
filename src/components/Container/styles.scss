@@ -24,12 +24,11 @@
     }
 }
 
-// .parlour-container > .has-root-padding.has-global-padding,
-.parlour-container.aligncontent,
-.parlour-container.alignwide,
-.parlour-container.alignfull {
-    // padding-right: var(--parlour--root-padding-right);
-    // padding-left: var(--parlour--root-padding-left);
+// Side padding keeps content off a background, so only coloured Containers get it. Without a
+// colour a Container is a plain width wrapper, like RDS's Section and Gutenberg's Group.
+.parlour-container--no-gap.aligncontent,
+.parlour-container--no-gap.alignwide,
+.parlour-container--no-gap.alignfull {
     padding-right: var(--parlour--spacing-3-x-large);
     padding-left: var(--parlour--spacing-3-x-large);
 

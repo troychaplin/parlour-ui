@@ -58,33 +58,29 @@ export const Post: Story = {
             </SiteHeader>
             <InfoBar />
 
-            <Main hasPadding={false}>
-                <Container color="pale" maxWidth="alignfull" contentWidth="aligncontent">
-                    <SectionHeader
-                        level={1}
-                        prefix="// Writing · WordPress · theme.json"
-                        title="Block-based theme.json: a sane way to organize tokens at scale."
-                        size="x-large"
-                        divider={0}
-                        maxWidth="aligncontent"
-                        description={
-                            <>
-                                After three years of rewriting <code>theme.json</code> from scratch
-                                on every project, I finally settled on a folder structure and merge
-                                strategy that survives the next core update — and the one after
-                                that.
-                            </>
-                        }
-                    />
-                    <PostMeta
-                        avatar="https://picsum.photos/seed/author/112/112"
-                        details="Developer · Ottawa"
-                        name="Troy Chaplin"
-                        published="2026-04-21"
-                        updated="2026-04-24"
-                    />
-                </Container>
-
+            <Main hasPadding={true}>
+                <SectionHeader
+                    level={1}
+                    prefix="// Writing · WordPress · theme.json"
+                    title="Block-based theme.json: a sane way to organize tokens at scale."
+                    size="x-large"
+                    divider={0}
+                    maxWidth="aligncontent"
+                    description={
+                        <>
+                            After three years of rewriting <code>theme.json</code> from scratch on
+                            every project, I finally settled on a folder structure and merge
+                            strategy that survives the next core update — and the one after that.
+                        </>
+                    }
+                />
+                <PostMeta
+                    avatar="https://picsum.photos/seed/author/112/112"
+                    details="Developer · Ottawa"
+                    name="Troy Chaplin"
+                    published="2026-04-21"
+                    updated="2026-04-24"
+                />
                 <Figure maxWidth="alignwide" align="none" size="full">
                     <img
                         alt="Landscape with trees and mountains"
@@ -94,114 +90,69 @@ export const Post: Story = {
                     />
                 </Figure>
 
+                <p>
+                    Every block theme I&apos;ve shipped started the same way: an empty{' '}
+                    <code>theme.json</code>, a copy of the last project&apos;s file open in another
+                    tab, and an afternoon spent deciding which of its settings still made sense. By
+                    the third or fourth theme the file was over a thousand lines long and nobody,
+                    including me, could say why half of it was there.
+                </p>
+                <p>
+                    The fix wasn&apos;t a cleverer schema. It was treating <code>theme.json</code>{' '}
+                    as a build output rather than a file you edit by hand.
+                </p>
+
+                <h2>Split it by concern</h2>
+                <p>
+                    Tokens, element styles and block styles change for different reasons and at
+                    different speeds, so they live in different files. A small build step merges
+                    them, in a fixed order, into the <code>theme.json</code> WordPress reads.
+                </p>
+                <ul>
+                    <li>
+                        <strong>Tokens</strong> — colours, spacing, type scale. These change rarely
+                        and come from the design system.
+                    </li>
+                    <li>
+                        <strong>Elements</strong> — links, headings, buttons. Set once per theme.
+                    </li>
+                    <li>
+                        <strong>Blocks</strong> — one small file per core block that needs styling,
+                        so a change to buttons never touches the cover block.
+                    </li>
+                </ul>
+
+                <CodeBlock code={CodeDataThemeJson} color="light" borderRadius="sm" />
+
+                <h2>Let the merge decide, not the editor</h2>
+                <p>
+                    The order matters more than the structure. Tokens merge first, elements second
+                    and blocks last, so a block file can always override an element style but never
+                    redefine a token. When core adds a new setting, it goes in one place and every
+                    theme built from the same tokens picks it up.
+                </p>
+
                 <Container color="white" maxWidth="alignfull" contentWidth="aligncontent">
-                    <p>
-                        Every block theme I&apos;ve shipped started the same way: an empty{' '}
-                        <code>theme.json</code>, a copy of the last project&apos;s file open in
-                        another tab, and an afternoon spent deciding which of its settings still
-                        made sense. By the third or fourth theme the file was over a thousand lines
-                        long and nobody, including me, could say why half of it was there.
-                    </p>
-                    <p>
-                        The fix wasn&apos;t a cleverer schema. It was treating{' '}
-                        <code>theme.json</code> as a build output rather than a file you edit by
-                        hand.
-                    </p>
-
-                    <Container color="white" maxWidth="alignfull" contentWidth="alignfull">
-                        <Quote
-                            prefix="The rule I keep coming back to"
-                            cite="Me, after the fourth rewrite"
-                        >
-                            If you can&apos;t say which file a setting came from, it shouldn&apos;t
-                            be in the output.
-                        </Quote>
-                    </Container>
-
-                    <h2>Split it by concern</h2>
-                    <p>
-                        Tokens, element styles and block styles change for different reasons and at
-                        different speeds, so they live in different files. A small build step merges
-                        them, in a fixed order, into the <code>theme.json</code> WordPress reads.
-                    </p>
-                    <ul>
-                        <li>
-                            <strong>Tokens</strong> — colours, spacing, type scale. These change
-                            rarely and come from the design system.
-                        </li>
-                        <li>
-                            <strong>Elements</strong> — links, headings, buttons. Set once per
-                            theme.
-                        </li>
-                        <li>
-                            <strong>Blocks</strong> — one small file per core block that needs
-                            styling, so a change to buttons never touches the cover block.
-                        </li>
-                    </ul>
-
-                    <CodeBlock code={CodeDataThemeJson} color="light" borderRadius="sm" />
-
-                    <h2>Let the merge decide, not the editor</h2>
-                    <p>
-                        The order matters more than the structure. Tokens merge first, elements
-                        second and blocks last, so a block file can always override an element style
-                        but never redefine a token. When core adds a new setting, it goes in one
-                        place and every theme built from the same tokens picks it up.
-                    </p>
-
-                    <Container color="white" maxWidth="alignfull" contentWidth="alignfull">
-                        <Quote
-                            prefix="The rule I keep coming back to"
-                            cite="Me, after the fourth rewrite"
-                        >
-                            If you can&apos;t say which file a setting came from, it shouldn&apos;t
-                            be in the output.
-                        </Quote>
-                    </Container>
-
-                    <h2>What survives a core update</h2>
-                    <p>
-                        Since moving to this setup I&apos;ve upgraded through two major WordPress
-                        releases without touching a single theme&apos;s styles. The schema version
-                        changed, the merge script changed in one line, and the generated file
-                        changed everywhere — which is exactly where I want the churn to be.
-                    </p>
-                    <p>
-                        The next post walks through the merge script itself, including how it
-                        handles style variations without duplicating the token layer.
-                    </p>
+                    <Quote
+                        prefix="The rule I keep coming back to"
+                        cite="Me, after the fourth rewrite"
+                    >
+                        If you can&apos;t say which file a setting came from, it shouldn&apos;t be
+                        in the output.
+                    </Quote>
                 </Container>
 
-                {/* <Container color="white" maxWidth="alignfull" contentWidth="alignwide">
-                    <FlexGroup direction="column" gap="2-x-large">
-                        <ContentList backgroundHover="dark-subtle">
-                            {BlogPostData.map((post) => (
-                                <ContentListItem key={post.id}>
-                                    <ContentListIndex>No. {post.id}</ContentListIndex>
-                                    <ContentListLabel>{post.category}</ContentListLabel>
-                                    <ContentListBody>
-                                        <ContentListTitle href={post.href} level={2}>
-                                            {post.title}
-                                        </ContentListTitle>
-                                        <ContentListExcerpt>{post.excerpt}</ContentListExcerpt>
-                                    </ContentListBody>
-                                    <ContentListMeta align="end">
-                                        <span>{post.date}</span>
-                                        <span>{post.readTime}</span>
-                                    </ContentListMeta>
-                                </ContentListItem>
-                            ))}
-                        </ContentList>
-                        <Pagination
-                            currentPage={1}
-                            totalPages={21}
-                            href="/blog/page/{page}"
-                            firstPageHref="/blog"
-                            align="end"
-                            label="Blog pages"
-                        />
-                    </FlexGroup>
-                </Container> */}
+                <h2>What survives a core update</h2>
+                <p>
+                    Since moving to this setup I&apos;ve upgraded through two major WordPress
+                    releases without touching a single theme&apos;s styles. The schema version
+                    changed, the merge script changed in one line, and the generated file changed
+                    everywhere — which is exactly where I want the churn to be.
+                </p>
+                <p>
+                    The next post walks through the merge script itself, including how it handles
+                    style variations without duplicating the token layer.
+                </p>
             </Main>
 
             <SiteFooter

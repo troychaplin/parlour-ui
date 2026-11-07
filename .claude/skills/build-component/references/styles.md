@@ -27,6 +27,11 @@ If a value you need has no token, add it to `c2b.config.json` and regenerate —
 - BEM with the `parlour-` prefix: `.parlour-component`, `.parlour-component--modifier`, `.parlour-component__element`
 - Utility classes use the `parlour-utils--` prefix
 
+## Spacing between blocks
+
+- Don't set `margin-block` on a component's root. Reset it with `margin: 0` if the element has browser margins. Space between blocks comes from `src/styles/base/spacing.scss`.
+- For a block component that should stand apart from body copy (media, code, lists of items), add its root class to `$parlour-flow-blocks` in that file.
+
 ## Responsive breakpoints
 
 CSS custom properties **cannot** be used inside `@media` queries — that's a spec limitation, not a

@@ -69,6 +69,10 @@ extra element.
 
 These classes are defined in the auto-generated `layout.css` and `typography.css` files produced by `@troychaplin/component2block`. They mirror WordPress's block editor layout system so that React and WordPress share the same spacing rules.
 
+## Spacing
+
+The direct children of `Main`'s content are spaced like a post body. Text — paragraphs, lists, headings — gets the `--parlour--spacing-normal` flow gap, and headings add their own margins on top. The block components `Figure`, `CodeBlock`, `ContentList` and `Quote` get `--parlour--spacing-2-x-large` above and below them, so they stand apart from the text around them. Layout blocks such as `Container` get `--parlour--spacing-4-x-large`. The same block spacing applies inside a `Container`'s content, but not inside a `FlexGroup` or `GridGroup`, which space their items with `gap`.
+
 ## CSS classes
 
 | Class                   | When applied                    |

@@ -17,7 +17,9 @@ Prefix the change with one of these keywords:
 
 ## [Unreleased]
 
-_Changed_ `Quote` has `spacing-2-x-large` above and below it, so a pull quote in body copy no longer sits against the paragraph before it.
+_Changed_ `Container` only adds side padding when `color` is set, matching RDS's `Section`. A Container without a colour is a plain width wrapper, so an `alignwide` one lines up with other wide blocks.
+
+_Added_ Global spacing for block components in a flow: `Figure`, `CodeBlock`, `ContentList` and `Quote` get `spacing-2-x-large` above and below them inside `Main` or a `Container`, so they no longer sit flush against the text around them. Text keeps the `spacing-normal` flow gap.
 
 _Changed_ A `Figure` placed straight after a `Container` has no top margin, so it sits flush against the section above.
 
