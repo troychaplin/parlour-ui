@@ -17,6 +17,12 @@ Prefix the change with one of these keywords:
 
 ## [Unreleased]
 
+_Added_ `Container` `border` prop (`none`, `top`, `bottom`, `both`, `all`) with a border colour matched to each `color`. `light` and `white` default to `all`, as before.
+
+_Fixed_ Two stacked full-width bordered `Container`s drew a doubled line where they meet.
+
+_Changed_ Rewrote the `Container` docs and stories, which still described the removed `bgType` prop.
+
 _Added_ `SectionHeader` `divider` prop (`0`–`4`) for the rule's width in pixels. `1` is the default and matches the previous rule; `0` removes the rule and the space above it.
 
 _Fixed_ `FlexGroup`'s `gap`, `padding` and `margin` had no effect for any value but `none`: the generated classes had a doubled dash (`parlour-flex-group--gap--large`) since the rename to `parlour` in 0.3.0. `SiteHeader` and `InfoBar` now get their intended gap when their items wrap.

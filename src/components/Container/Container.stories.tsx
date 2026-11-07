@@ -1,7 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Main } from '../Main/Main';
 import { Container } from './Container';
-import { MultiParagraph } from '../../data/SampleContent';
+import { MultiParagraph, SingleParagraph } from '../../data/SampleContent';
+import {
+    backgroundColorClasses,
+    borderRadiusClasses,
+    maxWidthClasses,
+} from '../../utils/propClasses';
+
+const colorOptions = Object.keys(backgroundColorClasses) as (keyof typeof backgroundColorClasses)[];
+const borderOptions = ['none', 'top', 'bottom', 'both', 'all'] as const;
+const widthOptions = Object.keys(maxWidthClasses);
 
 const meta: Meta<typeof Container> = {
     title: 'Components/Layout/Container',
@@ -9,19 +18,28 @@ const meta: Meta<typeof Container> = {
     tags: ['!autodocs'],
     argTypes: {
         as: {
-            control: 'inline-radio',
-            options: ['section', 'div'],
+            control: 'select',
+            options: ['div', 'section', 'header', 'main', 'footer', 'article', 'nav', 'aside'],
         },
         maxWidth: {
             control: 'select',
-            options: ['aligncontent', 'alignwide', 'alignfull'],
+            options: widthOptions,
         },
         contentWidth: {
             control: 'select',
-            options: ['aligncontent', 'alignwide', 'alignfull'],
+            options: widthOptions,
         },
         color: {
             control: 'select',
+            options: colorOptions,
+        },
+        border: {
+            control: 'inline-radio',
+            options: borderOptions,
+        },
+        borderRadius: {
+            control: 'select',
+            options: Object.keys(borderRadiusClasses),
         },
     },
     parameters: {
@@ -36,6 +54,10 @@ export default meta;
 type Story = StoryObj<typeof Container>;
 
 export const Default: Story = {
+    args: {
+        color: 'light',
+        maxWidth: 'alignwide',
+    },
     render: (args) => (
         <Main>
             <Container {...args}>
@@ -45,50 +67,76 @@ export const Default: Story = {
     ),
 };
 
-export const Grey: Story = {
+export const Colors: Story = {
+    render: () => (
+        <Main hasPadding={false}>
+            {colorOptions.map((color) => (
+                <Container key={color} color={color} maxWidth="alignfull" contentWidth="alignwide">
+                    <p>color=&quot;{color}&quot;</p>
+                    <SingleParagraph />
+                </Container>
+            ))}
+        </Main>
+    ),
+};
+
+export const Borders: Story = {
     render: () => (
         <Main>
-            <Container>
-                <MultiParagraph count={2} />
+            {borderOptions.map((border) => (
+                <Container key={border} color="pale" border={border} maxWidth="alignwide">
+                    <p>border=&quot;{border}&quot;</p>
+                </Container>
+            ))}
+        </Main>
+    ),
+};
+
+export const BordersFullWidth: Story = {
+    render: () => (
+        <Main hasPadding={false}>
+            <Container color="dark" maxWidth="alignfull" contentWidth="alignwide">
+                <p>color=&quot;dark&quot; — no border by default</p>
+            </Container>
+            <Container color="dark" border="top" maxWidth="alignfull" contentWidth="alignwide">
+                <p>border=&quot;top&quot;</p>
+            </Container>
+            <Container color="medium" border="both" maxWidth="alignfull" contentWidth="alignwide">
+                <p>color=&quot;medium&quot; border=&quot;both&quot;</p>
+            </Container>
+            <Container color="white" maxWidth="alignfull" contentWidth="alignwide">
+                <p>color=&quot;white&quot; — border=&quot;all&quot; by default</p>
             </Container>
         </Main>
     ),
 };
 
-export const Black: Story = {
+export const Stacked: Story = {
     render: () => (
-        <Main>
-            <Container>
-                <MultiParagraph count={2} />
+        <Main hasPadding={false}>
+            <Container color="light" maxWidth="alignfull" contentWidth="alignwide">
+                <SingleParagraph />
             </Container>
-        </Main>
-    ),
-};
-
-export const LightGradient: Story = {
-    render: () => (
-        <Main>
-            <Container>
-                <MultiParagraph count={2} />
+            <Container color="light" maxWidth="alignfull" contentWidth="alignwide">
+                <SingleParagraph />
+            </Container>
+            <Container color="pale" border="bottom" maxWidth="alignfull" contentWidth="alignwide">
+                <SingleParagraph />
+            </Container>
+            <Container color="pale" maxWidth="alignfull" contentWidth="alignwide">
+                <SingleParagraph />
             </Container>
         </Main>
     ),
 };
 
 export const Wide: Story = {
-    render: () => (
+    args: {
+        maxWidth: 'alignwide',
+    },
+    render: (args) => (
         <Main>
-            <Container maxWidth="alignwide">
-                <MultiParagraph count={2} />
-            </Container>
-        </Main>
-    ),
-};
-
-export const FullWidth: Story = {
-    render: () => (
-        <Main>
-            <Container maxWidth="alignfull">
+            <Container {...args}>
                 <MultiParagraph count={2} />
             </Container>
         </Main>
@@ -96,53 +144,14 @@ export const FullWidth: Story = {
 };
 
 export const FullWidthConstrained: Story = {
-    render: () => (
-        <Main>
-            <Container maxWidth="alignfull" contentWidth="aligncontent">
-                <MultiParagraph count={2} />
-            </Container>
-        </Main>
-    ),
-};
-
-export const FullWidthConstrainedWide: Story = {
-    render: () => (
-        <Main>
-            <Container maxWidth="alignfull" contentWidth="alignwide">
-                <MultiParagraph count={2} />
-            </Container>
-        </Main>
-    ),
-};
-
-export const AlternatingGreyContainers: Story = {
-    render: () => (
-        <Main>
-            <Container>
-                <MultiParagraph count={2} />
-            </Container>
-            <Container>
-                <MultiParagraph count={2} />
-            </Container>
-            <Container>
-                <MultiParagraph count={2} />
-            </Container>
-            <Container>
-                <MultiParagraph count={2} />
-            </Container>
-        </Main>
-    ),
-};
-
-export const WithInlineStyles: Story = {
-    render: () => (
-        <Main>
-            <Container
-                style={{
-                    backgroundColor: 'var(--parlour--color-neutral-200)',
-                    paddingBlock: 'var(--parlour--spacing-large)',
-                }}
-            >
+    args: {
+        color: 'pale',
+        maxWidth: 'alignfull',
+        contentWidth: 'aligncontent',
+    },
+    render: (args) => (
+        <Main hasPadding={false}>
+            <Container {...args}>
                 <MultiParagraph count={2} />
             </Container>
         </Main>

@@ -18,6 +18,7 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLElement> {
     contentWidth?: maxWidthKeys;
     color?: colorKeys;
     borderRadius?: borderRadiusKeys;
+    border?: 'none' | 'top' | 'bottom' | 'both' | 'all';
 }
 
 export const Container = ({
@@ -28,15 +29,20 @@ export const Container = ({
     color,
     className,
     borderRadius = 'md',
+    border,
     ...rest
 }: ContainerProps) => {
     const ContainerWrapper = as;
+
+    // light and white have always been bordered, so they keep `all` unless told otherwise
+    const resolvedBorder = border ?? (color === 'light' || color === 'white' ? 'all' : 'none');
 
     const rootClasses = [
         'parlour-layout parlour-container',
         'is-layout-constrained',
         maxWidth,
         color && `parlour-container--no-gap parlour-container--${color}`,
+        color && resolvedBorder !== 'none' && `parlour-container--border-${resolvedBorder}`,
         borderRadius && `parlour-container--radius-${borderRadius}`,
         className,
     ]

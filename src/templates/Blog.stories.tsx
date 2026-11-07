@@ -54,27 +54,20 @@ export const Blog: Story = {
             <InfoBar />
 
             <Main hasPadding={false}>
-                <Container color="light" maxWidth="alignfull" contentWidth="alignwide">
+                <Container
+                    color="white"
+                    maxWidth="alignfull"
+                    contentWidth="alignwide"
+                    border="bottom"
+                >
                     <SectionHeader
                         level={1}
                         prefix="// Writing"
-                        size="x-large"
                         title="Notes from the trenches."
+                        size="x-large"
+                        divider={0}
                     />
                 </Container>
-
-                {/* <Container color="pale" maxWidth="alignfull" contentWidth="alignwide">
-                    <HeroHeader
-                        prefix="// Writing"
-                        prefixStyle="mono"
-                        title="Notes from the trenches."
-                    >
-                        <ul className="parlour-hero-header__stats">
-                            <li>184 essays</li>
-                            <li>2007 — 2026</li>
-                        </ul>
-                    </HeroHeader>
-                </Container> */}
 
                 <Container color="pale" maxWidth="alignfull" contentWidth="alignwide">
                     <FlexGroup direction="column" gap="2-x-large">

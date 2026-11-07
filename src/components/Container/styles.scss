@@ -56,15 +56,21 @@
 }
 
 .parlour-container--pale {
+    --parlour-container-border: var(--parlour--color-neutral-300);
+
     background-color: var(--parlour--color-neutral-50);
     border: 1px solid var(--parlour--color-neutral-50);
 }
 
 .parlour-container--light {
+    --parlour-container-border: var(--parlour--color-neutral-300);
+
     background-color: var(--parlour--color-neutral-200);
 }
 
 .parlour-container--medium {
+    --parlour-container-border: var(--parlour--color-neutral-700);
+
     background-color: var(--parlour--color-neutral-900);
     color: var(--parlour--color-white);
 
@@ -78,6 +84,8 @@
 }
 
 .parlour-container--dark {
+    --parlour-container-border: var(--parlour--color-neutral-900);
+
     background-color: var(--parlour--color-neutral-950);
     color: var(--parlour--color-white);
 
@@ -91,21 +99,47 @@
 }
 
 .parlour-container--white {
+    --parlour-container-border: var(--parlour--color-neutral-300);
+
     background-color: var(--parlour--color-white);
 }
 
-.parlour-container--light,
-.parlour-container--white {
-    // border: 1px solid var(--parlour--color-neutral-300);
-    border: 1px solid var(--parlour--color-neutral-300);
+// `border` draws rules in the colour each background sets above. These come after the colour
+// rules so they win over pale's self-coloured border at the same specificity.
+.parlour-container--border-top {
+    border-top: 1px solid var(--parlour-container-border);
+}
+
+.parlour-container--border-bottom {
+    border-bottom: 1px solid var(--parlour-container-border);
+}
+
+.parlour-container--border-both {
+    border-block: 1px solid var(--parlour-container-border);
+}
+
+// Side borders on a full-width band would sit against the viewport edges, so `all` keeps only
+// top and bottom there.
+.parlour-container--border-all {
+    border: 1px solid var(--parlour-container-border);
 
     &.alignfull {
         border-inline: none;
-
-        & + .parlour-container--has-border {
-            border-top: none;
-        }
     }
+}
+
+// Two stacked full-width bands share one rule rather than drawing two where they meet.
+.alignfull:is(
+        .parlour-container--border-bottom,
+        .parlour-container--border-both,
+        .parlour-container--border-all
+    )
+    + .alignfull:is(
+        .parlour-container--border-top,
+        .parlour-container--border-both,
+        .parlour-container--border-all
+    ) {
+    border-top: none;
 }
 
 .parlour-container--full {

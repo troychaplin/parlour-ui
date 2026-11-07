@@ -5,11 +5,14 @@ import * as ContainerStories from './Container.stories';
 
 # Container
 
-A page-level content container that controls width, background, and vertical rhythm. Nests inside `Main` and wraps layout components like `Column`, `Article`, and `Aside`. Three max-width presets align with the WordPress block editor's alignment system.
+A band of the page that sets its width, background, padding and borders. Renders a `<div>` by default, or the element set by `as`, with an inner `<div>` that constrains its children to `contentWidth`.
 
 ## When to use
 
-Use `Container` to group related content into a distinct visual band — a card grid, an article body, a call-to-action strip. Stack multiple `Container` components inside `Main` to build alternating white and grey content rows. Use `maxWidth="alignfull"` with `bgType="grey"` for full-bleed accent sections. Add `contentWidth` when you want the section background to span one width while the children are constrained to a narrower readable column.
+- Split a page into sections inside [`Main`](?path=/docs/components-template-parts-main--docs): a hero, a grid of cards, a list of posts. Stack full-width Containers with different `color`s to alternate bands down the page.
+- Use `maxWidth="alignfull"` with `contentWidth="alignwide"` for the common band whose background runs edge to edge while its content stays at the wide width.
+- Use `border` to rule a section off from its neighbours, such as a hairline between two bands of the same colour.
+- It isn't for small surfaces inside a section — use [`Card`](?path=/docs/components-cards-card--docs) for those.
 
 ## Import
 
@@ -20,192 +23,116 @@ import { Container } from '@troychaplin/parlour-ui';
 ## Basic usage
 
 ```tsx
-// Default — content width, white background
-<Main>
-  <Container>
-    <Column cols="3">...</Column>
-  </Container>
-</Main>
+// Content width, no background
+<Container>...</Container>
 
-// Grey background
-<Main>
-  <Container bgType="grey">
-    <Column cols="2">...</Column>
-  </Container>
-</Main>
+// Full-width band with wide content
+<Container color="pale" maxWidth="alignfull" contentWidth="alignwide">...</Container>
 
-// Black background (automatically inverts text to white)
-<Main>
-  <Container bgType="black">
-    <Column cols="2">...</Column>
-  </Container>
-</Main>
+// light and white are bordered all round by default; turn it off
+<Container color="light" border="none">...</Container>
 
-// Light gradient background
-<Main>
-  <Container bgType="light-gradient">
-    <Column cols="2">...</Column>
-  </Container>
-</Main>
+// A rule above a dark band
+<Container color="dark" border="top" maxWidth="alignfull">...</Container>
 
-// Full-bleed grey band
-<Main>
-  <Container maxWidth="alignfull" bgType="grey">
-    <Column cols="3">...</Column>
-  </Container>
-</Main>
-
-// Full-bleed grey band with content constrained to 768px
-<Main>
-  <Container maxWidth="alignfull" bgType="grey" contentWidth="aligncontent">
-    <Column cols="2">...</Column>
-  </Container>
-</Main>
-
-// Full-bleed grey band with content constrained to 1152px
-<Main>
-  <Container maxWidth="alignfull" bgType="grey" contentWidth="alignwide">
-    <Column cols="2">...</Column>
-  </Container>
-</Main>
-
-// Inline styles and other HTML attributes land on the root element
-<Main>
-  <Container id="highlights" style={{ backgroundColor: 'var(--parlour--color-neutral-200)' }}>
-    <Column cols="2">...</Column>
-  </Container>
-</Main>
+// A section landmark with a name
+<Container as="section" aria-label="Releases" color="light">...</Container>
 ```
 
 ## Examples
 
 ### Default
 
-Content width (`aligncontent`), white background. Use the controls to explore `as`, `bgType`, `maxWidth`, and `contentWidth`.
+A boxed `light` Container at the wide width. Use the controls to try each `color`, `border`, width and radius.
 
 <Canvas of={ContainerStories.Default} />
 <Controls of={ContainerStories.Default} />
 
-### Grey
+### Colours
 
-`bgType="grey"` adds a grey background, internal padding, and a border radius. The border radius is removed automatically when `maxWidth="alignfull"`.
+`color` sets the background and adds block padding (`--parlour--spacing-5-x-large`). `medium` and `dark` turn the text and headings white. Without `color`, a Container has no background and no block padding.
 
-<Canvas of={ContainerStories.Grey} />
+<Canvas of={ContainerStories.Colors} />
 
-### Black
+### Borders
 
-`bgType="black"` adds a black background and automatically applies `data-color-scheme="dark"` to invert text and headings to white.
+`border` draws a `1px` rule on the `top`, the `bottom`, `both` (top and bottom) or `all` four sides, or `none`. The colour comes from the background:
 
-<Canvas of={ContainerStories.Black} />
+| `color`  | Background                     | Border                         | Default `border` |
+| -------- | ------------------------------ | ------------------------------ | ---------------- |
+| `white`  | `--parlour--color-white`       | `--parlour--color-neutral-300` | `all`            |
+| `pale`   | `--parlour--color-neutral-50`  | `--parlour--color-neutral-300` | `none`           |
+| `light`  | `--parlour--color-neutral-200` | `--parlour--color-neutral-300` | `all`            |
+| `medium` | `--parlour--color-neutral-900` | `--parlour--color-neutral-700` | `none`           |
+| `dark`   | `--parlour--color-neutral-950` | `--parlour--color-neutral-900` | `none`           |
 
-### Light gradient
+These are the pairings the rest of the library uses — `Card`'s borders, `GridGroup`'s dividers, and the rules in `ContentList` and `Pagination`. `border` only applies to a Container with a `color`, since only those have the block padding that keeps a rule off the content.
 
-`bgType="light-gradient"` applies a subtle white-to-pale-grey gradient background.
+<Canvas of={ContainerStories.Borders} />
 
-<Canvas of={ContainerStories.LightGradient} />
+### Borders on full-width bands
+
+On a full-width Container, `all` draws only the top and bottom: side borders would sit against the edges of the viewport.
+
+<Canvas of={ContainerStories.BordersFullWidth} />
+
+### Stacked bands
+
+Full-width Containers stack with no gap between them. Where one has a bottom border and the next a top border, they share a single rule instead of drawing two.
+
+<Canvas of={ContainerStories.Stacked} />
 
 ### Wide
 
-`maxWidth="alignwide"` expands the section to the wide layout width (`--parlour--layout-wide-size`).
+`maxWidth="alignwide"` widens the Container to `--parlour--layout-wide-size` (1152px).
 
 <Canvas of={ContainerStories.Wide} />
 
-### Full width
+### Full width, constrained content
 
-`maxWidth="alignfull"` runs edge to edge. Combined with `bgType="grey"` this is the standard full-bleed accent band. When a full-width styled section is the last child of `Main`, a negative bottom margin is applied automatically to eliminate the double-spacing gap at the page foot.
-
-<Canvas of={ContainerStories.FullWidth} />
-
-### Full width with constrained content (768px)
-
-`contentWidth="aligncontent"` wraps children in an inner div constrained to 768px — useful when you want a full-bleed background but a readable column of content.
+`maxWidth="alignfull"` runs the background edge to edge; `contentWidth="aligncontent"` keeps the children at the readable 768px column.
 
 <Canvas of={ContainerStories.FullWidthConstrained} />
 
-### Full width with constrained content (1152px)
-
-`contentWidth="alignwide"` uses the wider 1152px column.
-
-<Canvas of={ContainerStories.FullWidthConstrainedWide} />
-
-### Alternating sections
-
-The most common page pattern — alternating white and grey bands, ending with a full-bleed grey footer band.
-
-<Canvas of={ContainerStories.AlternatingGreyContainers} />
-
-### Inline styles
-
-`style` and any other HTML attribute pass straight through to the root element. Here an inline background and block padding turn the default full-width container into a tinted band, while the content stays constrained to `contentWidth`.
-
-<Canvas of={ContainerStories.WithInlineStyles} />
-
-## Max-width presets
-
-| `maxWidth`       | Token                            | Description                                    |
-| ---------------- | -------------------------------- | ---------------------------------------------- |
-| `"aligncontent"` | `--parlour--layout-content-size` | Default — standard readable content width      |
-| `"alignwide"`    | `--parlour--layout-wide-size`    | Wider — for card grids and media-rich sections |
-| `"alignfull"`    | `--parlour--layout-full-size`    | Full viewport width — hero and accent bands    |
-
-These names and tokens mirror the WordPress block editor's alignment system so that React templates and WordPress block themes share the same layout vocabulary.
-
-## The `as` prop
-
-By default `Container` renders a `<section>` element. Pass `as="div"` when a section landmark is semantically inappropriate — for example, a purely decorative spacer row or a wrapper that forms part of a larger landmark region.
-
-## The `contentWidth` prop
-
-When set, `contentWidth` wraps all children in a `parlour-section__content` div independently constrained within the outer layout:
-
-| Value            | Inner content width                                   |
-| ---------------- | ----------------------------------------------------- |
-| `"aligncontent"` | 768px — standard readable content width               |
-| `"alignwide"`    | 1152px — wider, for card grids and media-rich layouts |
-| `"alignfull"`    | Full viewport width                                   |
-
-Omitting `contentWidth` keeps the existing behaviour: children are direct children of the root and the root's `is-layout-constrained` applies.
-
-## HTML attributes and inline styles
-
-All other props are spread onto the rendered element, so `style`, `id`, `aria-*`, `data-*` and DOM event handlers pass through. A `className` you pass is appended to the generated classes rather than replacing them.
-
-Everything lands on the root element, not the inner `has-global-padding` wrapper that holds the children. A root-level background therefore spans the full `maxWidth` while the content stays constrained to `contentWidth`.
-
-Two layout rules use `!important`, so inline styles can't override them:
-
-- Inside a constrained parent such as `Main`, any `maxWidth` other than `"alignfull"` is centred with `margin-left: auto !important` and `margin-right: auto !important`, so inline horizontal margins have no effect.
-- `maxWidth="alignsmall"` sets its `max-width` with `!important`, so an inline `maxWidth` has no effect with that preset.
-
 ## CSS classes
 
-| Class                             | When applied                                          |
-| --------------------------------- | ----------------------------------------------------- |
-| `parlour-section`                 | Always                                                |
-| `parlour-section--grey`           | `bgType="grey"`                                       |
-| `parlour-section--black`          | `bgType="black"`                                      |
-| `parlour-section--light-gradient` | `bgType="light-gradient"`                             |
-| `aligncontent`                    | `maxWidth="aligncontent"` (default)                   |
-| `alignwide`                       | `maxWidth="alignwide"`                                |
-| `alignfull`                       | `maxWidth="alignfull"`                                |
-| `has-global-padding`              | When `bgType` is set — horizontal gutter              |
-| `is-layout-constrained`           | Always — constrains children to content / wide widths |
+| Class                                  | When applied                                                                |
+| -------------------------------------- | --------------------------------------------------------------------------- |
+| `parlour-layout`, `parlour-container`  | Always — base classes                                                       |
+| `is-layout-constrained`                | Always — constrains children to the content and wide widths                 |
+| `{maxWidth}`                           | Always — `aligncontent` (default), `alignsmall`, `alignwide` or `alignfull` |
+| `parlour-container--{color}`           | `color` is set                                                              |
+| `parlour-container--no-gap`            | `color` is set — controls the spacing between stacked Containers            |
+| `parlour-container--border-{border}`   | `color` is set and the resolved `border` isn't `none`                       |
+| `parlour-container--radius-{radius}`   | Always — `borderRadius`, `md` by default; ignored on `alignfull`            |
+| `has-global-padding`, `{contentWidth}` | On the inner `<div>` — `contentWidth` is `aligncontent` by default          |
+| `has-root-padding`                     | On the inner `<div>`, when `color` is set                                   |
+
+Each colour class sets `--parlour-container-border`, which the border classes read; override it on a Container to recolour its rule. A `className` you pass is appended after the generated classes. All other props, including `style` and `aria-*`, go on the outer element, so a background set there spans the full `maxWidth` while the content stays at `contentWidth`.
+
+Two layout rules use `!important`, so inline styles can't override them: inside a constrained parent such as `Main`, any `maxWidth` but `alignfull` is centred with `margin-inline: auto !important`, and `alignsmall` sets its `max-width` with `!important`.
 
 ## Design tokens
 
-| Token                                    | Used for                                        |
-| ---------------------------------------- | ----------------------------------------------- |
-| `--parlour--color-grey-pale`             | Grey section background                         |
-| `--parlour--color-black`                 | Black section background                        |
-| `--parlour--gradient-white-to-pale-grey` | Light gradient section background               |
-| `--parlour--spacing-large`               | Internal padding on styled sections             |
-| `--parlour--radius-md`                   | Border radius on non-full-width styled sections |
-| `--parlour--layout-content-size`         | `aligncontent` max-width                        |
-| `--parlour--layout-wide-size`            | `alignwide` max-width                           |
-| `--parlour--layout-full-size`            | `alignfull` max-width (100%)                    |
+| Token                                                           | Used for                                                       |
+| --------------------------------------------------------------- | -------------------------------------------------------------- |
+| `--parlour--color-white`                                        | `white` background; text on `medium` and `dark`                |
+| `--parlour--color-neutral-50`                                   | `pale` background                                              |
+| `--parlour--color-neutral-200`                                  | `light` background                                             |
+| `--parlour--color-neutral-900`                                  | `medium` background; `dark` border                             |
+| `--parlour--color-neutral-950`                                  | `dark` background                                              |
+| `--parlour--color-neutral-300`                                  | `white`, `pale` and `light` borders                            |
+| `--parlour--color-neutral-700`                                  | `medium` border                                                |
+| `--parlour--spacing-5-x-large`                                  | Block padding when `color` is set                              |
+| `--parlour--spacing-3-x-large` / `-4-x-large`                   | Side padding, below / above the tablet breakpoint              |
+| `--parlour--spacing-2-x-large`                                  | Gap between stacked coloured Containers that aren't full width |
+| `--parlour--radius-sm` / `-md` / `-lg` / `-xl` / `-full`        | `borderRadius`                                                 |
+| `--parlour--layout-small-size` / `-content-size` / `-wide-size` | `alignsmall`, `aligncontent` and `alignwide` widths            |
+
+The `1px` border width is a raw value rather than a design token.
 
 ## Accessibility
 
-- `<section>` is a landmark element when it has an accessible name — add `aria-label` or `aria-labelledby` via the standard HTML prop when the section's purpose should be surfaced to screen reader navigation.
-- Without an accessible name, `<section>` is not exposed as a landmark, which is acceptable for generic layout sections. Use `as="div"` if you actively want to suppress any landmark semantics.
-- When stacking many sections on a single page, ensure each meaningful `<section>` landmark has a distinct label so screen reader users can distinguish between them in landmark navigation.
+- `Container` renders a `<div>`, which has no role. Use `as` to give a band meaning: `as="section"` with an `aria-label` or `aria-labelledby` becomes a region landmark, and `header`, `footer`, `nav` and `aside` map to their own landmarks. Give each landmark of the same kind a distinct name.
+- `medium` and `dark` set white text and headings so content stays readable; check the contrast of any colour you add yourself against the background.
+- Borders are decoration. They aren't announced and never carry meaning on their own.
