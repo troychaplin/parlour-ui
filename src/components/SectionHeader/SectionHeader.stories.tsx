@@ -4,6 +4,7 @@ import { Main } from '../Main/Main';
 import { Container } from '../Container/Container';
 
 const sizeOptions = ['small', 'medium', 'large', 'x-large'] as const;
+const dividerOptions = [0, 1, 2, 3, 4] as const;
 
 const meta: Meta<typeof SectionHeader> = {
     title: 'Components/Headers/Section Header',
@@ -24,6 +25,10 @@ const meta: Meta<typeof SectionHeader> = {
         size: {
             control: 'inline-radio',
             options: sizeOptions,
+        },
+        divider: {
+            control: 'inline-radio',
+            options: dividerOptions,
         },
     },
     parameters: {
@@ -58,6 +63,21 @@ export const Sizes: Story = {
                     key={size}
                     size={size}
                     prefix={`size="${size}"`}
+                    title="Things I ship."
+                />
+            ))}
+        </div>
+    ),
+};
+
+export const Dividers: Story = {
+    render: () => (
+        <div>
+            {dividerOptions.map((divider) => (
+                <SectionHeader
+                    key={divider}
+                    divider={divider}
+                    prefix={`divider={${divider}}`}
                     title="Things I ship."
                 />
             ))}

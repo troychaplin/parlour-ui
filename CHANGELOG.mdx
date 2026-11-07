@@ -17,6 +17,8 @@ Prefix the change with one of these keywords:
 
 ## [Unreleased]
 
+_Added_ `SectionHeader` `divider` prop (`0`–`4`) for the rule's width in pixels. `1` is the default and matches the previous rule; `0` removes the rule and the space above it.
+
 _Fixed_ `FlexGroup`'s `gap`, `padding` and `margin` had no effect for any value but `none`: the generated classes had a doubled dash (`parlour-flex-group--gap--large`) since the rename to `parlour` in 0.3.0. `SiteHeader` and `InfoBar` now get their intended gap when their items wrap.
 
 _Added_ `Pagination`, links between the pages of a long list, with `color` fills matching `Container`'s backgrounds and `align` (`start`, `center`, `end`).

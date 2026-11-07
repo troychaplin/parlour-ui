@@ -11,6 +11,7 @@ export interface SectionHeaderProps extends Omit<
     title?: string;
     level?: 1 | 2 | 3 | 4;
     size?: 'small' | 'medium' | 'large' | 'x-large';
+    divider?: 0 | 1 | 2 | 3 | 4;
 }
 
 export const SectionHeader = ({
@@ -19,9 +20,15 @@ export const SectionHeader = ({
     title,
     level = 2,
     size = 'medium',
+    divider = 1,
     ...rest
 }: SectionHeaderProps) => {
-    const rootClasses = ['parlour-section-header', `parlour-section-header--${size}`, className]
+    const rootClasses = [
+        'parlour-section-header',
+        `parlour-section-header--${size}`,
+        `parlour-section-header--divider-${divider}`,
+        className,
+    ]
         .filter(Boolean)
         .join(' ');
     const Heading = `h${level}` as const;

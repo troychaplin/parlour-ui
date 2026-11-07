@@ -8,7 +8,7 @@ import { ButtonGroup } from '../components/ButtonGroup/ButtonGroup';
 import { SiteFooter } from '../components/SiteFooter/SiteFooter';
 import { SiteHeader } from '../components/SiteHeader/SiteHeader';
 import { InfoBar } from '../components/InfoBar/InfoBar';
-import { HeroHeader } from '../components/HeroHeader/HeroHeader';
+import { SectionHeader } from '../components/SectionHeader/SectionHeader';
 import {
     ContentList,
     ContentListItem,
@@ -54,7 +54,16 @@ export const Blog: Story = {
             <InfoBar />
 
             <Main hasPadding={false}>
-                <Container color="pale" maxWidth="alignfull" contentWidth="alignwide">
+                <Container color="light" maxWidth="alignfull" contentWidth="alignwide">
+                    <SectionHeader
+                        level={1}
+                        prefix="// Writing"
+                        size="x-large"
+                        title="Notes from the trenches."
+                    />
+                </Container>
+
+                {/* <Container color="pale" maxWidth="alignfull" contentWidth="alignwide">
                     <HeroHeader
                         prefix="// Writing"
                         prefixStyle="mono"
@@ -65,7 +74,7 @@ export const Blog: Story = {
                             <li>2007 — 2026</li>
                         </ul>
                     </HeroHeader>
-                </Container>
+                </Container> */}
 
                 <Container color="pale" maxWidth="alignfull" contentWidth="alignwide">
                     <FlexGroup direction="column" gap="2-x-large">

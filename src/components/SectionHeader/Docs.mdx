@@ -5,7 +5,7 @@ import * as SectionHeaderStories from './SectionHeader.stories';
 
 # Section Header
 
-The heading for a section of a page: a small uppercase eyebrow, a title, and a divider rule beneath them. Renders a `<header>` containing an `<h2>`, or the heading level set by `level`, at one of four title sizes.
+The heading for a section of a page: a small uppercase eyebrow, a title, and a divider rule beneath them whose width you can set or remove. Renders a `<header>` containing an `<h2>`, or the heading level set by `level`, at one of four title sizes.
 
 ## When to use
 
@@ -33,6 +33,10 @@ import { SectionHeader } from '@troychaplin/parlour-ui';
 
 // The page's main heading, larger
 <SectionHeader title="Writing" level={1} size="large" />
+
+// A heavier rule, or none
+<SectionHeader title="Things I ship." divider={2} />
+<SectionHeader title="Things I ship." divider={0} />
 ```
 
 ## Examples
@@ -56,6 +60,12 @@ Without `prefix`, the header renders just the title and the divider.
 
 <Canvas of={SectionHeaderStories.Sizes} />
 
+### Dividers
+
+`divider` sets the rule's width in pixels, from `1` (default) to `4`. `0` removes the rule and the space between it and the title; the space below the header, before the section's content, stays.
+
+<Canvas of={SectionHeaderStories.Dividers} />
+
 ### In a light Container
 
 On a `Container` with `color="light"`, the header keeps its default colors against the `--parlour--color-neutral-200` background — the section style it was designed for.
@@ -76,14 +86,15 @@ Inside a `Container` with `color="medium"`, the title turns white, the eyebrow l
 
 ## CSS classes
 
-| Class                            | When applied                                                               |
-| -------------------------------- | -------------------------------------------------------------------------- |
-| `parlour-section-header`         | Always — base class; draws the divider as its bottom border                |
-| `parlour-section-header--{size}` | Always — the `size` value, e.g. `parlour-section-header--medium` (default) |
-| `parlour-section-header__prefix` | `prefix` is set — on the `<p>` above the title                             |
-| `parlour-section-header__title`  | `title` is set — on the heading                                            |
+| Class                                 | When applied                                                                                                                   |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `parlour-section-header`              | Always — base class; draws the divider as its bottom border                                                                    |
+| `parlour-section-header--{size}`      | Always — the `size` value, e.g. `parlour-section-header--medium` (default)                                                     |
+| `parlour-section-header--divider-{n}` | Always — the `divider` value, e.g. `parlour-section-header--divider-1` (default); `divider-0` removes the rule and its padding |
+| `parlour-section-header__prefix`      | `prefix` is set — on the `<p>` above the title                                                                                 |
+| `parlour-section-header__title`       | `title` is set — on the heading                                                                                                |
 
-The header also leaves space below its divider, so whatever follows it — a grid of cards, a paragraph — starts the same distance down. Inside a `Container`, that space is removed when the header is the section's last child. The size modifiers set `--parlour-section-header-title-size` and `--parlour-section-header-tracking`, which the title reads. A `className` you pass is appended after these classes.
+The header also leaves space below its divider, so whatever follows it — a grid of cards, a paragraph — starts the same distance down. Inside a `Container`, that space is removed when the header is the section's last child. The size modifiers set `--parlour-section-header-title-size` and `--parlour-section-header-tracking`, which the title reads. The divider modifiers set `--parlour-section-header-divider`, the rule's width. A `className` you pass is appended after these classes.
 
 ## Design tokens
 
@@ -103,7 +114,7 @@ The header also leaves space below its divider, so whatever follows it — a gri
 | `--parlour--spacing-large`              | Space between the title and the divider               |
 | `--parlour--spacing-2-x-large`          | Space below the divider, before the section's content |
 
-The eyebrow's `letter-spacing` (`0.1em`), the title's `letter-spacing` (`-2px`, `-1.5px`, `-1px` and `-0.5px` by size) and `line-height` (`1.1`), and the divider's `1px` width use raw values rather than design tokens. The divider has no color of its own: it uses `currentColor`, so it matches the surrounding text — near-black on light sections, white in dark ones.
+The eyebrow's `letter-spacing` (`0.1em`), the title's `letter-spacing` (`-2px`, `-1.5px`, `-1px` and `-0.5px` by size) and `line-height` (`1.1`), and the divider's width (`1px`–`4px` by `divider`) use raw values rather than design tokens. The divider has no color of its own: it uses `currentColor`, so it matches the surrounding text — near-black on light sections, white in dark ones.
 
 ## Accessibility
 
