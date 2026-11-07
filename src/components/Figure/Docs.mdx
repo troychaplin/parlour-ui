@@ -32,6 +32,11 @@ import { Figure } from '@troychaplin/parlour-ui';
     <img src="/workshop.jpg" alt="A wood workshop with tools on the walls" />
 </Figure>
 
+// At the wide layout width, centred in Main or a Container
+<Figure maxWidth="alignwide">
+    <img src="/panorama.jpg" alt="A panorama of the harbour at dusk" />
+</Figure>
+
 // Medium width, floated left with text wrapping around it
 <Figure size="md" align="left">
     <img src="/detail.jpg" alt="A close-up of a dovetail joint" />
@@ -42,10 +47,18 @@ import { Figure } from '@troychaplin/parlour-ui';
 
 ### Default
 
-A full-width figure. Use the controls to try each `size` and `align`.
+A full-width figure. Use the controls to try each `size`, `align` and `maxWidth`.
 
 <Canvas of={FigureStories.Default} />
 <Controls of={FigureStories.Default} />
+
+### Max widths
+
+`maxWidth` sizes a block figure with the shared layout widths — `alignsmall` (600px), `aligncontent` (768px), `alignwide` (1152px) and `alignfull` (the full viewport) — the same as `Container`, `ContentList` and `SectionHeader`. It applies when the figure is a direct child of a constrained parent such as [`Main`](?path=/docs/components-template-parts-main--docs) or a `Container`. An `alignfull` figure loses its rounded corners, since it runs to the viewport edges.
+
+`maxWidth` is for block figures, so it's ignored when `align` is `left` or `right`: a floated figure keeps its `size` (`xs` to `lg`), which is small enough to leave room for the text beside it.
+
+<Canvas of={FigureStories.MaxWidths} />
 
 ### With caption
 
@@ -73,16 +86,17 @@ The same, floated right.
 
 ## CSS classes
 
-| Class                      | When applied                                                                    |
-| -------------------------- | ------------------------------------------------------------------------------- |
-| `parlour-figure`           | Always — base class on the `<figure>`                                           |
-| `parlour-figure--{size}`   | Always — the `size` value: `xs`, `sm`, `md`, `lg` or `full` (default)           |
-| `parlour-figure--{align}`  | `align` is `left`, `right` or `center`                                          |
-| `alignleft` / `alignright` | `align` is `left` / `right` — opts out of the constrained layout's auto margins |
-| `parlour-figure__inner`    | Always — the frame around the media and caption; rounds the corners             |
-| `parlour-figure__caption`  | `caption` is set — on the `<figcaption>`                                        |
+| Class                                                     | When applied                                                                    |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `parlour-figure`                                          | Always — base class on the `<figure>`                                           |
+| `parlour-figure--{size}`                                  | Always — the `size` value: `xs`, `sm`, `md`, `lg` or `full` (default)           |
+| `parlour-figure--{align}`                                 | `align` is `left`, `right` or `center`                                          |
+| `alignleft` / `alignright`                                | `align` is `left` / `right` — opts out of the constrained layout's auto margins |
+| `alignsmall` / `aligncontent` / `alignwide` / `alignfull` | `maxWidth` is set and the figure isn't floated                                  |
+| `parlour-figure__inner`                                   | Always — the frame around the media and caption; rounds the corners             |
+| `parlour-figure__caption`                                 | `caption` is set — on the `<figcaption>`                                        |
 
-The sizes set a fixed width — `xs` 320px, `sm` 440px, `md` 512px, `lg` 48rem — capped at 100% of the container. At 768px and below every size goes full width. An `<img>` inside the figure is made a full-width block.
+The sizes set a fixed width — `xs` 320px, `sm` 440px, `md` 512px, `lg` 48rem — capped at 100% of the container. At 768px and below every size goes full width. An `<img>` inside the figure is made a full-width block. A figure placed straight after a [`Container`](?path=/docs/components-layout-container--docs) has no top margin, so it sits flush against the section above instead of taking the gap `Main` puts between layout blocks.
 
 ## Design tokens
 

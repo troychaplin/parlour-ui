@@ -1,0 +1,119 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as PostMetaStories from './PostMeta.stories';
+
+<Meta of={PostMetaStories} />
+
+# Post Meta
+
+The byline for a post: the author's avatar, name and a short line about them, with the published and updated dates. Renders a `<div>` holding the author block and the dates, each date in a `<time>` element.
+
+## When to use
+
+- Below a post's header, or at the end of a post, to say who wrote it and when.
+- Add `updated` when a post has changed since it was published, so readers know how current it is.
+- It isn't for the post list: rows in [`ContentList`](?path=/docs/components-content-content-list--docs) show their dates with `ContentListMeta`.
+
+## Import
+
+```tsx
+import { PostMeta } from '@troychaplin/parlour-ui';
+```
+
+## Basic usage
+
+```tsx
+// Author and published date
+<PostMeta name="Troy Chaplin" published="2026-04-21" />
+
+// Everything
+<PostMeta
+    name="Troy Chaplin"
+    details="Developer · Ottawa"
+    avatar="/images/troy.jpg"
+    published="2026-04-21"
+    updated="2026-04-24"
+/>
+
+// Without the rule above it
+<PostMeta name="Troy Chaplin" published="2026-04-21" divider={false} />
+```
+
+Pass dates as ISO strings (`YYYY-MM-DD`). The component writes them out as "21 April 2026" and keeps the ISO value in each `<time>`'s `dateTime`. They're formatted in UTC, so the server and the browser always show the same day.
+
+## Examples
+
+### Default
+
+Avatar, name, details, and both dates, with the rule above.
+
+<Canvas of={PostMetaStories.Default} />
+<Controls of={PostMetaStories.Default} />
+
+### Published only
+
+Without `updated`, only the published date shows.
+
+<Canvas of={PostMetaStories.PublishedOnly} />
+
+### No avatar
+
+Without `avatar`, the name and details start at the left edge.
+
+<Canvas of={PostMetaStories.NoAvatar} />
+
+### No divider
+
+`divider={false}` removes the rule and the space above the row, for when something else already separates it.
+
+<Canvas of={PostMetaStories.NoDivider} />
+
+### In a dark Container
+
+In dark and medium [`Container`](?path=/docs/components-layout-container--docs)s the name turns white and the details, dates and rule lighten.
+
+<Canvas of={PostMetaStories.InDarkContainer} />
+
+## CSS classes
+
+| Class                        | When applied                                           |
+| ---------------------------- | ------------------------------------------------------ |
+| `parlour-post-meta`          | Always — base class                                    |
+| `parlour-post-meta--divider` | `divider` is `true` (default) — the rule above the row |
+| `parlour-post-meta__author`  | Always — the avatar, name and details                  |
+| `parlour-post-meta__avatar`  | `avatar` is set — the `<img>`                          |
+| `parlour-post-meta__name`    | Always — the `<p>` holding `name`                      |
+| `parlour-post-meta__details` | `details` is set                                       |
+| `parlour-post-meta__dates`   | `published` or `updated` is set                        |
+
+The colours are custom properties set on `parlour-post-meta` — `--parlour-post-meta-name`, `-muted` and `-rule` — so you can override them there. The row wraps on narrow screens; the dates right-align beside the author above 600px and left-align below it. A `className` you pass is appended after the generated classes, and other props go on the outer `<div>`.
+
+## Design tokens
+
+| Token                                   | Used for                                              |
+| --------------------------------------- | ----------------------------------------------------- |
+| `--parlour--font-family-inter-tight`    | Name and details                                      |
+| `--parlour--font-family-jetbrains-mono` | Dates                                                 |
+| `--parlour--font-size-small`            | Name                                                  |
+| `--parlour--font-size-x-small`          | Details                                               |
+| `--parlour--font-size-2-x-small`        | Dates                                                 |
+| `--parlour--font-weight-normal`         | Name                                                  |
+| `--parlour--line-height-tight`          | Name and details                                      |
+| `--parlour--color-neutral-950`          | Name                                                  |
+| `--parlour--color-neutral-600`          | Details and dates                                     |
+| `--parlour--color-neutral-300`          | Rule; details and dates in dark and medium Containers |
+| `--parlour--color-white`                | Name in dark and medium Containers                    |
+| `--parlour--color-neutral-700`          | Rule in dark and medium Containers                    |
+| `--parlour--spacing-medium`             | Gap between the author and the dates                  |
+| `--parlour--spacing-small`              | Gap between the avatar and the name                   |
+| `--parlour--spacing-large`              | Space between the rule and the row                    |
+| `--parlour--spacing-3-x-small`          | Space between the name and details, and between dates |
+| `--parlour--radius-full`                | Round avatar                                          |
+
+The avatar's `2.75rem` size, the `1px` rule and the dates' `0.1em` letter spacing are raw values rather than design tokens.
+
+## Accessibility
+
+- Each date is a `<time>` whose `dateTime` holds the ISO date, so software can read it however it's displayed. The "Published" and "Updated" labels are real text, so screen readers read them with the dates.
+- The avatar's `alt` is empty by default, since the name sits right beside it and repeating it adds nothing. Set `avatarAlt` only if the image shows something the name doesn't.
+- The dates' capitals come from CSS, so screen readers don't spell them out.
+- The muted colour, `--parlour--color-neutral-600`, meets WCAG AA for small text on the light backgrounds; in dark and medium Containers it switches to `--parlour--color-neutral-300`.

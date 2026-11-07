@@ -2,9 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { SectionHeader } from './SectionHeader';
 import { Main } from '../Main/Main';
 import { Container } from '../Container/Container';
+import { maxWidthClasses } from '../../utils/propClasses';
 
 const sizeOptions = ['small', 'medium', 'large', 'x-large'] as const;
 const dividerOptions = [0, 1, 2, 3, 4] as const;
+const widthOptions = Object.keys(maxWidthClasses) as (keyof typeof maxWidthClasses)[];
 
 const meta: Meta<typeof SectionHeader> = {
     title: 'Components/Headers/Section Header',
@@ -30,6 +32,10 @@ const meta: Meta<typeof SectionHeader> = {
             control: 'inline-radio',
             options: dividerOptions,
         },
+        maxWidth: {
+            control: 'select',
+            options: widthOptions,
+        },
     },
     parameters: {
         layout: 'fullscreen',
@@ -49,6 +55,23 @@ export const Default: Story = {
     },
 };
 
+export const WithDescription: Story = {
+    args: {
+        level: 1,
+        size: 'x-large',
+        divider: 0,
+        prefix: '// Writing · WordPress · theme.json',
+        title: 'Block-based theme.json: a sane way to organize tokens at scale.',
+        description: (
+            <>
+                After three years of rewriting <code>theme.json</code> from scratch on every
+                project, I finally settled on a folder structure and merge strategy that survives
+                the next core update — and the one after that.
+            </>
+        ),
+    },
+};
+
 export const TitleOnly: Story = {
     args: {
         title: 'Things I ship.',
@@ -64,6 +87,7 @@ export const Sizes: Story = {
                     size={size}
                     prefix={`size="${size}"`}
                     title="Things I ship."
+                    description="Plugins, block themes and the small tools I keep coming back to."
                 />
             ))}
         </div>
@@ -82,6 +106,21 @@ export const Dividers: Story = {
                 />
             ))}
         </div>
+    ),
+};
+
+export const MaxWidths: Story = {
+    render: () => (
+        <>
+            {widthOptions.map((maxWidth) => (
+                <SectionHeader
+                    key={maxWidth}
+                    maxWidth={maxWidth}
+                    prefix={`maxWidth="${maxWidth}"`}
+                    title="Things I ship."
+                />
+            ))}
+        </>
     ),
 };
 
@@ -113,6 +152,12 @@ export const InDarkContainer: Story = {
     args: {
         prefix: 'Releases · Open source',
         title: 'Things I ship.',
+        description: (
+            <>
+                Plugins, block themes and the small tools I keep coming back to, most built on{' '}
+                <code>theme.json</code>.
+            </>
+        ),
     },
     render: (args) => (
         <Container color="dark" maxWidth="alignfull" contentWidth="alignwide">

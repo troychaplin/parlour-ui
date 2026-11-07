@@ -72,7 +72,7 @@ export const Homepage: Story = {
                     </GridGroup>
                 </Container>
 
-                <Container color="light" maxWidth="alignfull" contentWidth="alignwide">
+                <Container color="light" maxWidth="alignfull" contentWidth="alignwide" border="top">
                     <SectionHeader prefix="Releases · Open source" title="Things I ship." />
                     <GridGroup gap="medium">
                         {ProjectData.map(({ id, ...project }) => (

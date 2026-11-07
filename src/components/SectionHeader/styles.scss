@@ -17,26 +17,30 @@
     border-bottom: none;
 }
 
-// Each size sets the title scale as custom properties, so the title rule reads one value whichever
-// size applies. Every size sits a step below HeroHeader's matching size.
+// Each size sets the title and description scale as custom properties, so the element rules read
+// one value whichever size applies. Every size sits a step below HeroHeader's matching size.
 .parlour-section-header--x-large {
     --parlour-section-header-title-size: var(--parlour--font-size-4-x-large);
     --parlour-section-header-tracking: -2px;
+    --parlour-section-header-description-size: var(--parlour--font-size-large);
 }
 
 .parlour-section-header--large {
     --parlour-section-header-title-size: var(--parlour--font-size-3-x-large);
     --parlour-section-header-tracking: -1.5px;
+    --parlour-section-header-description-size: var(--parlour--font-size-large);
 }
 
 .parlour-section-header--medium {
     --parlour-section-header-title-size: var(--parlour--font-size-2-x-large);
     --parlour-section-header-tracking: -1px;
+    --parlour-section-header-description-size: var(--parlour--font-size-medium);
 }
 
 .parlour-section-header--small {
     --parlour-section-header-title-size: var(--parlour--font-size-x-large);
     --parlour-section-header-tracking: -0.5px;
+    --parlour-section-header-description-size: var(--parlour--font-size-small);
 }
 
 .parlour-section-header__prefix {
@@ -58,9 +62,35 @@
     color: var(--parlour--color-neutral-950);
 }
 
+.parlour-section-header__description {
+    max-inline-size: var(--parlour--layout-content-size);
+    margin: var(--parlour--spacing-x-large) 0 0;
+    font-family: var(--parlour--font-family-source-serif-4);
+    font-size: var(--parlour-section-header-description-size);
+    font-weight: var(--parlour--font-weight-normal);
+    line-height: var(--parlour--line-height-normal);
+    color: var(--parlour--color-neutral-800);
+
+    // A translucent chip, so it tints whatever background the header sits on
+    code {
+        padding: var(--parlour--spacing-3-x-small) var(--parlour--spacing-2-x-small);
+        font-family: var(--parlour--font-family-jetbrains-mono);
+        font-size: 0.85em;
+        background-color: var(--parlour--color-overlay-dark-subtle);
+    }
+}
+
 .parlour-container--dark,
 .parlour-container--medium {
     .parlour-section-header__prefix {
         color: var(--parlour--color-neutral-300);
+    }
+
+    .parlour-section-header__description {
+        color: var(--parlour--color-neutral-200);
+
+        code {
+            background-color: var(--parlour--color-overlay-light-subtle);
+        }
     }
 }

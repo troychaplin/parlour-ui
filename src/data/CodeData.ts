@@ -20,3 +20,17 @@ export const CodeDataReact = `export const Main = ({ children, hasPadding = true
         </main>
     );
 };`;
+
+export const CodeDataThemeJson = `{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "settings": {
+        "color": { "palette": [{ "slug": "accent", "color": "#a34f3e", "name": "Accent" }] },
+        "typography": { "fluid": true }
+    },
+    "styles": {
+        "blocks": {
+            "core/button": { "border": { "radius": "4px" } }
+        }
+    }
+}`;

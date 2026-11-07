@@ -3,7 +3,9 @@
     --parlour-quote-text: var(--parlour--color-neutral-950);
     --parlour-quote-muted: var(--parlour--color-neutral-600);
 
-    margin: 0;
+    // A pull quote set into body copy needs more room than the flow's paragraph gap
+    margin-inline: 0;
+    margin-block: var(--parlour--spacing-2-x-large);
 }
 
 .parlour-container--dark,

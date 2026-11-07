@@ -30,6 +30,18 @@
     width: 100%;
 }
 
+// The layout's content-width rule has zero specificity, so the root's max-width above would win;
+// restate it for an aligncontent figure.
+.parlour-figure.aligncontent {
+    max-width: var(--parlour--layout-content-size);
+}
+
+// A full-width figure widens past the padding with negative margins, which only works when its
+// width is left to auto rather than pinned to 100% of the padded parent.
+.parlour-figure.alignfull {
+    width: auto;
+}
+
 // Below the float breakpoint, collapse all sized variants to full width
 // so they stack naturally without overflowing narrow viewports.
 @include below-tablet {
@@ -68,9 +80,22 @@
     margin: var(--parlour--spacing-medium) 0;
 }
 
+// A figure straight after a Container sits flush against it, rather than taking the section gap
+// Main puts after every layout block. The `figure` type selector lifts the first selector to
+// (0,3,2), above the (0,3,1) rule in base/spacing.scss, whatever order the stylesheets load in.
+.parlour-main > div > .parlour-container + figure.parlour-figure,
+.parlour-container + .parlour-figure {
+    margin-block-start: 0;
+}
+
 .parlour-figure__inner {
     overflow: hidden;
     border-radius: var(--parlour--radius-md);
+}
+
+// A full-width figure runs to the viewport edges, where rounded corners would look clipped
+.parlour-figure.alignfull .parlour-figure__inner {
+    border-radius: 0;
 }
 
 .parlour-figure__caption {

@@ -29,8 +29,8 @@ import { Container } from '@troychaplin/parlour-ui';
 // Full-width band with wide content
 <Container color="pale" maxWidth="alignfull" contentWidth="alignwide">...</Container>
 
-// light and white are bordered all round by default; turn it off
-<Container color="light" border="none">...</Container>
+// A boxed light Container, bordered all round
+<Container color="light" border="all">...</Container>
 
 // A rule above a dark band
 <Container color="dark" border="top" maxWidth="alignfull">...</Container>
@@ -56,15 +56,15 @@ A boxed `light` Container at the wide width. Use the controls to try each `color
 
 ### Borders
 
-`border` draws a `1px` rule on the `top`, the `bottom`, `both` (top and bottom) or `all` four sides, or `none`. The colour comes from the background:
+`border` draws a `1px` rule on the `top`, the `bottom`, `both` (top and bottom) or `all` four sides. It's `none` by default for every colour. The rule's colour comes from the background:
 
-| `color`  | Background                     | Border                         | Default `border` |
-| -------- | ------------------------------ | ------------------------------ | ---------------- |
-| `white`  | `--parlour--color-white`       | `--parlour--color-neutral-300` | `all`            |
-| `pale`   | `--parlour--color-neutral-50`  | `--parlour--color-neutral-300` | `none`           |
-| `light`  | `--parlour--color-neutral-200` | `--parlour--color-neutral-300` | `all`            |
-| `medium` | `--parlour--color-neutral-900` | `--parlour--color-neutral-700` | `none`           |
-| `dark`   | `--parlour--color-neutral-950` | `--parlour--color-neutral-900` | `none`           |
+| `color`  | Background                     | Border                         |
+| -------- | ------------------------------ | ------------------------------ |
+| `white`  | `--parlour--color-white`       | `--parlour--color-neutral-300` |
+| `pale`   | `--parlour--color-neutral-50`  | `--parlour--color-neutral-300` |
+| `light`  | `--parlour--color-neutral-200` | `--parlour--color-neutral-300` |
+| `medium` | `--parlour--color-neutral-900` | `--parlour--color-neutral-700` |
+| `dark`   | `--parlour--color-neutral-950` | `--parlour--color-neutral-900` |
 
 These are the pairings the rest of the library uses — `Card`'s borders, `GridGroup`'s dividers, and the rules in `ContentList` and `Pagination`. `border` only applies to a Container with a `color`, since only those have the block padding that keeps a rule off the content.
 
@@ -103,7 +103,7 @@ Full-width Containers stack with no gap between them. Where one has a bottom bor
 | `{maxWidth}`                           | Always — `aligncontent` (default), `alignsmall`, `alignwide` or `alignfull` |
 | `parlour-container--{color}`           | `color` is set                                                              |
 | `parlour-container--no-gap`            | `color` is set — controls the spacing between stacked Containers            |
-| `parlour-container--border-{border}`   | `color` is set and the resolved `border` isn't `none`                       |
+| `parlour-container--border-{border}`   | `color` is set and `border` isn't `none` (the default)                      |
 | `parlour-container--radius-{radius}`   | Always — `borderRadius`, `md` by default; ignored on `alignfull`            |
 | `has-global-padding`, `{contentWidth}` | On the inner `<div>` — `contentWidth` is `aligncontent` by default          |
 | `has-root-padding`                     | On the inner `<div>`, when `color` is set                                   |

@@ -17,7 +17,21 @@ Prefix the change with one of these keywords:
 
 ## [Unreleased]
 
-_Added_ `Container` `border` prop (`none`, `top`, `bottom`, `both`, `all`) with a border colour matched to each `color`. `light` and `white` default to `all`, as before.
+_Changed_ `Quote` has `spacing-2-x-large` above and below it, so a pull quote in body copy no longer sits against the paragraph before it.
+
+_Changed_ A `Figure` placed straight after a `Container` has no top margin, so it sits flush against the section above.
+
+_Added_ `Figure` `maxWidth` prop (`alignsmall`, `aligncontent`, `alignwide`, `alignfull`) for block figures, matching `Container`. Floated figures keep using `size`.
+
+_Added_ `PostMeta`, a post byline with the author's avatar, name and details, and the published and updated dates.
+
+_Added_ `SectionHeader` `maxWidth` prop (`alignsmall`, `aligncontent`, `alignwide`, `alignfull`), matching `ContentList` and `Container`.
+
+_Added_ `SectionHeader` `description` prop: an intro paragraph below the title, sized to match `size`.
+
+_Added_ `Container` `border` prop (`none`, `top`, `bottom`, `both`, `all`) with a border colour matched to each `color`. `none` is the default.
+
+_Breaking_ `light` and `white` Containers are no longer bordered by default. Add `border="all"` to keep the previous look (top and bottom only on full-width Containers).
 
 _Fixed_ Two stacked full-width bordered `Container`s drew a doubled line where they meet.
 

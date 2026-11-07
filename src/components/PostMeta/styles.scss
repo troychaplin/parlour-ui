@@ -1,0 +1,77 @@
+@use '../../styles/c2b/parlour-variables' as *;
+
+// The colours are custom properties, so dark and medium Containers can swap the set at once.
+.parlour-post-meta {
+    --parlour-post-meta-name: var(--parlour--color-neutral-950);
+    --parlour-post-meta-muted: var(--parlour--color-neutral-600);
+    --parlour-post-meta-rule: var(--parlour--color-neutral-300);
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--parlour--spacing-medium);
+    align-items: center;
+    justify-content: space-between;
+
+    p {
+        margin: 0;
+    }
+}
+
+.parlour-container--dark,
+.parlour-container--medium {
+    .parlour-post-meta {
+        --parlour-post-meta-name: var(--parlour--color-white);
+        --parlour-post-meta-muted: var(--parlour--color-neutral-300);
+        --parlour-post-meta-rule: var(--parlour--color-neutral-700);
+    }
+}
+
+.parlour-post-meta--divider {
+    padding-block-start: var(--parlour--spacing-large);
+    border-top: 1px solid var(--parlour-post-meta-rule);
+}
+
+.parlour-post-meta__author {
+    display: flex;
+    font-family: var(--parlour--font-family-inter-tight);
+    gap: var(--parlour--spacing-small);
+    align-items: center;
+}
+
+.parlour-post-meta__avatar {
+    flex-shrink: 0;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    object-fit: cover;
+    border-radius: var(--parlour--radius-full);
+}
+
+.parlour-post-meta__name {
+    font-size: var(--parlour--font-size-small);
+    font-weight: var(--parlour--font-weight-normal);
+    line-height: var(--parlour--line-height-tight);
+    color: var(--parlour-post-meta-name);
+}
+
+.parlour-post-meta__details {
+    margin-block-start: var(--parlour--spacing-3-x-small);
+    font-size: var(--parlour--font-size-x-small);
+    line-height: var(--parlour--line-height-tight);
+    color: var(--parlour-post-meta-muted);
+}
+
+// The dates close the row, so they right-align beside the author and left-align once the row
+// wraps on small screens.
+.parlour-post-meta__dates {
+    display: grid;
+    gap: var(--parlour--spacing-3-x-small);
+    font-family: var(--parlour--font-family-jetbrains-mono);
+    font-size: var(--parlour--font-size-2-x-small);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--parlour-post-meta-muted);
+
+    @include above-mobile {
+        text-align: end;
+    }
+}

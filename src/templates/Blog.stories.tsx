@@ -55,7 +55,7 @@ export const Blog: Story = {
 
             <Main hasPadding={false}>
                 <Container
-                    color="white"
+                    color="pale"
                     maxWidth="alignfull"
                     contentWidth="alignwide"
                     border="bottom"
@@ -69,7 +69,7 @@ export const Blog: Story = {
                     />
                 </Container>
 
-                <Container color="pale" maxWidth="alignfull" contentWidth="alignwide">
+                <Container color="light" maxWidth="alignfull" contentWidth="alignwide">
                     <FlexGroup direction="column" gap="2-x-large">
                         <ContentList backgroundHover="dark-subtle">
                             {BlogPostData.map((post) => (

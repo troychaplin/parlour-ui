@@ -2,6 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Figure } from './Figure';
 import { Main } from '../Main/Main';
 import { Container } from '../Container/Container';
+import { maxWidthClasses } from '../../utils/propClasses';
+
+const widthOptions = Object.keys(maxWidthClasses) as (keyof typeof maxWidthClasses)[];
 
 const meta: Meta<typeof Figure> = {
     title: 'Components/Content/Figure',
@@ -22,6 +25,10 @@ const meta: Meta<typeof Figure> = {
         align: {
             control: 'inline-radio',
             options: ['none', 'left', 'right', 'center'],
+        },
+        maxWidth: {
+            control: 'select',
+            options: widthOptions,
         },
     },
     parameters: {
@@ -59,6 +66,23 @@ export const Default: Story = {
                 height="600"
             />
         </Figure>
+    ),
+};
+
+export const MaxWidths: Story = {
+    render: () => (
+        <>
+            {widthOptions.map((maxWidth) => (
+                <Figure key={maxWidth} maxWidth={maxWidth} caption={`maxWidth="${maxWidth}"`}>
+                    <img
+                        src="https://picsum.photos/id/15/1600/600"
+                        alt="Landscape with trees and mountains"
+                        width="1600"
+                        height="600"
+                    />
+                </Figure>
+            ))}
+        </>
     ),
 };
 

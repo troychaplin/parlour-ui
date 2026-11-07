@@ -29,20 +29,17 @@ export const Container = ({
     color,
     className,
     borderRadius = 'md',
-    border,
+    border = 'none',
     ...rest
 }: ContainerProps) => {
     const ContainerWrapper = as;
-
-    // light and white have always been bordered, so they keep `all` unless told otherwise
-    const resolvedBorder = border ?? (color === 'light' || color === 'white' ? 'all' : 'none');
 
     const rootClasses = [
         'parlour-layout parlour-container',
         'is-layout-constrained',
         maxWidth,
         color && `parlour-container--no-gap parlour-container--${color}`,
-        color && resolvedBorder !== 'none' && `parlour-container--border-${resolvedBorder}`,
+        color && border !== 'none' && `parlour-container--border-${border}`,
         borderRadius && `parlour-container--radius-${borderRadius}`,
         className,
     ]

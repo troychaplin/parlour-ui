@@ -56,6 +56,7 @@ type Story = StoryObj<typeof Container>;
 export const Default: Story = {
     args: {
         color: 'light',
+        border: 'all',
         maxWidth: 'alignwide',
     },
     render: (args) => (
@@ -104,8 +105,11 @@ export const BordersFullWidth: Story = {
             <Container color="medium" border="both" maxWidth="alignfull" contentWidth="alignwide">
                 <p>color=&quot;medium&quot; border=&quot;both&quot;</p>
             </Container>
-            <Container color="white" maxWidth="alignfull" contentWidth="alignwide">
-                <p>color=&quot;white&quot; — border=&quot;all&quot; by default</p>
+            <Container color="white" border="all" maxWidth="alignfull" contentWidth="alignwide">
+                <p>
+                    color=&quot;white&quot; border=&quot;all&quot; — top and bottom only at full
+                    width
+                </p>
             </Container>
         </Main>
     ),
@@ -114,10 +118,10 @@ export const BordersFullWidth: Story = {
 export const Stacked: Story = {
     render: () => (
         <Main hasPadding={false}>
-            <Container color="light" maxWidth="alignfull" contentWidth="alignwide">
+            <Container color="light" border="both" maxWidth="alignfull" contentWidth="alignwide">
                 <SingleParagraph />
             </Container>
-            <Container color="light" maxWidth="alignfull" contentWidth="alignwide">
+            <Container color="light" border="both" maxWidth="alignfull" contentWidth="alignwide">
                 <SingleParagraph />
             </Container>
             <Container color="pale" border="bottom" maxWidth="alignfull" contentWidth="alignwide">

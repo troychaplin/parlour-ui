@@ -5,7 +5,7 @@ import * as SectionHeaderStories from './SectionHeader.stories';
 
 # Section Header
 
-The heading for a section of a page: a small uppercase eyebrow, a title, and a divider rule beneath them whose width you can set or remove. Renders a `<header>` containing an `<h2>`, or the heading level set by `level`, at one of four title sizes.
+The heading for a section of a page: a small uppercase eyebrow, a title, an optional intro paragraph, and a divider rule beneath them whose width you can set or remove. Renders a `<header>` containing an `<h2>`, or the heading level set by `level`, at one of four title sizes.
 
 ## When to use
 
@@ -34,6 +34,17 @@ import { SectionHeader } from '@troychaplin/parlour-ui';
 // The page's main heading, larger
 <SectionHeader title="Writing" level={1} size="large" />
 
+// At the wide width, inside Main or a Container
+<SectionHeader title="Things I ship." maxWidth="alignwide" />
+
+// With an intro paragraph, sized to match
+<SectionHeader
+    level={1}
+    size="x-large"
+    title="Block-based theme.json"
+    description={<>A folder structure for <code>theme.json</code> that survives core updates.</>}
+/>
+
 // A heavier rule, or none
 <SectionHeader title="Things I ship." divider={2} />
 <SectionHeader title="Things I ship." divider={0} />
@@ -48,6 +59,21 @@ An eyebrow and a title on the page background. Use the `level` control to switch
 <Canvas of={SectionHeaderStories.Default} />
 <Controls of={SectionHeaderStories.Default} />
 
+### With description
+
+`description` adds a paragraph below the title — a post's intro, or a line about the section. It takes text or inline elements: a `<code>` inside it becomes a small mono chip on a translucent tint. Its size follows `size`:
+
+| `size`             | Title       | Description |
+| ------------------ | ----------- | ----------- |
+| `small`            | `x-large`   | `small`     |
+| `medium` (default) | `2-x-large` | `medium`    |
+| `large`            | `3-x-large` | `large`     |
+| `x-large`          | `4-x-large` | `large`     |
+
+The paragraph stops at the content width (768px), so it stays a comfortable line length under a wide title. This example also sets `divider={0}`.
+
+<Canvas of={SectionHeaderStories.WithDescription} />
+
 ### Title only
 
 Without `prefix`, the header renders just the title and the divider.
@@ -56,7 +82,7 @@ Without `prefix`, the header renders just the title and the divider.
 
 ### Sizes
 
-`size` scales the title: `x-large` or `large` for a page's main heading or a major section, `medium` (default) for most sections, `small` for subsections and columns. Each is a step below `HeroHeader`'s matching size. The eyebrow, spacing and divider are the same at every size.
+`size` scales the title and the description: `x-large` or `large` for a page's main heading or a major section, `medium` (default) for most sections, `small` for subsections and columns. Each is a step below `HeroHeader`'s matching size. The eyebrow, spacing and divider are the same at every size.
 
 <Canvas of={SectionHeaderStories.Sizes} />
 
@@ -65,6 +91,12 @@ Without `prefix`, the header renders just the title and the divider.
 `divider` sets the rule's width in pixels, from `1` (default) to `4`. `0` removes the rule and the space between it and the title; the space below the header, before the section's content, stays.
 
 <Canvas of={SectionHeaderStories.Dividers} />
+
+### Max widths
+
+`maxWidth` sets the header's width with the shared layout classes — `alignsmall`, `aligncontent`, `alignwide` or `alignfull` — the same as `ContentList` and `Container`. It takes effect when the header is a direct child of a constrained parent such as [`Main`](?path=/docs/components-template-parts-main--docs) or a `Container` — a wrapping `<div>` in between cancels it; unset, the header follows the parent's content width. The divider spans the header, so it changes length too.
+
+<Canvas of={SectionHeaderStories.MaxWidths} />
 
 ### In a light Container
 
@@ -86,41 +118,53 @@ Inside a `Container` with `color="medium"`, the title turns white, the eyebrow l
 
 ## CSS classes
 
-| Class                                 | When applied                                                                                                                   |
-| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `parlour-section-header`              | Always — base class; draws the divider as its bottom border                                                                    |
-| `parlour-section-header--{size}`      | Always — the `size` value, e.g. `parlour-section-header--medium` (default)                                                     |
-| `parlour-section-header--divider-{n}` | Always — the `divider` value, e.g. `parlour-section-header--divider-1` (default); `divider-0` removes the rule and its padding |
-| `parlour-section-header__prefix`      | `prefix` is set — on the `<p>` above the title                                                                                 |
-| `parlour-section-header__title`       | `title` is set — on the heading                                                                                                |
+| Class                                                     | When applied                                                                                                                   |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `parlour-section-header`                                  | Always — base class; draws the divider as its bottom border                                                                    |
+| `parlour-section-header--{size}`                          | Always — the `size` value, e.g. `parlour-section-header--medium` (default)                                                     |
+| `parlour-section-header--divider-{n}`                     | Always — the `divider` value, e.g. `parlour-section-header--divider-1` (default); `divider-0` removes the rule and its padding |
+| `aligncontent` / `alignwide` / `alignfull` / `alignsmall` | The `maxWidth` value, as a bare shared class                                                                                   |
+| `parlour-section-header__prefix`                          | `prefix` is set — on the `<p>` above the title                                                                                 |
+| `parlour-section-header__title`                           | `title` is set — on the heading                                                                                                |
+| `parlour-section-header__description`                     | `description` is set — on the `<p>` after the heading                                                                          |
 
-The header also leaves space below its divider, so whatever follows it — a grid of cards, a paragraph — starts the same distance down. Inside a `Container`, that space is removed when the header is the section's last child. The size modifiers set `--parlour-section-header-title-size` and `--parlour-section-header-tracking`, which the title reads. The divider modifiers set `--parlour-section-header-divider`, the rule's width. A `className` you pass is appended after these classes.
+The header also leaves space below its divider, so whatever follows it — a grid of cards, a paragraph — starts the same distance down. Inside a `Container`, that space is removed when the header is the section's last child. The size modifiers set `--parlour-section-header-title-size`, `--parlour-section-header-tracking` and `--parlour-section-header-description-size`, which the title and description read. The divider modifiers set `--parlour-section-header-divider`, the rule's width. A `className` you pass is appended after these classes.
 
 ## Design tokens
 
-| Token                                   | Used for                                              |
-| --------------------------------------- | ----------------------------------------------------- |
-| `--parlour--font-family-jetbrains-mono` | Eyebrow font family                                   |
-| `--parlour--font-size-2-x-small`        | Eyebrow font size                                     |
-| `--parlour--font-weight-normal`         | Eyebrow and title font weight                         |
-| `--parlour--color-neutral-600`          | Eyebrow color                                         |
-| `--parlour--color-neutral-300`          | Eyebrow color inside dark and medium Containers       |
-| `--parlour--spacing-medium`             | Space between the eyebrow and the title               |
-| `--parlour--font-size-4-x-large`        | Title font size, `x-large`                            |
-| `--parlour--font-size-3-x-large`        | Title font size, `large`                              |
-| `--parlour--font-size-2-x-large`        | Title font size, `medium` (default)                   |
-| `--parlour--font-size-x-large`          | Title font size, `small`                              |
-| `--parlour--color-neutral-950`          | Title color, outside dark and medium Containers       |
-| `--parlour--spacing-large`              | Space between the title and the divider               |
-| `--parlour--spacing-2-x-large`          | Space below the divider, before the section's content |
+| Token                                                    | Used for                                               |
+| -------------------------------------------------------- | ------------------------------------------------------ |
+| `--parlour--font-family-jetbrains-mono`                  | Eyebrow and `<code>` font family                       |
+| `--parlour--font-size-2-x-small`                         | Eyebrow font size                                      |
+| `--parlour--font-weight-normal`                          | Eyebrow and title font weight                          |
+| `--parlour--color-neutral-600`                           | Eyebrow color                                          |
+| `--parlour--color-neutral-300`                           | Eyebrow color inside dark and medium Containers        |
+| `--parlour--spacing-medium`                              | Space between the eyebrow and the title                |
+| `--parlour--font-size-4-x-large`                         | Title font size, `x-large`                             |
+| `--parlour--font-size-3-x-large`                         | Title font size, `large`                               |
+| `--parlour--font-size-2-x-large`                         | Title font size, `medium` (default)                    |
+| `--parlour--font-size-x-large`                           | Title font size, `small`                               |
+| `--parlour--font-size-large` / `-medium` / `-small`      | Description font size, by `size`                       |
+| `--parlour--font-family-source-serif-4`                  | Description font family                                |
+| `--parlour--line-height-normal`                          | Description line height                                |
+| `--parlour--color-neutral-800`                           | Description colour, outside dark and medium Containers |
+| `--parlour--color-neutral-200`                           | Description colour inside dark and medium Containers   |
+| `--parlour--layout-content-size`                         | Description's maximum width                            |
+| `--parlour--spacing-x-large`                             | Space between the title and the description            |
+| `--parlour--spacing-3-x-small` / `-2-x-small`            | Padding inside a `<code>` chip                         |
+| `--parlour--color-overlay-dark-subtle` / `-light-subtle` | `<code>` chip tint, on light / dark backgrounds        |
+| `--parlour--color-neutral-950`                           | Title color, outside dark and medium Containers        |
+| `--parlour--spacing-large`                               | Space between the title and the divider                |
+| `--parlour--spacing-2-x-large`                           | Space below the divider, before the section's content  |
 
-The eyebrow's `letter-spacing` (`0.1em`), the title's `letter-spacing` (`-2px`, `-1.5px`, `-1px` and `-0.5px` by size) and `line-height` (`1.1`), and the divider's width (`1px`–`4px` by `divider`) use raw values rather than design tokens. The divider has no color of its own: it uses `currentColor`, so it matches the surrounding text — near-black on light sections, white in dark ones.
+The eyebrow's `letter-spacing` (`0.1em`), the title's `letter-spacing` (`-2px`, `-1.5px`, `-1px` and `-0.5px` by size) and `line-height` (`1.1`), the divider's width (`1px`–`4px` by `divider`), and the `<code>` chip's `0.85em` font size use raw values rather than design tokens. The divider has no color of its own: it uses `currentColor`, so it matches the surrounding text — near-black on light sections, white in dark ones.
 
 ## Accessibility
 
 - `SectionHeader` renders a `<header>`. Inside `<main>` or a sectioning element it's only a grouping element, but at the top level of a page it would become a second `banner` landmark next to the site header — keep it inside [`Main`](?path=/docs/components-template-parts-main--docs) or a `Container`.
 - The title is an `<h2>` by default; use `level={3}` or `level={4}` for subsections so heading levels stay in order. Use `level={1}` only for the page's main heading, and only once per page — not alongside a `HeroHeader` that already renders the `<h1>`. `size` is separate from `level`, so pick the level for the outline and the size for the look.
 - The eyebrow is a paragraph before the heading, not part of it, so screen reader users who jump between headings skip it. Its capitals come from CSS, so write it in normal case ("Releases · Open source") — text typed in capitals can be spelled out letter by letter.
+- The description is a plain paragraph after the heading, so it's read in order after the title and isn't part of the heading's name. Its colour, `--parlour--color-neutral-800`, and `--parlour--color-neutral-200` in dark and medium Containers, both pass WCAG AA.
 - Some screen readers read the `·` separator aloud, as "dot" or "middle dot".
 - The divider is a border rather than an element, so it isn't announced.
 - The eyebrow color, `--parlour--color-neutral-600`, has a contrast of about 4.9:1 on the light `Container` background (`--parlour--color-neutral-200`) and more on white, which passes WCAG AA for small text. In dark and medium Containers it switches to `--parlour--color-neutral-300`.
